@@ -1,6 +1,4 @@
-es (46 sloc)  2.06 KB
-
-        package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
