@@ -22,7 +22,6 @@ public class TestCamera extends LinearOpMode {
     //private OpenCvCamera webcam;
     private DuckDetector detector = new DuckDetector();
     private String position;
-//testing GitHub
 
     @Override
     public void runOpMode() {
