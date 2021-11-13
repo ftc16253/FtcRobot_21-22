@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class TestBed<hardwareMap> extends LinearOpMode {
     public DcMotor Intake, Motor1, Motor2;
-    public Servo Grabber;
+    public Servo Grabber, gSlide;
     public void runOpMode() {
         Intake = hardwareMap.get(DcMotor.class, "Intake");
         Motor1 = hardwareMap.get(DcMotor.class, "Motor1");
@@ -21,7 +21,7 @@ public class TestBed<hardwareMap> extends LinearOpMode {
 
 
         Grabber = hardwareMap.get(Servo.class, "grabber");
-
+        gSlide = hardwareMap.get(Servo.class, "gSlide");
 
 
 
@@ -33,6 +33,14 @@ public class TestBed<hardwareMap> extends LinearOpMode {
             //Intake.setPower(gamepad1.right_stick_y);
             Motor1.setPower(gamepad1.left_stick_y);
             Motor2.setPower(gamepad1.left_stick_y);
+
+            if (gamepad1.right_bumper == true) {
+                gSlide.setPosition(0);
+            }
+            if (gamepad1.left_bumper == true) {
+                gSlide.setPosition(1);
+            }
+
 
             //For continuous servo on grabber
             if (gamepad1.a==true)
