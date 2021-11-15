@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp
 
 public class Drive2020 extends LinearOpMode {
-    public DcMotor frontLeft, backLeft, frontRight, backRight, intake, feeder, shooterFront;//, shooterBack;
-    public Servo grabber, wobbleRotate;
+    public DcMotor frontLeft, backLeft, frontRight, backRight, intake, slide, turret;//, shooterBack;
+    public Servo grabber, linkage;
 
 
     private double kP = 9000000.0;
@@ -32,10 +32,10 @@ public class Drive2020 extends LinearOpMode {
     private long fVelocityTime = 0;
     private long fLastVelocityTime = 0;
 
-    PushBot2020 robot = new PushBot2020();
+    Pushbot2021 robot = new Pushbot2021();
     private void calcVelocity() {
         fVelocityTime = System.nanoTime();
-        fEncoder = shooterFront.getCurrentPosition();
+        fEncoder = turret.getCurrentPosition();
         fVelocity = (double) (fEncoder - fLastEncoder) / (fVelocityTime - fLastVelocityTime);
 
         fLastEncoder = fEncoder;
@@ -44,7 +44,7 @@ public class Drive2020 extends LinearOpMode {
 
     private void calculatePID(double shooter_power) {
         fVelocityTime = System.nanoTime();
-        fEncoder = shooterFront.getCurrentPosition();
+        fEncoder = turret.getCurrentPosition();
         fVelocity = (double) (fEncoder - fLastEncoder) / (fVelocityTime - fLastVelocityTime);
         fError = fTarget - fVelocity;
 
@@ -73,7 +73,7 @@ public class Drive2020 extends LinearOpMode {
     }
 
     private void setFPower(double power) {
-        shooterFront.setPower(power);
+        turret.setPower(power);
     }
 
     public void runOpMode() {
@@ -84,9 +84,9 @@ public class Drive2020 extends LinearOpMode {
         backLeft = robot.backLeft;
         backRight = robot.backRight;
         intake = robot.intake;
-        feeder = robot.feeder;
-        wobbleRotate = robot.wobbleRotate;
-        shooterFront = robot.shooterFront;
+        slide = robot.slide;
+        linkage = robot.linkage;
+        turret = robot.turret;
         ///shooterBack = robot.shooterBack;
 
         // Wait for the game to start (driver presses PLAY)
@@ -126,19 +126,19 @@ public class Drive2020 extends LinearOpMode {
 
             if (gamepad2.a == true) {
                 //intake.setPower(1);
-                feeder.setPower(1);
+                slide.setPower(1);
             } else if(gamepad2.b == true){
-                feeder.setPower(-1);
+                slide.setPower(-1);
             } else {
                 //intake.setPower(0);
-                feeder.setPower(0);
+                slide.setPower(0);
             }
 
             //Right trigger - wobble rotator goes down
             if (gamepad1.a == true){
                 telemetry.addData("status","right trigger pressed");
                 telemetry.update();
-                wobbleRotate.setPosition(0);
+                linkage.setPosition(0);
             }
 
             //Left trigger - claw closes and wobble rotator goes up
@@ -149,27 +149,27 @@ public class Drive2020 extends LinearOpMode {
                 robot.grabberSetPosition(0);
                 sleep(750);
                 //This is for the two servos
-                wobbleRotate.setPosition(.25);
+                linkage.setPosition(.25);
             }
 
             //left bumper - wobble rotator goes down and claw opens
             if (gamepad1.left_bumper == true){
                 //Move two servos down
-                wobbleRotate.setPosition(.55);
+                linkage.setPosition(.55);
                 sleep(500);
                 //Open claw
                 robot.grabberSetPosition(.6);
             }
 
             if(gamepad1.b == true){
-                wobbleRotate.setPosition(.75);
+                linkage.setPosition(.75);
                 sleep(250);
                 robot.grabberSetPosition(.6);
             }
 
             //Button A - wobble arm to initial position
             /*if (gamepad1.a == true){
-                wobbleRotate.setPosition(0);
+                linkage.setPosition(0);
             }*/
 
             if (gamepad2.left_trigger != 0) {

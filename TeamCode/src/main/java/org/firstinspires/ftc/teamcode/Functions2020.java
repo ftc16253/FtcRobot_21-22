@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 class Functions2020 {
-    PushBot2020 rob = new PushBot2020();
+    Pushbot2021 rob = new Pushbot2021();
 
     private double kP = 9000000.0;
     private double kI = 0.0;
@@ -196,36 +195,36 @@ class Functions2020 {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
         }
-        rob.feeder.setPower(1);
+        rob.slide.setPower(1);
         try {
             Thread.sleep(600);
         } catch (InterruptedException e) {
         }
-        rob.feeder.setPower(0);
+        rob.slide.setPower(0);
         //calculatePID(.9);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
-        rob.feeder.setPower(1);
+        rob.slide.setPower(1);
         rob.intake.setPower(1);
         try {
             Thread.sleep(750);
         } catch (InterruptedException e) {
         }
-        rob.feeder.setPower(0);
+        rob.slide.setPower(0);
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
         }
-        rob.feeder.setPower(1);
+        rob.slide.setPower(1);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
 
         }
         calculatePID(0);
-        rob.feeder.setPower(0);
+        rob.slide.setPower(0);
         rob.intake.setPower(0);
         turnLeft(.35, .7);
     }
@@ -298,7 +297,7 @@ class Functions2020 {
 
     public void calculatePID(double shooter_power) {
         fVelocityTime = System.nanoTime();
-        fEncoder = rob.shooterFront.getCurrentPosition();
+        fEncoder = rob.turret.getCurrentPosition();
         fVelocity = (double) (fEncoder - fLastEncoder) / (fVelocityTime - fLastVelocityTime);
         fError = fTarget - fVelocity;
 
@@ -327,7 +326,7 @@ class Functions2020 {
     }
 
     private void setFPower(double power) {
-        rob.shooterFront.setPower(power);
+        rob.turret.setPower(power);
     }
 
 }

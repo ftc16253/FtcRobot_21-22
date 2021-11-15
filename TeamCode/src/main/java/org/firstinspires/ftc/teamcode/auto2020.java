@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name="auto2020", group="Linear Opmode")
 
 public class auto2020 extends LinearOpMode {
-    PushBot2020 robot = new PushBot2020();
+    Pushbot2021 robot = new Pushbot2021();
     Functions2020 Util = new Functions2020();
     int t=0;
     private OpenCvCamera webcam;
@@ -71,7 +71,7 @@ public class auto2020 extends LinearOpMode {
                 Util.PIDloopDrive2(4,.6);
 
                 //Drop the wobble
-                robot.wobbleRotate.setPosition(.65);
+                robot.linkage.setPosition(.65);
                 sleep(1250);
                 robot.grabberSetPosition(.6);
                 sleep(750);
@@ -85,8 +85,8 @@ public class auto2020 extends LinearOpMode {
                 //sleep(30000);
                 //robot.grabberSetPosition(0);
                 //sleep(750);
-                //robot.wobbleRotate.setPosition(.25);
-                robot.wobbleRotate.setPosition(0);
+                //robot.linkage.setPosition(.25);
+                robot.linkage.setPosition(0);
                 sleep(250);
                 Util.turnLeft(2,.7);
                 sleep(250);
@@ -103,7 +103,7 @@ public class auto2020 extends LinearOpMode {
                 sleep(500);
 
                 //Drop the wobble
-                robot.wobbleRotate.setPosition(.65);
+                robot.linkage.setPosition(.65);
                 sleep(1250);
                 robot.grabberSetPosition(.6);
                 sleep(750);
@@ -111,7 +111,7 @@ public class auto2020 extends LinearOpMode {
                 //Drive forward, lift the grabber, and turn left
                 Util.PIDloopDrive2(1, -.5);
                 sleep(500);
-                robot.wobbleRotate.setPosition(0);
+                robot.linkage.setPosition(0);
                 sleep(250);
                 Util.turnLeft(1.75, .7);
                 sleep(250);
@@ -130,7 +130,7 @@ public class auto2020 extends LinearOpMode {
                 sleep(500);
 
                 //Drop the wobble
-                robot.wobbleRotate.setPosition(.65);
+                robot.linkage.setPosition(.65);
                 sleep(1250);
                 robot.grabberSetPosition(.6);
                 sleep(750);
@@ -138,7 +138,7 @@ public class auto2020 extends LinearOpMode {
                 //Drive forward, lift the grabber, and turn left
                 Util.PIDloopDrive2(2, -.6);
                 sleep(500);
-                robot.wobbleRotate.setPosition(0);
+                robot.linkage.setPosition(0);
                 sleep(250);
                 Util.turnLeft(1.5,.7);
                 sleep(250);
@@ -147,7 +147,7 @@ public class auto2020 extends LinearOpMode {
                 Util.PIDloopDrive2(19, -.5);
             }
 
-            robot.wobbleRotate.setPosition(.65);
+            robot.linkage.setPosition(.65);
 
             telemetry.addData("Left Motor Position at end", robot.frontLeft.getCurrentPosition());
             telemetry.addData("Right Motor Position at end", robot.frontRight.getCurrentPosition());
