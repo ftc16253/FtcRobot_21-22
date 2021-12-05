@@ -9,20 +9,28 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class TestBed<hardwareMap> extends LinearOpMode {
-    public DcMotor Intake, Motor1, Motor2;
-    public Servo Grabber, gSlide;
+    Pushbot2021 robot = new Pushbot2021();
     public void runOpMode() {
-        Intake = hardwareMap.get(DcMotor.class, "Intake");
-        Motor1 = hardwareMap.get(DcMotor.class, "Motor1");
-        Motor2 = hardwareMap.get(DcMotor.class, "Motor2");
-        Intake.setPower(0);
-        Motor1.setPower(0);
-        Motor2.setPower(0);
+        robot.init(hardwareMap);
 
+/*        robot.frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        robot.backRight = hardwareMap.get(DcMotor.class, "backRight");
+        robot.frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        robot.backLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        robot.intake = hardwareMap.get(DcMotor.class, "intake");
+        robot.frontRight.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.intake.setPower(0);
+        robot.slide.setPower(0);
+        robot.duckSpinner.setPower(0);
+        robot.turret.setPower(0);
+ 
 
-        Grabber = hardwareMap.get(Servo.class, "grabber");
-        gSlide = hardwareMap.get(Servo.class, "gSlide");
-
+        robot.grabber = hardwareMap.get(Servo.class, "grabber");
+        robot.linkage = hardwareMap.get(Servo.class, "linkage");
+*/
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -30,33 +38,51 @@ public class TestBed<hardwareMap> extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            //Intake.setPower(gamepad1.right_stick_y);
-            Motor1.setPower(gamepad1.left_stick_y);
-            Motor2.setPower(gamepad1.left_stick_y);
+            robot.frontRight.setPower(gamepad1.right_stick_y);
+            robot.backRight.setPower(-gamepad1.right_stick_y);
+            robot.frontLeft.setPower(-gamepad1.left_stick_y);
+            robot.backLeft.setPower(-gamepad1.left_stick_y);
+            robot.intake.setPower(gamepad2.left_stick_y);
+            robot.slide.setPower(gamepad2.right_stick_y);
 
-            if (gamepad1.right_bumper == true) {
-                gSlide.setPosition(0);
+            if(gamepad2.right_bumper = true){
+                //turn turret to right
+                robot.turret.setPower(1);
             }
-            if (gamepad1.left_bumper == true) {
-                gSlide.setPosition(1);
+            if (gamepad2.left_bumper = true){
+                //turn turret to left
+                robot.turret.setPower(-1);
             }
 
+            if (gamepad2.a == true) {
+                //ramp up duck spinner
+                robot.duckSpinner.setPower(.2);
+                robot.duckSpinner.setPower(.4);
+                robot.duckSpinner.setPower(.6);
+                robot.duckSpinner.setPower(.8);
+                robot.duckSpinner.setPower(1);
+            } else {
+                robot.duckSpinner.setPower(0);
+            }
 
-            //For continuous servo on grabber
-            if (gamepad1.a==true)
-            {
-                //Close grabber
-                Grabber.setPosition(1);
+            if (gamepad1.right_bumper == true){
+                //test MoveForwardInch
+                robot.MoveForwardInch(3, 1);
+            }
+
+            if (gamepad1.a == true){
+                //close grabber
+                robot.grabber.setPosition(1);
             }
             else if (gamepad1.b == true)
             {
                 //Open grabber
-                Grabber.setPosition(0);
+                robot.grabber.setPosition(0);
             }
             else
             {
                 //Stop grabber
-                Grabber.setPosition(.5);
+                robot.grabber.setPosition(.5);
             }
         }
 

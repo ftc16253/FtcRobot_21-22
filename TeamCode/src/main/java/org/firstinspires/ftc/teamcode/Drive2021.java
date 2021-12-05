@@ -10,7 +10,7 @@ public class Drive2021 extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
 
        
         waitForStart();
@@ -20,16 +20,16 @@ public class Drive2021 extends LinearOpMode {
             double drive = gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             if (drive != 0){
-                robot.frontLeft.setPower(drive);
-                robot.frontRight.setPower(drive);
+                robot.frontLeft.setPower(-drive);
+                robot.frontRight.setPower(-drive);
                 robot.backRight.setPower(drive);
                 robot.backLeft.setPower(drive);
             }
 
             if (turn != 0){
                 //Turn left or right
-                robot.frontLeft.setPower(-turn);
-                robot.frontRight.setPower(turn);
+                robot.frontLeft.setPower(turn);
+                robot.frontRight.setPower(-turn);
                 robot.backLeft.setPower(-turn);
                 robot.backRight.setPower(turn);
             }

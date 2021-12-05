@@ -24,7 +24,7 @@ public class auto2020 extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Initialize motors
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap);
         Util.init(hardwareMap);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -32,7 +32,7 @@ public class auto2020 extends LinearOpMode {
         webcam.openCameraDevice();
         webcam.setPipeline(detector);
         webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-        robot.grabberSetPosition(0);
+        robot.grabber.setPosition(0);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -73,7 +73,7 @@ public class auto2020 extends LinearOpMode {
                 //Drop the wobble
                 robot.linkage.setPosition(.65);
                 sleep(1250);
-                robot.grabberSetPosition(.6);
+                robot.grabber.setPosition(.6);
                 sleep(750);
 
                 //Drive forward, lift the grabber, and turn left onto the line
@@ -105,7 +105,7 @@ public class auto2020 extends LinearOpMode {
                 //Drop the wobble
                 robot.linkage.setPosition(.65);
                 sleep(1250);
-                robot.grabberSetPosition(.6);
+                robot.grabber.setPosition(.6);
                 sleep(750);
 
                 //Drive forward, lift the grabber, and turn left
@@ -132,7 +132,7 @@ public class auto2020 extends LinearOpMode {
                 //Drop the wobble
                 robot.linkage.setPosition(.65);
                 sleep(1250);
-                robot.grabberSetPosition(.6);
+                robot.grabber.setPosition(.6);
                 sleep(750);
 
                 //Drive forward, lift the grabber, and turn left

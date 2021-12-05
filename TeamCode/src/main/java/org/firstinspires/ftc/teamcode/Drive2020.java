@@ -77,7 +77,7 @@ public class Drive2020 extends LinearOpMode {
     }
 
     public void runOpMode() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
 
         frontLeft = robot.frontLeft;
         frontRight = robot.frontRight;
@@ -146,7 +146,7 @@ public class Drive2020 extends LinearOpMode {
                 telemetry.addData("status", "Right Bumper pressed");
                 telemetry.update();
                 //Close claw first
-                robot.grabberSetPosition(0);
+                robot.grabber.setPosition(0);
                 sleep(750);
                 //This is for the two servos
                 linkage.setPosition(.25);
@@ -158,13 +158,13 @@ public class Drive2020 extends LinearOpMode {
                 linkage.setPosition(.55);
                 sleep(500);
                 //Open claw
-                robot.grabberSetPosition(.6);
+                robot.grabber.setPosition(.6);
             }
 
             if(gamepad1.b == true){
                 linkage.setPosition(.75);
                 sleep(250);
-                robot.grabberSetPosition(.6);
+                robot.grabber.setPosition(.6);
             }
 
             //Button A - wobble arm to initial position
