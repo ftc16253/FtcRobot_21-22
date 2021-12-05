@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class TestBed<hardwareMap> extends LinearOpMode {
+public class TestBed extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -45,22 +45,13 @@ public class TestBed<hardwareMap> extends LinearOpMode {
             robot.intake.setPower(gamepad2.left_stick_y);
             robot.slide.setPower(gamepad2.right_stick_y);
 
-            if(gamepad2.right_bumper = true){
-                //turn turret to right
-                robot.turret.setPower(1);
-            }
-            if (gamepad2.left_bumper = true){
-                //turn turret to left
-                robot.turret.setPower(-1);
-            }
-
-            if (gamepad2.a == true) {
+            if (gamepad1.a == true) {
                 //ramp up duck spinner
-                robot.duckSpinner.setPower(.2);
-                robot.duckSpinner.setPower(.4);
-                robot.duckSpinner.setPower(.6);
-                robot.duckSpinner.setPower(.8);
-                robot.duckSpinner.setPower(1);
+                //robot.duckSpinner.setPower(.2);
+                //robot.duckSpinner.setPower(.4);
+                //robot.duckSpinner.setPower(.6);
+                robot.duckSpinner.setPower(.7);
+                //robot.duckSpinner.setPower(1);
             } else {
                 robot.duckSpinner.setPower(0);
             }
@@ -70,11 +61,20 @@ public class TestBed<hardwareMap> extends LinearOpMode {
                 robot.MoveForwardInch(3, 1);
             }
 
-            if (gamepad1.a == true){
+            if (gamepad1.right_bumper == true){
+                //turn turret to right
+                robot.turret.setPower(1);
+            }
+            if (gamepad1.left_bumper == true){
+                //turn turret to left
+                robot.turret.setPower(-1);
+            }
+
+            if (gamepad2.left_bumper == true){
                 //close grabber
                 robot.grabber.setPosition(1);
             }
-            else if (gamepad1.b == true)
+            else if (gamepad2.right_bumper == true)
             {
                 //Open grabber
                 robot.grabber.setPosition(0);
@@ -83,6 +83,17 @@ public class TestBed<hardwareMap> extends LinearOpMode {
             {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
+            }
+
+            if (gamepad2.y == true){
+                //linkage open
+                robot.linkage.setPosition(0);
+
+            }
+
+            if (gamepad2.x == true){
+                //linkage closed - counter clockwise to 1
+                robot.linkage.setPosition(.47);
             }
         }
 

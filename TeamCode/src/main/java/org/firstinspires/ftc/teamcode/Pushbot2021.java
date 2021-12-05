@@ -69,7 +69,7 @@ public class Pushbot2021
 
 
         //set servo positions to zero
-        linkage.setPosition(0);
+        linkage.setPosition(.4);
         grabber.setPosition(0);
 
 
