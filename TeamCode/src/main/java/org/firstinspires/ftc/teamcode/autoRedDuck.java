@@ -81,7 +81,8 @@ public class autoRedDuck extends LinearOpMode {
          **/
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1, 16.0/9.0);
+            //tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(1.2, 17.0/10.0);
         }
 
         /** Wait for the game to begin */
@@ -108,28 +109,34 @@ public class autoRedDuck extends LinearOpMode {
                                 recognition.getLeft(), recognition.getTop());
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
-                        if (recognition.getLeft() > 400 && recognition.getRight() > 500){
-                            place = "mid";
-                        }
-                         else if (recognition.getLeft() > 50 && recognition.getRight()> 150){
-                            place = "left";
-                        }
-                        else if(recognition.getLabel() == "Marker"){
-                            place = "right";
-                        }
+
                         i++;
                       }
-                      if (updatedRecognitions.size() == 0){
+                      sleep(1000);
+
+                      if (updatedRecognitions.size() > 0 && (updatedRecognitions.get(0).getLabel() == "Duck" || updatedRecognitions.get(0).getLabel() == "Cube")){
+                          place = "left";
+                      }
+                      else if (updatedRecognitions.size() > 1 && (updatedRecognitions.get(1).getLabel() == "Duck" || updatedRecognitions.get(1).getLabel() == "Cube")){
+                          place = "mid";
+                      }
+                      else {
                           place = "right";
                       }
-                      place = "right";
+                      //if (updatedRecognitions.size() == 0){
+                      //    place = "right";
+                      //}
 
                       telemetry.addData("Place = ", place);
-                      telemetry.update(); 
+                      telemetry.update();
+
+                      //sleep(30000);
 
 
-                      //when duck is in left config
+                     /* //when duck is in left config
                     if (place == "left"){
+                        robot.MoveForwardInch(3, 1);
+                        sleep(30000);
 
                         //move away from wall
                         robot.MoveForwardInch(2, 1);
@@ -180,9 +187,11 @@ public class autoRedDuck extends LinearOpMode {
                     }
                     //when duck is in middle config
                     else if (place == "mid");{
+                        robot.MoveForwardInch(100, 1);
+                        sleep(30000);
 
                     }
-
+*/
                 }
             }
         }
