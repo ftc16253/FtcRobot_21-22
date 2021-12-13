@@ -11,7 +11,7 @@ public class Pushbot2021
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
     public DcMotor intake, slide, turret, duckSpinner;
-    public Servo grabber, linkage;
+    public Servo grabber, linkage, pivot;
     double diameter = 3.6;
     double circumference = diameter * 3.14;
     int tetrixEncoderTics = 1440;
@@ -65,12 +65,14 @@ public class Pushbot2021
         //Define Servos
         grabber = hwMap.get(Servo.class, "grabber");
         linkage = hwMap.get(Servo.class, "linkage");
+        pivot = hwMap.get(Servo.class, "pivot");
 
 
 
         //set servo positions to zero
         linkage.setPosition(.4);
         grabber.setPosition(0);
+        pivot.setPosition(0);
 
 
 
@@ -89,12 +91,12 @@ public class Pushbot2021
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double turnCircumference = 15 * 3.14;
+        double turnCircumference = 14 * 3.14;
         double totalRotations = turnCircumference / 360 * degrees;
         int rotationDistanceofWheel = (int) (andyMarkEncoderTics * totalRotations);
 
@@ -105,7 +107,8 @@ public class Pushbot2021
 
         boolean runRobot = true;
         while (runRobot) {
-            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
+            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
                 frontRight.setPower(0);

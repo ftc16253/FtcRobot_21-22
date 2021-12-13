@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -96,9 +97,9 @@ public class autoRedDuck extends LinearOpMode {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                   /* if (updatedRecognitions == null){
-                        place = "right";
-                    }*/
+                   if (updatedRecognitions == null){
+                        updatedRecognitions = tfod.getRecognitions();
+                    }
                     if (updatedRecognitions != null) {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
                       // step through the list of recognitions and display boundary info.
@@ -133,8 +134,9 @@ public class autoRedDuck extends LinearOpMode {
                       //sleep(30000);
 
 
-                     /* //when duck is in left config
+                      //when duck is in left config
                     if (place == "left"){
+                        /*
                         robot.MoveForwardInch(3, 1);
                         sleep(30000);
 
@@ -176,22 +178,26 @@ public class autoRedDuck extends LinearOpMode {
                         robot.MoveForwardInch(-2,1);
 
                         //turn to duck
-                        robot.turn(90, 1);
-
+                        robot.turn(90, 1);*/
+                        robot.MoveForwardInch(36, 1);
+                        sleep(30000);
                     }
                     //when duck is in right config
                     else if (place == "right"){
-                        robot.MoveForwardInch(24, 1);
+                        robot.MoveForwardInch(10, 1);
+                        sleep(250);
+                        turn(45, .25);
+                        sleep(250);
+                       // robot.MoveForwardInch(9, 1);
                         sleep(30000);
-
                     }
                     //when duck is in middle config
                     else if (place == "mid");{
-                        robot.MoveForwardInch(100, 1);
+                        robot.MoveForwardInch(16, 1);
                         sleep(30000);
 
                     }
-*/
+
                 }
             }
         }
@@ -224,5 +230,50 @@ public class autoRedDuck extends LinearOpMode {
        tfodParameters.inputSize = 350;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+    }
+    public void turn(double degrees, double power) {
+
+        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double turnCircumference = 14 * 3.14;
+        double totalRotations = turnCircumference / 360 * degrees;
+        int rotationDistanceofWheel = (int) (robot.andyMarkEncoderTics * totalRotations);
+
+        /*frontLeft.setTargetPosition((int) (andyMarkEncoderTics / 360 * degrees));
+        frontRight.setTargetPosition((int) (-andyMarkEncoderTics / 360 * degrees));
+*/
+
+
+        boolean runRobot = true;
+        while (runRobot) {
+            if (Math.abs(robot.frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(robot.frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(robot.backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(robot.backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
+                robot.frontLeft.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.frontRight.setPower(0);
+               robot.backRight.setPower(0);
+                runRobot = false;
+            } else {
+                robot.frontLeft.setPower(power);
+                robot.frontRight.setPower(-power);
+                robot.backLeft.setPower(-power);
+                robot.backRight.setPower(power);
+            }
+            telemetry.addData("Frontright = ", robot.frontRight.getCurrentPosition());
+            telemetry.addData("Frontleft = ", robot.frontLeft.getCurrentPosition());
+            telemetry.addData("Backright = ", robot.backRight.getCurrentPosition());
+            telemetry.addData("Backleft = ", robot.backLeft.getCurrentPosition());
+            telemetry.addData("rotation distance of wheel = ", rotationDistanceofWheel);
+            telemetry.update();
+        }
+
     }
 }

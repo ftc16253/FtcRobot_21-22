@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
+@Disabled
 public class TestBowen<hardwareMap> extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();

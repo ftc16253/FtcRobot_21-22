@@ -90,10 +90,16 @@ public class TestBed extends LinearOpMode {
                 robot.linkage.setPosition(0);
 
             }
+            if (gamepad2.a == true){
+                robot.pivot.setPosition(0);
+            }
+            if (gamepad2.b == true){
+                robot.pivot.setPosition(.35);
+            }
 
             if (gamepad2.x == true){
                 //linkage closed - counter clockwise to 1
-                robot.linkage.setPosition(.47);
+                robot.linkage.setPosition(.6);
             }
         }
 
