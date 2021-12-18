@@ -137,17 +137,17 @@ public class autoRedDuck extends LinearOpMode {
                       //when duck is in left config
                     if (place == "left"){
                         /*
-                        robot.MoveForwardInch(3, 1);
+                        /*robot.MoveForwardInch(3, 1);
                         sleep(30000);
-
+*/
                         //move away from wall
-                        robot.MoveForwardInch(2, 1);
+                        robot.MoveForwardInch(8, 1);
                         sleep(100);
 
                         //turn to alliance hub
                         robot.turn(45, 1);
-                        sleep(100);
-
+                        sleep(30000);
+/*
                         //move to alliance hub
                         robot.MoveForwardInch(15,1);
 
