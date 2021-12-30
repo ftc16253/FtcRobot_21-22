@@ -42,7 +42,6 @@ public class TestBed extends LinearOpMode {
             robot.backRight.setPower(-gamepad1.right_stick_y);
             robot.frontLeft.setPower(-gamepad1.left_stick_y);
             robot.backLeft.setPower(-gamepad1.left_stick_y);
-            robot.intake.setPower(gamepad2.left_stick_y);
             robot.slide.setPower(gamepad2.right_stick_y);
 
             if (gamepad1.a == true) {
@@ -61,11 +60,11 @@ public class TestBed extends LinearOpMode {
                 robot.MoveForwardInch(3, 1);
             }
 
-            if (gamepad1.right_bumper == true){
+            if (gamepad1.a == true){  
                 //turn turret to right
                 robot.turret.setPower(1);
             }
-            if (gamepad1.left_bumper == true){
+            if (gamepad1.b == true){
                 //turn turret to left
                 robot.turret.setPower(-1);
             }
@@ -101,6 +100,12 @@ public class TestBed extends LinearOpMode {
                 //linkage closed - counter clockwise to 1
                 robot.linkage.setPosition(.6);
             }
+           /* if (robot.slideSensor.getState() == true){
+                robot.backRight.setPower(0);
+            }
+            else if (robot.slideSensor.getState() == false){
+                robot.backRight.setPower(1);
+            }*/
         }
 
     }

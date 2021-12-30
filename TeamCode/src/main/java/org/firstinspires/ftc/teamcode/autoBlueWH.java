@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -85,6 +86,16 @@ public class autoBlueWH extends LinearOpMode {
             tfod.setZoom(1, 16.0/9.0);
         }
 
+        //pick up starting cube
+        robot.grabber.setPosition(1);
+
+        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
@@ -109,45 +120,148 @@ public class autoBlueWH extends LinearOpMode {
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
-                            if (recognition.getLeft() > 400 && recognition.getRight() > 500){
-                                place = "mid";
-                            }
-                            else if (recognition.getLeft() > 50 && recognition.getRight()> 150){
-                                place = "left";
-                            }
-                            else if(recognition.getLabel() == "Marker"){
-                                place = "right";
-                            }
+
                             i++;
                         }
-                        if (updatedRecognitions.size() == 0){
+
+                        if (updatedRecognitions.size() > 0 && (updatedRecognitions.get(0).getLabel() == "Duck" || updatedRecognitions.get(0).getLabel() == "Cube")){
+                            place = "left";
+                        }
+                        else if (updatedRecognitions.size() > 1 && (updatedRecognitions.get(1).getLabel() == "Duck" || updatedRecognitions.get(1).getLabel() == "Cube")){
+                            place = "mid";
+                        }
+                        else {
                             place = "right";
                         }
-
                         telemetry.addData("Place = ", place);
                         telemetry.update();
 
 
                         if (place == "left"){
-                            robot.frontLeft.setPower(1);
-                            sleep(1000);
-                            robot.frontLeft.setPower(0);
-                            sleep(4000);
 
+                            //move away from wall
+                            robot.MoveForwardInch(8, 1);
+                            sleep(100);
+
+                            //turn to alliance hub
+                            robot.turn(45, 1);
+
+                            //move to alliance hub
+                            robot.MoveForwardInch(24,1);
+/*
+                            //pick up starting cube
+                            robot.grabber.setPosition(1);
+                            sleep(100);
+
+                            //move linear slide to correct level
+                            robot.slide.setPower(1);
+                            sleep(300);
+                            robot.slide.setPower(0);
+
+                            //move linkage out above shipping hub
+                            robot.linkage.setPosition(.5);
+                            sleep(100);
+
+                            //release starting cube
+                            robot.grabber.setPosition(0);
+
+                            //move linkage into robot
+                            robot.linkage.setPosition(0);
+
+                            //move linear slide down
+                            robot.slide.setPower(-1);
+                            sleep(300);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(-2,1);
+
+                            //turn to duck
+                            robot.turn(90, 1);*/
+                            sleep(30000);
                         }
                         else if (place == "right"){
-                            robot.backRight.setPower(1);
-                            sleep(1000);
-                            robot.backRight.setPower(0);
-                            sleep(10000);
 
+                            //move away from wall
+                            robot.MoveForwardInch(8, 1);
+                            sleep(100);
+
+                            //turn to alliance hub
+                            robot.turn(45, 1);
+
+                            //move to alliance hub
+                            robot.MoveForwardInch(24,1);
+/*
+                            //pick up starting cube
+                            robot.grabber.setPosition(1);
+                            sleep(100);
+
+                            //move linear slide to correct level
+                            robot.slide.setPower(1);
+                            sleep(300);
+                            robot.slide.setPower(0);
+
+                            //move linkage out above shipping hub
+                            robot.linkage.setPosition(.5);
+                            sleep(100);
+
+                            //release starting cube
+                            robot.grabber.setPosition(0);
+
+                            //move linkage into robot
+                            robot.linkage.setPosition(0);
+
+                            //move linear slide down
+                            robot.slide.setPower(-1);
+                            sleep(300);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(-2,1);
+
+                            //turn to duck
+                            robot.turn(90, 1);*/
+                            sleep(30000);
                         }
                         else if (place == "mid");{
-                            robot.frontRight.setPower(1);
-                            sleep(1000);
-                            robot.frontRight.setPower(0);
-                            sleep(400);
 
+                            //move away from wall
+                            robot.MoveForwardInch(8, 1);
+                            sleep(100);
+
+                            //turn to alliance hub
+                            robot.turn(45, 1);
+
+                            //move to alliance hub
+                            robot.MoveForwardInch(24,1);
+/*
+                            //pick up starting cube
+                            robot.grabber.setPosition(1);
+                            sleep(100);
+
+                            //move linear slide to correct level
+                            robot.slide.setPower(1);
+                            sleep(300);
+                            robot.slide.setPower(0);
+
+                            //move linkage out above shipping hub
+                            robot.linkage.setPosition(.5);
+                            sleep(100);
+
+                            //release starting cube
+                            robot.grabber.setPosition(0);
+
+                            //move linkage into robot
+                            robot.linkage.setPosition(0);
+
+                            //move linear slide down
+                            robot.slide.setPower(-1);
+                            sleep(300);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(-2,1);
+
+                            //turn to duck
+                            robot.turn(90, 1);*/
+                            sleep(30000);
                         }
 
                     }

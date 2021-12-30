@@ -207,7 +207,6 @@ class Functions2020 {
         } catch (InterruptedException e) {
         }
         rob.slide.setPower(1);
-        rob.intake.setPower(1);
         try {
             Thread.sleep(750);
         } catch (InterruptedException e) {
@@ -225,7 +224,6 @@ class Functions2020 {
         }
         calculatePID(0);
         rob.slide.setPower(0);
-        rob.intake.setPower(0);
         turnLeft(.35, .7);
     }
 

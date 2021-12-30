@@ -86,6 +86,16 @@ public class autoRedDuck extends LinearOpMode {
             tfod.setZoom(1.2, 17.0/10.0);
         }
 
+        //pick up starting cube
+        robot.grabber.setPosition(1);
+
+        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
@@ -136,21 +146,40 @@ public class autoRedDuck extends LinearOpMode {
 
                       //when duck is in left config
                     if (place == "left"){
-                        /*
-                        /*robot.MoveForwardInch(3, 1);
-                        sleep(30000);
-*/
+
                         //move away from wall
                         robot.MoveForwardInch(8, 1);
                         sleep(100);
 
                         //turn to alliance hub
                         robot.turn(45, 1);
-                        sleep(30000);
-/*
-                        //move to alliance hub
-                        robot.MoveForwardInch(15,1);
 
+                        //move to alliance hub
+                        robot.MoveForwardInch(24,1);
+/*
+                        //deposit the cube in tower
+                        robot.depositCube(14,1);
+
+                        //move away from alliance hub
+                        robot.MoveForwardInch(8,-1);
+
+                        //turn to duck
+                        robot.turn(150, 1);*/
+                        sleep(30000);
+                    }
+                    //when duck is in right config
+                    else if (place == "right"){
+
+                        //move away from wall
+                        robot.MoveForwardInch(8, 1);
+                        sleep(100);
+
+                        //turn to alliance hub
+                        robot.turn(45, 1);
+
+                        //move to alliance hub
+                        robot.MoveForwardInch(24,1);
+/*
                         //pick up starting cube
                         robot.grabber.setPosition(1);
                         sleep(100);
@@ -179,23 +208,55 @@ public class autoRedDuck extends LinearOpMode {
 
                         //turn to duck
                         robot.turn(90, 1);*/
-                        robot.MoveForwardInch(36, 1);
-                        sleep(30000);
-                    }
-                    //when duck is in right config
-                    else if (place == "right"){
-                        robot.MoveForwardInch(10, 1);
-                        sleep(250);
-                        turn(45, .25);
-                        sleep(250);
-                       // robot.MoveForwardInch(9, 1);
                         sleep(30000);
                     }
                     //when duck is in middle config
                     else if (place == "mid");{
-                        robot.MoveForwardInch(16, 1);
-                        sleep(30000);
 
+                        //move away from wall
+                        robot.MoveForwardInch(8, 1);
+                        sleep(100);
+
+                        //turn to alliance hub
+                        robot.turn(45, 1);
+
+                        //move to alliance hub
+                        robot.MoveForwardInch(24,1);
+/*
+                        //pick up starting cube
+                        robot.grabber.setPosition(1);
+                        sleep(100);
+
+                        //move linear slide to correct level
+                        robot.slide.setPower(1);
+                        sleep(300);
+                        robot.slide.setPower(0);
+
+                        //move linkage out above shipping hub
+                        robot.linkage.setPosition(.5);
+                        sleep(100);
+
+                        //release starting cube
+                        robot.grabber.setPosition(0);
+
+                        //move linkage into robot
+                        robot.linkage.setPosition(0);
+
+                        //move linear slide down
+                        robot.slide.setPower(-1);
+                        sleep(300);
+
+                        //move away from alliance hub
+                        robot.MoveForwardInch(-2,1);
+
+                        //turn to duck
+                        robot.turn(90, 1);
+
+                        //Move to duck
+                        robot.MoveForwardInch(18, 1)
+
+                        //pick up duck*/
+                        sleep(30000);
                     }
 
                 }

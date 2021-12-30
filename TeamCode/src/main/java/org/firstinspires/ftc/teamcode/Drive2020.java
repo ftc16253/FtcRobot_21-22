@@ -84,7 +84,6 @@ public class Drive2020 extends LinearOpMode {
         frontRight = robot.frontRight;
         backLeft = robot.backLeft;
         backRight = robot.backRight;
-        intake = robot.intake;
         slide = robot.slide;
         linkage = robot.linkage;
         turret = robot.turret;

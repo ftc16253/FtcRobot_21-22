@@ -1,17 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.Sensor;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.checkerframework.checker.units.qual.degrees;
 
 public class Pushbot2021
 {
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
-    public DcMotor intake, slide, turret, duckSpinner;
+    public DcMotor slide, turret, duckSpinner;
     public Servo grabber, linkage, pivot;
+    public DigitalChannel slideSensor;
+    double spinDiameter = 1;
     double diameter = 3.6;
     double circumference = diameter * 3.14;
     int tetrixEncoderTics = 1440;
@@ -35,7 +42,6 @@ public class Pushbot2021
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backLeft  = hwMap.get(DcMotor.class, "backLeft");
         backRight = hwMap.get(DcMotor.class, "backRight");
-        intake = hwMap.get(DcMotor.class, "intake");
         slide = hwMap.get(DcMotor.class, "slide");
         turret = hwMap.get(DcMotor.class, "turret");
         duckSpinner = hwMap.get(DcMotor.class, "duckSpinner");
@@ -44,7 +50,6 @@ public class Pushbot2021
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
-        intake.setDirection(DcMotor.Direction.FORWARD);
         turret.setDirection(DcMotorSimple.Direction.FORWARD);
         slide.setDirection(DcMotorSimple.Direction.FORWARD);
         duckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -55,7 +60,6 @@ public class Pushbot2021
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        intake.setPower(0);
         slide.setPower(0);
         turret.setPower(0);
         duckSpinner.setPower(0);
@@ -74,7 +78,11 @@ public class Pushbot2021
         grabber.setPosition(0);
         pivot.setPosition(0);
 
+        //set sensors
+        slideSensor = hwMap.get(DigitalChannel.class, "slideSensor");
 
+        //set the channel to input
+        slideSensor.setMode(DigitalChannel.Mode.INPUT);
 
 /*
         //This section makes the motors drive slowly - Don't use BRAKE
@@ -161,6 +169,61 @@ public class Pushbot2021
                 }
             }
         }
+    }
+    public void depositCube(double height, double power){
+        double slideCirc = spinDiameter*3.14;
+        double Rotations = height/slideCirc;
+        double totalTics = andyMarkEncoderTics * Rotations;
+        while (slideSensor.getState() == false) {
+            //move linear slide down
+            slide.setPower(-1);
+        }
+        //move linear slide to correct level
+        if(slide.getCurrentPosition() > totalTics){
+            slide.setPower(0);
+        } else if (slide.getCurrentPosition() < totalTics){
+          slide.setPower(power);
+        }
 
+        //move linkage out above shipping hub
+        linkage.setPosition(.5);
+
+        //release starting cube
+        grabber.setPosition(0);
+
+        //move linkage into robot
+        linkage.setPosition(0);
+
+        while (slideSensor.getState() == false) {
+            //move linear slide down
+            slide.setPower(-power);
+        }
+        slide.setPower(0);
+    }
+    public void pickupCube(double degrees){
+        double ticToDegree = andyMarkEncoderTics/360;
+        double motorTics = (ticToDegree * degrees);
+        int totalTics = (int) (motorTics * (22/7));
+
+        turret.setTargetPosition(0);
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        turret.setTargetPosition(totalTics);
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        grabber.setPosition(.5);
+
+        linkage.setPosition(.5);
+
+        pivot.setPosition(.5);
+
+        grabber.setPosition(0);
+
+        pivot.setPosition(0);
+
+        linkage.setPosition(0);
+
+        turret.setTargetPosition(0);
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
