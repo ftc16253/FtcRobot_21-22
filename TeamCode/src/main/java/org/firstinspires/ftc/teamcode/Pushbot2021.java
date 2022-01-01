@@ -17,7 +17,7 @@ public class Pushbot2021
     public DcMotor frontLeft, frontRight, backRight, backLeft;
     public DcMotor slide, turret, duckSpinner;
     public Servo grabber, linkage, pivot;
-    public DigitalChannel slideSensor;
+    //public DigitalChannel slideSensor;
     double spinDiameter = 1;
     double diameter = 3.6;
     double circumference = diameter * 3.14;
@@ -54,6 +54,12 @@ public class Pushbot2021
         slide.setDirection(DcMotorSimple.Direction.FORWARD);
         duckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         // Set all motors to zero power
         frontLeft.setPower(0);
@@ -79,10 +85,10 @@ public class Pushbot2021
         pivot.setPosition(0);
 
         //set sensors
-        slideSensor = hwMap.get(DigitalChannel.class, "slideSensor");
+        //slideSensor = hwMap.get(DigitalChannel.class, "slideSensor");
 
         //set the channel to input
-        slideSensor.setMode(DigitalChannel.Mode.INPUT);
+        //slideSensor.setMode(DigitalChannel.Mode.INPUT);
 
 /*
         //This section makes the motors drive slowly - Don't use BRAKE
@@ -174,16 +180,9 @@ public class Pushbot2021
         double slideCirc = spinDiameter*3.14;
         double Rotations = height/slideCirc;
         double totalTics = andyMarkEncoderTics * Rotations;
-        while (slideSensor.getState() == false) {
-            //move linear slide down
-            slide.setPower(-1);
-        }
+        moveSlide(0, 1);
         //move linear slide to correct level
-        if(slide.getCurrentPosition() > totalTics){
-            slide.setPower(0);
-        } else if (slide.getCurrentPosition() < totalTics){
-          slide.setPower(power);
-        }
+        moveSlide(14, 1);
 
         //move linkage out above shipping hub
         linkage.setPosition(.5);
@@ -194,22 +193,12 @@ public class Pushbot2021
         //move linkage into robot
         linkage.setPosition(0);
 
-        while (slideSensor.getState() == false) {
-            //move linear slide down
-            slide.setPower(-power);
-        }
-        slide.setPower(0);
+        moveSlide(0, .7);
     }
     public void pickupCube(double degrees){
-        double ticToDegree = andyMarkEncoderTics/360;
-        double motorTics = (ticToDegree * degrees);
-        int totalTics = (int) (motorTics * (22/7));
+        moveTurret(0, .5);
 
-        turret.setTargetPosition(0);
-        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        turret.setTargetPosition(totalTics);
-        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        moveTurret(degrees, .5);
 
         grabber.setPosition(.5);
 
@@ -223,7 +212,33 @@ public class Pushbot2021
 
         linkage.setPosition(0);
 
-        turret.setTargetPosition(0);
-        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        moveTurret(0, .5);
+    }
+    public void moveTurret(double degrees, double power){
+        double ticToDegree = andyMarkEncoderTics/360;
+        double motorTics = (ticToDegree * degrees);
+        double totalTics = (motorTics * (20/7));
+
+
+        if (Math.abs(turret.getCurrentPosition()) == Math.abs(totalTics)){
+            turret.setPower(0);
+        } else if (Math.abs(turret.getCurrentPosition()) > Math.abs(totalTics)){
+            turret.setPower(-power);
+        } else if (Math.abs(turret.getCurrentPosition()) < Math.abs(totalTics)){
+            turret.setPower(power);
+        }
+    }
+    public void moveSlide (double height, double power){
+        double slideCirc = spinDiameter*3.14;
+        double Rotations = height/slideCirc;
+        double totalTics = andyMarkEncoderTics * Rotations;
+
+        if (slide.getCurrentPosition() > (totalTics-10) && slide.getCurrentPosition() < (totalTics + 10)){
+            slide.setPower(0);
+        } else if (slide.getCurrentPosition() > totalTics){
+            slide.setPower(-power);
+        } else if (slide.getCurrentPosition() < totalTics){
+            slide.setPower(power);
+        }
     }
 }

@@ -85,11 +85,11 @@ public class Drive2021 extends LinearOpMode {
                 robot.pivot.setPosition(.2);
             }
 
-            if(robot.slideSensor.getState() == true){
+           /* if(robot.slideSensor.getState() == true){
                 robot.slide.setPower(0);
             } else if(gamepad2.left_stick_y != 0){
                 robot.slide.setPower(gamepad2.left_stick_y);
-            }
+            }*/
         }
     }
 }
