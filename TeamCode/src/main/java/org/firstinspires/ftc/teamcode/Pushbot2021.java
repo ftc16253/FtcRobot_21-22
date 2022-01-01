@@ -13,6 +13,12 @@ import org.checkerframework.checker.units.qual.degrees;
 
 public class Pushbot2021
 {
+
+    double ticToDegree = (537.6*(20.0/7.0))/360;
+
+    boolean test = false;
+    double targetDeg = 0;
+
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
     public DcMotor slide, turret, duckSpinner;
@@ -214,18 +220,40 @@ public class Pushbot2021
 
         moveTurret(0, .5);
     }
-    public void moveTurret(double degrees, double power){
-        double ticToDegree = andyMarkEncoderTics/360;
-        double motorTics = (ticToDegree * degrees);
-        double totalTics = (motorTics * (20/7));
 
+    public double angleWrap(double currentAngle) {
+        while (currentAngle < 0) {
+            currentAngle += 360;
+        }
+        while (currentAngle > 360) {
+            currentAngle -= 360;
+        }
 
-        if (Math.abs(turret.getCurrentPosition()) == Math.abs(totalTics)){
+        return currentAngle;
+    }
+
+    public void moveTurret(double degrees, double power) {
+        //double motorTics = (ticToDegree * degrees);
+        int i = 0;
+        //double startingPosition = robot.turret.getCurrentPosition();
+
+        double currentDegree = angleWrap(turret.getCurrentPosition() / ticToDegree);
+
+        double outputPower;
+
+        if (Math.abs(degrees - currentDegree) < 30.0) {
+            outputPower = 0.05;
+        } else {
+            outputPower = power;
+        }
+
+        if (Math.abs(degrees - currentDegree) < 2.0){
             turret.setPower(0);
-        } else if (Math.abs(turret.getCurrentPosition()) > Math.abs(totalTics)){
-            turret.setPower(-power);
-        } else if (Math.abs(turret.getCurrentPosition()) < Math.abs(totalTics)){
-            turret.setPower(power);
+            test = false;
+        } else if (currentDegree < degrees) {
+            turret.setPower(outputPower);
+        } else if (currentDegree > degrees){
+            turret.setPower(-outputPower);
         }
     }
     public void moveSlide (double height, double power){
