@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import android.hardware.Sensor;
 
@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.checkerframework.checker.units.qual.degrees;
@@ -14,24 +15,26 @@ import org.checkerframework.checker.units.qual.degrees;
 public class Pushbot2021
 {
 
-    double ticToDegree = (537.6*(20.0/7.0))/360;
-
-    boolean test = false;
-    double targetDeg = 0;
-
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
     public DcMotor slide, turret, duckSpinner;
     public Servo grabber, linkage, pivot;
-    //public DigitalChannel slideSensor;
+    public TouchSensor slideSensor;
     double spinDiameter = 1;
     double diameter = 3.6;
     double circumference = diameter * 3.14;
     int tetrixEncoderTics = 1440;
-    //int andyMarkEncoderTics = 515;
-    int andyMarkEncoderTics = 1120;
+    //int andyMark40Tics = 515;
+    int andyMark40Tics = 1120;
+    double andyMark20Tics = 537.6;
     public static final String VUFORIA_KEY =
             "Afctxlz/////AAABmSWf4jOsTUHcsOYa/JfaZlRo+3yiPN8cCUH4BDLpIZ8FAt0tEVLJ/mxWUyd7f0gqd+a7JRTMYP9+A9s1nojOs9B1ZGOFsvr84RZnbVN8cGP7RFKNP4Mg0Pr/6vIUmHGFx/jrOrXz/YJXwVXvPpqr1uDm8xpBZOE4j+CtQcKW2Y2zjVWHWRTkmb6ve/R91k3jfjaH4PErbZMcvD7Xy5IesqSet3/pjeUXWSnlHmPwH7fgUcHSkAf0Fj2nLvZ7zmpT8vh9rSKri9XD3A64WBNRO+6+SGH/C/eS3mWLmdi5ZMbSK66WuvNhAPT0SHCzzqAlAf2P6asrrrAuw+aQ0B2HV0mPtGdNPe62djhu5Afa/rL+";
+
+    double ticToDegree = (andyMark20Tics*(20.0/7.0))/360;
+    double ticToInch = (andyMark20Tics/(spinDiameter*3.14));
+
+    boolean turretMove = false, slideMove = false;
+    double targetDeg = 0, targetHeight = 0;
 
     /* local OpMode members. */
 
@@ -91,10 +94,7 @@ public class Pushbot2021
         pivot.setPosition(0);
 
         //set sensors
-        //slideSensor = hwMap.get(DigitalChannel.class, "slideSensor");
-
-        //set the channel to input
-        //slideSensor.setMode(DigitalChannel.Mode.INPUT);
+        slideSensor = hwMap.get(TouchSensor.class, "slideSensor");
 
 /*
         //This section makes the motors drive slowly - Don't use BRAKE
@@ -118,10 +118,10 @@ public class Pushbot2021
 
         double turnCircumference = 14 * 3.14;
         double totalRotations = turnCircumference / 360 * degrees;
-        int rotationDistanceofWheel = (int) (andyMarkEncoderTics * totalRotations);
+        int rotationDistanceofWheel = (int) (andyMark40Tics * totalRotations);
 
-        /*frontLeft.setTargetPosition((int) (andyMarkEncoderTics / 360 * degrees));
-        frontRight.setTargetPosition((int) (-andyMarkEncoderTics / 360 * degrees));
+        /*frontLeft.setTargetPosition((int) (andyMark40Tics / 360 * degrees));
+        frontRight.setTargetPosition((int) (-andyMark40Tics / 360 * degrees));
 */
 
 
@@ -146,7 +146,7 @@ public class Pushbot2021
     public void MoveForwardInch(double Distance, double power) {
 
         double totalRotations = Distance / circumference;
-        int rotationDistanceofWheel = (int) (andyMarkEncoderTics * totalRotations);
+        int rotationDistanceofWheel = (int) (andyMark40Tics * totalRotations);
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -182,11 +182,7 @@ public class Pushbot2021
             }
         }
     }
-    public void depositCube(double height, double power){
-        double slideCirc = spinDiameter*3.14;
-        double Rotations = height/slideCirc;
-        double totalTics = andyMarkEncoderTics * Rotations;
-        moveSlide(0, 1);
+    public void depositCube(double height){
         //move linear slide to correct level
         moveSlide(14, 1);
 
@@ -201,16 +197,21 @@ public class Pushbot2021
 
         moveSlide(0, .7);
     }
-    public void pickupCube(double degrees){
-        moveTurret(0, .5);
+    public void pickupCube(double degrees, double distance){
+        double height = 8;
+        double length = distance;
+        double hypotenuse = Math.sqrt((height*height)+(length*length));
+        double theta = Math.asin(length / hypotenuse);
+        double angle = theta * (1 / 180);
+        double linkageMove = hypotenuse * ((1 / 180) * 9);
 
         moveTurret(degrees, .5);
 
         grabber.setPosition(.5);
 
-        linkage.setPosition(.5);
+        linkage.setPosition(linkageMove);
 
-        pivot.setPosition(.5);
+        pivot.setPosition(angle);
 
         grabber.setPosition(0);
 
@@ -234,7 +235,6 @@ public class Pushbot2021
 
     public void moveTurret(double degrees, double power) {
         //double motorTics = (ticToDegree * degrees);
-        int i = 0;
         //double startingPosition = robot.turret.getCurrentPosition();
 
         double currentDegree = angleWrap(turret.getCurrentPosition() / ticToDegree);
@@ -249,7 +249,7 @@ public class Pushbot2021
 
         if (Math.abs(degrees - currentDegree) < 2.0){
             turret.setPower(0);
-            test = false;
+            turretMove = false;
         } else if (currentDegree < degrees) {
             turret.setPower(outputPower);
         } else if (currentDegree > degrees){
@@ -257,16 +257,25 @@ public class Pushbot2021
         }
     }
     public void moveSlide (double height, double power){
-        double slideCirc = spinDiameter*3.14;
+        /*double slideCirc = spinDiameter*3.14;
         double Rotations = height/slideCirc;
-        double totalTics = andyMarkEncoderTics * Rotations;
+        double inches = andyMark20Tics * Rotations;*/
 
-        if (slide.getCurrentPosition() > (totalTics-10) && slide.getCurrentPosition() < (totalTics + 10)){
+        double currentHeight = (slide.getCurrentPosition() / ticToInch);
+
+        double outputPower;
+
+        if (Math.abs(height - currentHeight) < 60.0) {
+            outputPower = 0.05;
+        } else {
+            outputPower = power;
+        }
+        if (Math.abs(height - currentHeight) < 2.0){
             slide.setPower(0);
-        } else if (slide.getCurrentPosition() > totalTics){
-            slide.setPower(-power);
-        } else if (slide.getCurrentPosition() < totalTics){
-            slide.setPower(power);
+        } else if (height > currentHeight){
+            slide.setPower(outputPower);
+        } else if (height < currentHeight){
+            slide.setPower(-outputPower);
         }
     }
 }

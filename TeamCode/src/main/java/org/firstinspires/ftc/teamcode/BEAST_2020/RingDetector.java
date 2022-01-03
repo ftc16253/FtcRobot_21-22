@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2020;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 

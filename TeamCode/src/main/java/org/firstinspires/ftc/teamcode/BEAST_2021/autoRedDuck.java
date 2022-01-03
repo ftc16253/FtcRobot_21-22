@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -158,13 +158,41 @@ public class autoRedDuck extends LinearOpMode {
                         robot.MoveForwardInch(24,1);
 /*
                         //deposit the cube in tower
-                        robot.depositCube(14,1);
+                        robot.depositCube(0);
 
-                        //move away from alliance hub
-                        robot.MoveForwardInch(8,-1);
+                        //pickup duck
+                        robot.pickupCube(135, 12);
 
-                        //turn to duck
-                        robot.turn(150, 1);*/
+                        //deposit duck
+                        robot.depositCube(1);
+
+                        //move to duck spinner
+                        robot.MoveForwardInch(43, -1);
+
+                        robot.duckSpinner.setPower(.7);
+                        sleep(1000);
+
+                        //turn to pickup duck
+                        robot.turn(-120, 1);
+
+                        //pickup duck
+                        robot.pickupCube(45, 5);
+
+                        //turn to alliance hub
+                        robot.turn(120, 1);
+
+                        //move to alliance hub
+                        robot.MoveForwardInch(43, 1);
+
+                        //deposit duck
+                        robot.depositCube(0);
+
+                        //turn to storage unit
+                        robot.turn(135, 1);
+
+                        //move into storage unit
+                        robot.MoveForwardInch(30, 1);
+*/
                         sleep(30000);
                     }
                     //when duck is in right config
@@ -180,85 +208,61 @@ public class autoRedDuck extends LinearOpMode {
                         //move to alliance hub
                         robot.MoveForwardInch(24,1);
 /*
-                        //pick up starting cube
-                        robot.grabber.setPosition(1);
-                        sleep(100);
-
-                        //move linear slide to correct level
-                        robot.slide.setPower(1);
-                        sleep(300);
-                        robot.slide.setPower(0);
-
-                        //move linkage out above shipping hub
-                        robot.linkage.setPosition(.5);
-                        sleep(100);
-
-                        //release starting cube
-                        robot.grabber.setPosition(0);
-
-                        //move linkage into robot
-                        robot.linkage.setPosition(0);
-
-                        //move linear slide down
-                        robot.slide.setPower(-1);
-                        sleep(300);
+                        //deposit the cube in tower
+                        robot.depositCube(10);
 
                         //move away from alliance hub
-                        robot.MoveForwardInch(-2,1);
+                        robot.MoveForwardInch(8,-1);
 
-                        //turn to duck
-                        robot.turn(90, 1);*/
+                        //pickup duck
+                        robot.pickupCube(135, 4);
+
+                        //deposit duck
+                        robot.depositCube(0);
+
+                        //move to duck spinner
+                        robot.MoveForwardInch(43, -1);
+
+                        robot.duckSpinner.setPower(.7);
+                        sleep(300);
+*/
+
                         sleep(30000);
                     }
                     //when duck is in middle config
                     else if (place == "mid");{
 
-                        //move away from wall
-                        robot.MoveForwardInch(8, 1);
-                        sleep(100);
+                            //move away from wall
+                            robot.MoveForwardInch(8, 1);
+                            sleep(100);
 
-                        //turn to alliance hub
-                        robot.turn(45, 1);
+                            //turn to alliance hub
+                            robot.turn(45, 1);
 
-                        //move to alliance hub
-                        robot.MoveForwardInch(24,1);
-/*
-                        //pick up starting cube
-                        robot.grabber.setPosition(1);
-                        sleep(100);
+                            //move to alliance hub
+                            robot.MoveForwardInch(24,1);
+                            /*
+                            //deposit the cube in tower
+                            robot.depositCube(20);
 
-                        //move linear slide to correct level
-                        robot.slide.setPower(1);
-                        sleep(300);
-                        robot.slide.setPower(0);
+                            //move away from alliance hub
+                            robot.MoveForwardInch(8,-1);
 
-                        //move linkage out above shipping hub
-                        robot.linkage.setPosition(.5);
-                        sleep(100);
+                            //pickup duck
+                            robot.pickupCube(135, 8);
 
-                        //release starting cube
-                        robot.grabber.setPosition(0);
+                            //deposit duck
+                            robot.depositCube(0);
 
-                        //move linkage into robot
-                        robot.linkage.setPosition(0);
+                            //move to duck spinner
+                            robot.MoveForwardInch(43, -1);
 
-                        //move linear slide down
-                        robot.slide.setPower(-1);
-                        sleep(300);
+                            robot.duckSpinner.setPower(.7);
+                            sleep(300);
+*/
 
-                        //move away from alliance hub
-                        robot.MoveForwardInch(-2,1);
-
-                        //turn to duck
-                        robot.turn(90, 1);
-
-                        //Move to duck
-                        robot.MoveForwardInch(18, 1)
-
-                        //pick up duck*/
-                        sleep(30000);
+                            sleep(30000);
                     }
-
                 }
             }
         }
@@ -291,50 +295,5 @@ public class autoRedDuck extends LinearOpMode {
        tfodParameters.inputSize = 350;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
-    }
-    public void turn(double degrees, double power) {
-
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        double turnCircumference = 14 * 3.14;
-        double totalRotations = turnCircumference / 360 * degrees;
-        int rotationDistanceofWheel = (int) (robot.andyMarkEncoderTics * totalRotations);
-
-        /*frontLeft.setTargetPosition((int) (andyMarkEncoderTics / 360 * degrees));
-        frontRight.setTargetPosition((int) (-andyMarkEncoderTics / 360 * degrees));
-*/
-
-
-        boolean runRobot = true;
-        while (runRobot) {
-            if (Math.abs(robot.frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(robot.frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
-                    || Math.abs(robot.backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(robot.backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
-                robot.frontLeft.setPower(0);
-                robot.backLeft.setPower(0);
-                robot.frontRight.setPower(0);
-               robot.backRight.setPower(0);
-                runRobot = false;
-            } else {
-                robot.frontLeft.setPower(power);
-                robot.frontRight.setPower(-power);
-                robot.backLeft.setPower(-power);
-                robot.backRight.setPower(power);
-            }
-            telemetry.addData("Frontright = ", robot.frontRight.getCurrentPosition());
-            telemetry.addData("Frontleft = ", robot.frontLeft.getCurrentPosition());
-            telemetry.addData("Backright = ", robot.backRight.getCurrentPosition());
-            telemetry.addData("Backleft = ", robot.backLeft.getCurrentPosition());
-            telemetry.addData("rotation distance of wheel = ", rotationDistanceofWheel);
-            telemetry.update();
-        }
-
     }
 }

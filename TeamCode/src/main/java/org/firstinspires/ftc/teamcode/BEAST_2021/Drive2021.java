@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -38,6 +38,19 @@ public class Drive2021 extends LinearOpMode {
                 robot.backLeft.setPower(0);
             }
 
+
+            robot.slide.setPower(gamepad2.left_stick_y / 4);
+
+            if (gamepad1.a == true){
+                //turn turret to right
+                robot.turretMove = true;
+                robot.targetDeg = 10.0;
+            }
+            if (gamepad1.b == true){
+                //turn turret to left
+                robot.turretMove = true;
+                robot.targetDeg = 270.0;
+            }
             if (gamepad1.a) {
                  robot.duckSpinner.setPower(.7);
             } else if (gamepad1.b){
@@ -48,12 +61,12 @@ public class Drive2021 extends LinearOpMode {
 
             if (gamepad2.right_bumper){
                 //turn turret to right
-                robot.turret.setPower(1);
+                robot.turret.setPower(-1);
             }
 
             if (gamepad2.left_bumper){
                 //turn turret to left
-                robot.turret.setPower(-1);
+                robot.turret.setPower(1);
             }
 
             if (gamepad2.left_trigger != 0){
@@ -62,10 +75,10 @@ public class Drive2021 extends LinearOpMode {
             } else if (gamepad2.right_trigger != 0) {
                 //Open grabber
                 robot.grabber.setPosition(0);
-            } else {
+            } /*else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
-            }
+            }*/
 
             if (gamepad2.y){
                 //linkage open
@@ -85,11 +98,9 @@ public class Drive2021 extends LinearOpMode {
                 robot.pivot.setPosition(.2);
             }
 
-           /* if(robot.slideSensor.getState() == true){
-                robot.slide.setPower(0);
-            } else if(gamepad2.left_stick_y != 0){
-                robot.slide.setPower(gamepad2.left_stick_y);
-            }*/
+            while(robot.slideSensor.isPressed()){
+                robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
+            }
         }
     }
 }

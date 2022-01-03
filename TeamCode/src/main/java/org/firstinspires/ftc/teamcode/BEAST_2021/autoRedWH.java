@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -41,8 +41,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-@Autonomous(name = "autoBlueDuck")
-public class autoBlueDuck extends LinearOpMode {
+@Autonomous(name = "autoRedWH")
+public class autoRedWH extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
             "Ball",
@@ -143,41 +143,33 @@ public class autoBlueDuck extends LinearOpMode {
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(45, -1);
+                            robot.turn(45, 1);
 
                             //move to alliance hub
                             robot.MoveForwardInch(24,1);
-/*
-                            //pick up starting cube
-                            robot.grabber.setPosition(1);
-                            sleep(100);
 
-                            //move linear slide to correct level
-                            robot.slide.setPower(1);
-                            sleep(300);
-                            robot.slide.setPower(0);
-
-                            //move linkage out above shipping hub
-                            robot.linkage.setPosition(.5);
-                            sleep(100);
-
-                            //release starting cube
-                            robot.grabber.setPosition(0);
-
-                            //move linkage into robot
-                            robot.linkage.setPosition(0);
-
-                            //move linear slide down
-                            robot.slide.setPower(-1);
-                            sleep(300);
+                            //deposit the cube in tower
+                            robot.depositCube(14);
 
                             //move away from alliance hub
-                            robot.MoveForwardInch(-2,1);
+                            robot.MoveForwardInch(8,-1);
 
-                            //turn to duck
-                            robot.turn(90, -1);*/
+                            //pickup duck
+                            robot.pickupCube(110, 12);
+
+                            //deposit duck
+                            robot.depositCube(14);
+
+                            //move to duck spinner
+                            robot.MoveForwardInch(43, -1);
+
+                            robot.duckSpinner.setPower(.7);
+                            sleep(300);
+
+
                             sleep(30000);
                         }
+                        //when duck is in right config
                         else if (place == "right"){
 
                             //move away from wall
@@ -185,41 +177,33 @@ public class autoBlueDuck extends LinearOpMode {
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(45, -1);
+                            robot.turn(45, 1);
 
                             //move to alliance hub
                             robot.MoveForwardInch(24,1);
-/*
-                            //pick up starting cube
-                            robot.grabber.setPosition(1);
-                            sleep(100);
 
-                            //move linear slide to correct level
-                            robot.slide.setPower(1);
-                            sleep(300);
-                            robot.slide.setPower(0);
-
-                            //move linkage out above shipping hub
-                            robot.linkage.setPosition(.5);
-                            sleep(100);
-
-                            //release starting cube
-                            robot.grabber.setPosition(0);
-
-                            //move linkage into robot
-                            robot.linkage.setPosition(0);
-
-                            //move linear slide down
-                            robot.slide.setPower(-1);
-                            sleep(300);
+                            //deposit the cube in tower
+                            robot.depositCube(14);
 
                             //move away from alliance hub
-                            robot.MoveForwardInch(-2,1);
+                            robot.MoveForwardInch(8,-1);
 
-                            //turn to duck
-                            robot.turn(90, -1);*/
+                            //pickup duck
+                            robot.pickupCube(110, 12);
+
+                            //deposit duck
+                            robot.depositCube(14);
+
+                            //move to duck spinner
+                            robot.MoveForwardInch(43, -1);
+
+                            robot.duckSpinner.setPower(.7);
+                            sleep(300);
+
+
                             sleep(30000);
                         }
+                        //when duck is in middle config
                         else if (place == "mid");{
 
                             //move away from wall
@@ -227,42 +211,32 @@ public class autoBlueDuck extends LinearOpMode {
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(45, -1);
+                            robot.turn(45, 1);
 
                             //move to alliance hub
                             robot.MoveForwardInch(24,1);
-/*
-                            //pick up starting cube
-                            robot.grabber.setPosition(1);
-                            sleep(100);
 
-                            //move linear slide to correct level
-                            robot.slide.setPower(1);
-                            sleep(300);
-                            robot.slide.setPower(0);
-
-                            //move linkage out above shipping hub
-                            robot.linkage.setPosition(.5);
-                            sleep(100);
-
-                            //release starting cube
-                            robot.grabber.setPosition(0);
-
-                            //move linkage into robot
-                            robot.linkage.setPosition(0);
-
-                            //move linear slide down
-                            robot.slide.setPower(-1);
-                            sleep(300);
+                            //deposit the cube in tower
+                            robot.depositCube(14);
 
                             //move away from alliance hub
-                            robot.MoveForwardInch(-2,1);
+                            robot.MoveForwardInch(8,-1);
 
-                            //turn to duck
-                            robot.turn(90, -1);*/
+                            //pickup duck
+                            robot.pickupCube(110, 12);
+
+                            //deposit duck
+                            robot.depositCube(14);
+
+                            //move to duck spinner
+                            robot.MoveForwardInch(43, -1);
+
+                            robot.duckSpinner.setPower(.7);
+                            sleep(300);
+
+
                             sleep(30000);
                         }
-
                     }
                 }
             }

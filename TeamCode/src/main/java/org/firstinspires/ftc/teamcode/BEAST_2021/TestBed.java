@@ -1,14 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.apache.commons.math3.geometry.euclidean.oned.OrientedPoint;
-import org.checkerframework.checker.units.qual.degrees;
+import org.firstinspires.ftc.teamcode.BEAST_2021.Pushbot2021;
 
 @TeleOp
 public class TestBed extends LinearOpMode {
@@ -46,7 +41,7 @@ public class TestBed extends LinearOpMode {
             robot.backRight.setPower(-gamepad1.right_stick_y);
             robot.frontLeft.setPower(-gamepad1.left_stick_y);
             robot.backLeft.setPower(-gamepad1.left_stick_y);
-            robot.slide.setPower(gamepad2.right_stick_y);
+            robot.slide.setPower(gamepad2.right_stick_y / 2 );
 
             if (gamepad1.a == true) {
                 //ramp up duck spinner
@@ -66,13 +61,17 @@ public class TestBed extends LinearOpMode {
 
             if (gamepad1.a == true){  
                 //turn turret to right
-                robot.test = true;
+                robot.turretMove = true;
                 robot.targetDeg = 10.0;
             }
             if (gamepad1.b == true){
                 //turn turret to left
-                robot.test = true;
+                robot.turretMove = true;
                 robot.targetDeg = 270.0;
+            }
+            if(gamepad2.dpad_up){
+                robot.slideMove = true;
+                robot.targetHeight = 5.0;
             }
 
             if (gamepad2.left_bumper == true){
@@ -107,12 +106,16 @@ public class TestBed extends LinearOpMode {
                 robot.linkage.setPosition(.6);
             }
             if (gamepad1.x == true){
-                robot.test = true;
+                robot.turretMove = true;
                 robot.targetDeg = 90;
             }
 
-            if (robot.test) {
+            if (robot.turretMove) {
                 robot.moveTurret(robot.targetDeg, 0.25);
+            }
+
+            if (robot.slideMove){
+                robot.moveSlide(robot.targetHeight, .25);
             }
 
             double currentDegree = robot.turret.getCurrentPosition() / robot.ticToDegree;
