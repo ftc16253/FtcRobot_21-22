@@ -39,18 +39,8 @@ public class Drive2021 extends LinearOpMode {
             }
 
 
-            robot.slide.setPower(gamepad2.left_stick_y / 4);
+            robot.slide.setPower(-gamepad2.left_stick_y / 4);
 
-            if (gamepad1.a == true){
-                //turn turret to right
-                robot.turretMove = true;
-                robot.targetDeg = 10.0;
-            }
-            if (gamepad1.b == true){
-                //turn turret to left
-                robot.turretMove = true;
-                robot.targetDeg = 270.0;
-            }
             if (gamepad1.a) {
                  robot.duckSpinner.setPower(.7);
             } else if (gamepad1.b){
@@ -59,7 +49,7 @@ public class Drive2021 extends LinearOpMode {
                 robot.duckSpinner.setPower(0);
             }
 
-            if (gamepad2.right_bumper){
+           /* if (gamepad2.right_bumper){
                 //turn turret to right
                 robot.turret.setPower(-1);
             }
@@ -68,37 +58,52 @@ public class Drive2021 extends LinearOpMode {
                 //turn turret to left
                 robot.turret.setPower(1);
             }
-
+*/
             if (gamepad2.left_trigger != 0){
-                //close grabber
-                robot.grabber.setPosition(1);
+                    //close grabber
+                    robot.grabber.setPosition(1);
             } else if (gamepad2.right_trigger != 0) {
                 //Open grabber
-                robot.grabber.setPosition(0);
+                robot.grabber.setPosition(0.6);
             } /*else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
             }*/
 
             if (gamepad2.y){
-                //linkage open
-                robot.linkage.setPosition(0);
+                //linkage out
+                robot.linkage.setPosition(1);
             }
 
             if (gamepad2.x){
-                //linkage closed - counter clockwise to 1
-                robot.linkage.setPosition(.53);
+                //linkage in
+                robot.linkage.setPosition(.7);
             }
 
             if (gamepad2.a){
-                robot.pivot.setPosition(0);
+                telemetry.addData("Pivot position: ", robot.pivot.getPosition());
+                telemetry.update();
+                if (robot.pivot.getPosition() > 0){
+                    robot.pivot.setPosition(robot.pivot.getPosition() - .1);
+                }
+                sleep(500);
             }
 
-            if (gamepad2.b){
-                robot.pivot.setPosition(.2);
+            if (gamepad2.b) {
+                telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
+                if (robot.pivot.getPosition() < 0.3) {
+                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.1);
+
+                }
+                telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
+                telemetry.update();
+                sleep (500);
             }
+
 
             while(robot.slideSensor.isPressed()){
+                robot.slide.setPower(0);
+                sleep(500);
                 robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
             }
         }

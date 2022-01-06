@@ -89,8 +89,8 @@ public class Pushbot2021
 
 
         //set servo positions to zero
-        linkage.setPosition(.53);
-        grabber.setPosition(0);
+        linkage.setPosition(.7);
+        grabber.setPosition(.4);
         pivot.setPosition(0);
 
         //set sensors
@@ -127,8 +127,10 @@ public class Pushbot2021
 
         boolean runRobot = true;
         while (runRobot) {
-            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
-                    || Math.abs(backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
+            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
                 frontRight.setPower(0);
@@ -160,8 +162,10 @@ public class Pushbot2021
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         while (true) {
-            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
-                    || Math.abs(backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel) || Math.abs(backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
+            if (Math.abs(frontRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(frontLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(backLeft.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)
+                    || Math.abs(backRight.getCurrentPosition()) > Math.abs(rotationDistanceofWheel)) {
                 frontLeft.setPower(0);
                 backLeft.setPower(0);
                 frontRight.setPower(0);
@@ -182,12 +186,19 @@ public class Pushbot2021
             }
         }
     }
-    public void depositCube(double height){
+    public void depositCube(double height, double degrees, double distance){
+        double length = distance;
+        double hypotenuse = Math.sqrt((height*height)+(length*length));
+        double linkageMove = hypotenuse * ((1 / 180) * 9 );
+
         //move linear slide to correct level
-        moveSlide(14, 1);
+        moveSlide(height, .25);
+
+        //turn turret to deposit
+        moveTurret(degrees, .25);
 
         //move linkage out above shipping hub
-        linkage.setPosition(.5);
+        linkage.setPosition(linkageMove);
 
         //release starting cube
         grabber.setPosition(0);
@@ -197,7 +208,7 @@ public class Pushbot2021
 
         moveSlide(0, .7);
     }
-    public void pickupCube(double degrees, double distance){
+    public void pickupCube(double degrees, double distance, double power){
         double height = 8;
         double length = distance;
         double hypotenuse = Math.sqrt((height*height)+(length*length));
@@ -205,7 +216,7 @@ public class Pushbot2021
         double angle = theta * (1 / 180);
         double linkageMove = hypotenuse * ((1 / 180) * 9);
 
-        moveTurret(degrees, .5);
+        moveTurret(degrees, power);
 
         grabber.setPosition(.5);
 
@@ -213,17 +224,17 @@ public class Pushbot2021
 
         pivot.setPosition(angle);
 
-        grabber.setPosition(0);
+        grabber.setPosition(1);
 
         pivot.setPosition(0);
 
         linkage.setPosition(0);
 
-        moveTurret(0, .5);
+        moveTurret(0, power);
     }
 
     public double angleWrap(double currentAngle) {
-        while (currentAngle < 0) {
+        while (currentAngle < -270) {
             currentAngle += 360;
         }
         while (currentAngle > 360) {
@@ -234,8 +245,6 @@ public class Pushbot2021
     }
 
     public void moveTurret(double degrees, double power) {
-        //double motorTics = (ticToDegree * degrees);
-        //double startingPosition = robot.turret.getCurrentPosition();
 
         double currentDegree = angleWrap(turret.getCurrentPosition() / ticToDegree);
 
@@ -257,9 +266,6 @@ public class Pushbot2021
         }
     }
     public void moveSlide (double height, double power){
-        /*double slideCirc = spinDiameter*3.14;
-        double Rotations = height/slideCirc;
-        double inches = andyMark20Tics * Rotations;*/
 
         double currentHeight = (slide.getCurrentPosition() / ticToInch);
 
@@ -272,6 +278,7 @@ public class Pushbot2021
         }
         if (Math.abs(height - currentHeight) < 2.0){
             slide.setPower(0);
+            slideMove = false;
         } else if (height > currentHeight){
             slide.setPower(outputPower);
         } else if (height < currentHeight){

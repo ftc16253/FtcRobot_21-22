@@ -22,58 +22,60 @@ public class testTankDrive extends LinearOpMode {
             robot.backLeft.setPower(gamepad1.left_stick_y);
 
 
+            robot.slide.setPower(gamepad2.left_stick_y / 4);
+
             if (gamepad1.a) {
                 robot.duckSpinner.setPower(.7);
-            } else if(gamepad1.b){
+            } else if (gamepad1.b) {
                 robot.duckSpinner.setPower(-.7);
             } else {
                 robot.duckSpinner.setPower(0);
             }
 
-            if (gamepad2.right_bumper){
+            if (gamepad2.right_bumper) {
                 //turn turret to right
-                robot.turret.setPower(1);
-            }
-
-            if (gamepad2.left_bumper){
-                //turn turret to left
                 robot.turret.setPower(-1);
             }
 
-            if (gamepad2.left_trigger != 0){
+            if (gamepad2.left_bumper) {
+                //turn turret to left
+                robot.turret.setPower(1);
+            }
+
+            if (gamepad2.left_trigger != 0) {
                 //close grabber
                 robot.grabber.setPosition(1);
             } else if (gamepad2.right_trigger != 0) {
                 //Open grabber
                 robot.grabber.setPosition(0);
-            } else {
+            } /*else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
-            }
+            }*/
 
-            if (gamepad2.y){
+            if (gamepad2.y) {
                 //linkage open
                 robot.linkage.setPosition(0);
             }
 
-            if (gamepad2.x){
+            if (gamepad2.x) {
                 //linkage closed - counter clockwise to 1
                 robot.linkage.setPosition(.53);
             }
 
-            if (gamepad2.a){
+            if (gamepad2.a) {
                 robot.pivot.setPosition(0);
             }
 
-            if (gamepad2.b){
+            if (gamepad2.b) {
                 robot.pivot.setPosition(.2);
             }
 
-            /*if(robot.slideSensor.getState() == true){
+            while (robot.slideSensor.isPressed()) {
                 robot.slide.setPower(0);
-            } else if(gamepad2.left_stick_y != 0){
-                robot.slide.setPower(gamepad2.left_stick_y);
-            }*/
+                sleep(500);
+                robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
+            }
         }
     }
 }
