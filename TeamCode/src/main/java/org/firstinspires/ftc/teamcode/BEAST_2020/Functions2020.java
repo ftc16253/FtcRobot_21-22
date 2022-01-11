@@ -36,7 +36,7 @@ class Functions2020 {
     int andyMarkEncoderTics = 660;
 
     public void init(HardwareMap ahwMap) {
-        rob.init(ahwMap);
+        rob.init(ahwMap, false);
 
         frontLeft = rob.frontLeft;
         frontRight = rob.frontRight;

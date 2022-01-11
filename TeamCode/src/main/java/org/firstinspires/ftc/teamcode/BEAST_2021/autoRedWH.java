@@ -70,11 +70,11 @@ public class autoRedWH extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        robot.init(hardwareMap, true);
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
         initTfod();
-        robot.init(hardwareMap);
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -143,10 +143,10 @@ public class autoRedWH extends LinearOpMode {
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(-45, 1);
+                            robot.turn(22, -1);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(24,1);
+                            robot.MoveForwardInch(20,1);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -165,13 +165,17 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from warehouse
+                            robot.MoveForwardInch(-8, 1);
 
                             //turn to warehouse
-                            robot.turn(150, 1);
+                            robot.turn(70, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);
-
+/*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
 
@@ -206,13 +210,13 @@ public class autoRedWH extends LinearOpMode {
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(-45, 1);
+                            robot.turn(22, -1);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(24,1);
+                            robot.MoveForwardInch(20,1);
 /*
                             //deposit the cube in tower
-                            robot.depositCube(20, 0, 5);
+                            robot.depositCube(0, 0);
 
                             //move away from alliance hub
                             robot.MoveForwardInch(8,-1);
@@ -228,13 +232,17 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from warehouse
+                            robot.MoveForwardInch(-8, 1);
 
                             //turn to warehouse
-                            robot.turn(150, 1);
+                            robot.turn(70, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);
-
+/*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
 
@@ -262,20 +270,20 @@ public class autoRedWH extends LinearOpMode {
                             sleep(30000);
                         }
                         //when duck is in middle config
-                        else if (place == "mid");{
+                        else if (place == "mid"){
 
                             //move away from wall
                             robot.MoveForwardInch(8, 1);
                             sleep(100);
 
                             //turn to alliance hub
-                            robot.turn(-45, 1);
+                            robot.turn(22, -1);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(24,1);
+                            robot.MoveForwardInch(20,1);
 /*
                             //deposit the cube in tower
-                            robot.depositCube(10, 0);
+                            robot.depositCube(0, 0);
 
                             //move away from alliance hub
                             robot.MoveForwardInch(8,-1);
@@ -291,13 +299,17 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from warehouse
+                            robot.MoveForwardInch(-8, 1);
 
                             //turn to warehouse
-                            robot.turn(150, 1);
+                            robot.turn(70, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);
-
+/*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
 

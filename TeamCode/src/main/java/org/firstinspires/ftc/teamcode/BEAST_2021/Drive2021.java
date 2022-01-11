@@ -9,7 +9,7 @@ public class Drive2021 extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
 
         waitForStart();
 
@@ -39,7 +39,9 @@ public class Drive2021 extends LinearOpMode {
             }
 
 
-            robot.slide.setPower(-gamepad2.left_stick_y / 4);
+            robot.slide.setPower(-gamepad2.right_stick_y / 8);
+            telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
+            telemetry.update();
 
             if (gamepad1.a) {
                  robot.duckSpinner.setPower(.7);
@@ -49,26 +51,44 @@ public class Drive2021 extends LinearOpMode {
                 robot.duckSpinner.setPower(0);
             }
 
-           /* if (gamepad2.right_bumper){
+            if (gamepad2.dpad_right){
                 //turn turret to right
-                robot.turret.setPower(-1);
+                robot.turret.setPower(-.2);
             }
 
-            if (gamepad2.left_bumper){
+            if (gamepad2.dpad_left){
                 //turn turret to left
-                robot.turret.setPower(1);
+                robot.turret.setPower(.2);
             }
-*/
-            if (gamepad2.left_trigger != 0){
+
+            if (gamepad2.dpad_up){
+                robot.turret.setPower(0);
+            }
+/*            if (gamepad2.left_trigger != 0){
                     //close grabber
-                    robot.grabber.setPosition(1);
+                    robot.grabber.setPosition(.8);
             } else if (gamepad2.right_trigger != 0) {
                 //Open grabber
                 robot.grabber.setPosition(0.6);
-            } /*else {
+            } else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
             }*/
+            if (gamepad2.left_bumper == true){
+                //close grabber
+                robot.grabber.setPosition(1);
+            }
+            else if (gamepad2.right_bumper == true)
+            {
+                //Open grabber
+                robot.grabber.setPosition(0);
+            }
+            else
+            {
+                //Stop grabber
+                robot.grabber.setPosition(.5);
+            }
+
 
             if (gamepad2.y){
                 //linkage out

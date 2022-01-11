@@ -70,11 +70,11 @@ public class autoRedDuck extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        robot.init(hardwareMap, true);
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
         initTfod();
-        robot.init(hardwareMap);
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -83,11 +83,12 @@ public class autoRedDuck extends LinearOpMode {
         if (tfod != null) {
             tfod.activate();
             //tfod.setZoom(1, 16.0/9.0);
+            //tfod.setZoom(1.2, 17.0/10.0);
             tfod.setZoom(1.2, 17.0/10.0);
         }
 
         //pick up starting cube
-        robot.grabber.setPosition(1);
+        //robot.grabber.setPosition(1);
 
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -103,74 +104,88 @@ public class autoRedDuck extends LinearOpMode {
 
 
             while (opModeIsActive()) {
+                sleep(1000);
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                    if (updatedRecognitions == null){
                         updatedRecognitions = tfod.getRecognitions();
-                    }
-                    if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      // step through the list of recognitions and display boundary info.
-                      int i = 0;
-                      for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
+                   }
+                   if (updatedRecognitions != null) {
+                     telemetry.addData("# Object Detected", updatedRecognitions.size());
+                     // step through the list of recognitions and display boundary info.
+                     int i = 0;
+                     for (Recognition recognition : updatedRecognitions) {
+                         telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                         telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                               recognition.getLeft(), recognition.getTop());
+                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                               recognition.getRight(), recognition.getBottom());
+                         i++;
+                     }
 
-                        i++;
-                      }
-                      sleep(1000);
-
-                      if (updatedRecognitions.size() > 0 && (updatedRecognitions.get(0).getLabel() == "Duck"
-                              || updatedRecognitions.get(0).getLabel() == "Cube")){
+                     if (updatedRecognitions.size() > 0 && (updatedRecognitions.get(0).getLabel() == "Duck"
+                              || updatedRecognitions.get(0).getLabel() == "Cube" )){
                           place = "left";
-                      }
-                      else if (updatedRecognitions.size() > 1 && (updatedRecognitions.get(1).getLabel() == "Duck"
+                     }
+                     else if (updatedRecognitions.size() > 1 && (updatedRecognitions.get(1).getLabel() == "Duck"
                               || updatedRecognitions.get(1).getLabel() == "Cube")){
                           place = "mid";
-                      }
-                      else {
+                     }
+                     else {
                           place = "right";
-                      }
+                     }
 
                       telemetry.addData("Place = ", place);
                       telemetry.update();
-
+/*robot.linkage.setPosition(.9);
+sleep(500);
+robot.grabber.setPosition(.5);
+sleep(500);
+robot.pivot.setPosition(.40);
+sleep(500);
+robot.grabber.setPosition(1);
+sleep(30000);*/
                       //when duck is in left config
                     if (place == "left"){
 
                         //move away from wall
-                        robot.MoveForwardInch(8, 1);
+                        robot.MoveForwardInch(14, 1);
                         sleep(100);
 
                         //turn to alliance hub
-                        robot.turn(45, 1);
+                        robot.turn(22, 1);
 
                         //move to alliance hub
-                        robot.MoveForwardInch(24,1);
+                        robot.MoveForwardInch(22,1);
 /*
                         //deposit the cube in tower
                         robot.depositCube(0, 0, 5);
 
                         //pickup duck
-                        robot.pickupCube(135, 12, .5);
+                        robot.pickupCube(135, 3, .5);
 
                         //deposit duck
                         robot.depositCube(0, 0, 10);
+*/
+
+                        //turn to duck spinner
+                        robot.turn(17, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(49, -1);
 
                         robot.duckSpinner.setPower(.7);
-                        sleep(1000);
+                        sleep(1750);
 
-                        //turn to pickup duck
-                        robot.turn(-120, 1);
+                        robot.duckSpinner.setPower(0);
+                        sleep(250);
 
+                        robot.MoveForwardInch(12, 1);
+
+                        robot.turn(45, 1);
+/*
                         //pickup duck
                         robot.pickupCube(45, 5, .5);
 
@@ -193,35 +208,42 @@ public class autoRedDuck extends LinearOpMode {
                     }
                     //when duck is in right config
                     else if (place == "right"){
-
                         //move away from wall
-                        robot.MoveForwardInch(8, 1);
+                        robot.MoveForwardInch(14, 1);
                         sleep(100);
 
                         //turn to alliance hub
-                        robot.turn(45, 1);
+                        robot.turn(22, 1);
 
                         //move to alliance hub
-                        robot.MoveForwardInch(24,1);
+                        robot.MoveForwardInch(22,1);
 /*
                         //deposit the cube in tower
-                        robot.depositCube(20, 0, 5);
+                        robot.depositCube(0, 0, 5);
 
                         //pickup duck
-                        robot.pickupCube(135, 12, .5);
+                        robot.pickupCube(135, 3, .5);
 
                         //deposit duck
                         robot.depositCube(0, 0, 10);
+*/
+
+                        //turn to duck spinner
+                        robot.turn(17, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(49, -1);
 
                         robot.duckSpinner.setPower(.7);
-                        sleep(1000);
+                        sleep(1750);
 
-                        //turn to pickup duck
-                        robot.turn(-120, 1);
+                        robot.duckSpinner.setPower(0);
+                        sleep(250);
 
+                        robot.MoveForwardInch(12, 1);
+
+                        robot.turn(45, 1);
+/*
                         //pickup duck
                         robot.pickupCube(45, 5, .5);
 
@@ -243,36 +265,43 @@ public class autoRedDuck extends LinearOpMode {
                         sleep(30000);
                     }
                     //when duck is in middle config
-                    else if (place == "mid");{
+                    else if (place == "mid"){
+                            //move away from wall
+                            robot.MoveForwardInch(14, 1);
+                            sleep(100);
 
-                        //move away from wall
-                        robot.MoveForwardInch(8, 1);
-                        sleep(100);
+                            //turn to alliance hub
+                            robot.turn(22, 1);
 
-                        //turn to alliance hub
-                        robot.turn(45, 1);
-
-                        //move to alliance hub
-                        robot.MoveForwardInch(24,1);
- /*
+                            //move to alliance hub
+                            robot.MoveForwardInch(22,1);
+/*
                         //deposit the cube in tower
-                        robot.depositCube(10, 0, 5);
+                        robot.depositCube(0, 0, 5);
 
                         //pickup duck
-                        robot.pickupCube(135, 12, .5);
+                        robot.pickupCube(135, 3, .5);
 
                         //deposit duck
                         robot.depositCube(0, 0, 10);
+*/
+
+                        //turn to duck spinner
+                        robot.turn(17, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(49, -1);
 
                         robot.duckSpinner.setPower(.7);
-                        sleep(1000);
+                        sleep(1750);
 
-                        //turn to pickup duck
-                        robot.turn(-120, 1);
+                        robot.duckSpinner.setPower(0);
+                        sleep(250);
 
+                        robot.MoveForwardInch(12, 1);
+
+                        robot.turn(45, 1);
+/*
                         //pickup duck
                         robot.pickupCube(45, 5, .5);
 
@@ -291,7 +320,7 @@ public class autoRedDuck extends LinearOpMode {
                         //move into storage unit
                         robot.MoveForwardInch(30, 1);
 */
-                            sleep(30000);
+                        sleep(30000);
                     }
                 }
             }
@@ -322,7 +351,8 @@ public class autoRedDuck extends LinearOpMode {
        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
        tfodParameters.minResultConfidence = 0.8f;
        tfodParameters.isModelTensorFlow2 = true;
-       tfodParameters.inputSize = 350;
+       //tfodParameters.inputSize = 350;
+        tfodParameters.inputSize = 350;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }

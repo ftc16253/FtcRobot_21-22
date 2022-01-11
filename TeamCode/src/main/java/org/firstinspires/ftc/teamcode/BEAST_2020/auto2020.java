@@ -27,7 +27,7 @@ public class auto2020 extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Initialize motors
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, true);
         Util.init(hardwareMap);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);

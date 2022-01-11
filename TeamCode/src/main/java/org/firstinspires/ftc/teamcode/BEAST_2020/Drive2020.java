@@ -80,7 +80,7 @@ public class Drive2020 extends LinearOpMode {
     }
 
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
 
         frontLeft = robot.frontLeft;
         frontRight = robot.frontRight;

@@ -42,7 +42,7 @@ public class Pushbot2021
     private ElapsedTime period  = new ElapsedTime();
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, boolean isAuto) {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
@@ -88,10 +88,17 @@ public class Pushbot2021
 
 
 
-        //set servo positions to zero
-        linkage.setPosition(.7);
-        grabber.setPosition(.4);
-        pivot.setPosition(0);
+        //set servo positions starting positions
+        if (isAuto){
+            linkage.setPosition(.7);
+            grabber.setPosition(.4);
+            pivot.setPosition(.2);
+
+        } else {
+            linkage.setPosition(.7);
+            grabber.setPosition(.4);
+            pivot.setPosition(0);
+        }
 
         //set sensors
         slideSensor = hwMap.get(TouchSensor.class, "slideSensor");
@@ -116,9 +123,9 @@ public class Pushbot2021
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double turnCircumference = 14 * 3.14;
+        double turnCircumference = 7 * 3.14;
         double totalRotations = turnCircumference / 360 * degrees;
-        int rotationDistanceofWheel = (int) (andyMark40Tics * totalRotations);
+        int rotationDistanceofWheel = (int) (andyMark20Tics * totalRotations);
 
         /*frontLeft.setTargetPosition((int) (andyMark40Tics / 360 * degrees));
         frontRight.setTargetPosition((int) (-andyMark40Tics / 360 * degrees));
@@ -139,7 +146,7 @@ public class Pushbot2021
             } else {
                 frontLeft.setPower(power);
                 frontRight.setPower(-power);
-                backLeft.setPower(power);
+                backLeft.setPower(-power);
                 backRight.setPower(power);
             }
         }
@@ -220,7 +227,7 @@ public class Pushbot2021
 
         grabber.setPosition(.5);
 
-        linkage.setPosition(linkageMove);
+        linkage.setPosition(.7+linkageMove);
 
         pivot.setPosition(angle);
 

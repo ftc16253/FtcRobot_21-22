@@ -10,7 +10,7 @@ public class TestBed extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
 
 /*        robot.frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         robot.backRight = hardwareMap.get(DcMotor.class, "backRight");
@@ -55,8 +55,17 @@ public class TestBed extends LinearOpMode {
             }
 
             if (gamepad1.right_bumper == true){
-                //test MoveForwardInch
-                robot.MoveForwardInch(3, 1);
+                //test drive encoders
+                robot.frontLeft.setPower(1);
+                robot.frontRight.setPower(1);
+                robot.backLeft.setPower(-1);
+                robot.backRight.setPower(-1);
+
+                telemetry.addData("left front: ", robot.frontLeft.getCurrentPosition());
+                telemetry.addData("right front: ", robot.frontRight.getCurrentPosition());
+                telemetry.addData("left back: ", robot.backLeft.getCurrentPosition());
+                telemetry.addData("right back: ", robot.backRight.getCurrentPosition());
+                telemetry.update();
             }
 
             if (gamepad1.a == true){  
