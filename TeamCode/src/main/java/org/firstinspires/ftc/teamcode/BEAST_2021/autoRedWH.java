@@ -82,11 +82,8 @@ public class autoRedWH extends LinearOpMode {
          **/
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(1.2, 17.0/10.0);
         }
-
-        //pick up starting cube
-        robot.grabber.setPosition(1);
 
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -132,6 +129,7 @@ public class autoRedWH extends LinearOpMode {
                             place = "right";
                         }
 
+                        tfod.shutdown();
                         telemetry.addData("Place = ", place);
                         telemetry.update();
 
@@ -139,14 +137,35 @@ public class autoRedWH extends LinearOpMode {
                         if (place == "left"){
 
                             //move away from wall
-                            robot.MoveForwardInch(8, 1);
+                            robot.MoveForwardInch(14, 1);
                             sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.25);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
 
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //move pivot to correct level
+                            robot.pivot.setPosition(.15);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(20,1);
+                            robot.MoveForwardInch(24,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //move linkage in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -167,11 +186,11 @@ public class autoRedWH extends LinearOpMode {
                             robot.depositCube(0, 0, 10);
 */
 
-                            // back up from warehouse
-                            robot.MoveForwardInch(-8, 1);
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, 1);
+                            robot.turn(65, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);
@@ -206,14 +225,40 @@ public class autoRedWH extends LinearOpMode {
                         else if (place == "right"){
 
                             //move away from wall
-                            robot.MoveForwardInch(8, 1);
+                            robot.MoveForwardInch(14, 1);
                             sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.25);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
 
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //set pivot to correct position
+                            robot.pivot.setPosition(0);
+
+                            //move slide above top level
+                            robot.slide.setPower(.05);
+                            sleep(500);
+                            robot.slide.setPower(0);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(20,1);
+                            robot.MoveForwardInch(24,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkagee in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -234,11 +279,11 @@ public class autoRedWH extends LinearOpMode {
                             robot.depositCube(0, 0, 10);
 */
 
-                            // back up from warehouse
-                            robot.MoveForwardInch(-8, 1);
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, 1);
+                            robot.turn(65, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);
@@ -273,14 +318,35 @@ public class autoRedWH extends LinearOpMode {
                         else if (place == "mid"){
 
                             //move away from wall
-                            robot.MoveForwardInch(8, 1);
+                            robot.MoveForwardInch(14, 1);
                             sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.25);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
 
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //move pivot to correct level
+                            robot.pivot.setPosition(.05);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(20,1);
+                            robot.MoveForwardInch(24,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkage in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -301,11 +367,11 @@ public class autoRedWH extends LinearOpMode {
                             robot.depositCube(0, 0, 10);
 */
 
-                            // back up from warehouse
-                            robot.MoveForwardInch(-8, 1);
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, 1);
+                            robot.turn(65, 1);
 
                             //drive to warehouse
                             robot.MoveForwardInch(48, 1);

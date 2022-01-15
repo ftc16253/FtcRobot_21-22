@@ -130,21 +130,40 @@ public class autoBlueWH extends LinearOpMode {
                         } else {
                             place = "right";
                         }
+
+                        tfod.shutdown();
                         telemetry.addData("Place = ", place);
                         telemetry.update();
 
 
                         if (place == "left") {
-
                             //move away from wall
-                            robot.MoveForwardInch(8, 1);
+                            robot.MoveForwardInch(14, 1);
                             sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(10,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.225);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
 
                             //turn to alliance hub
                             robot.turn(22, 1);
 
+                            //move pivot to correct level
+                            robot.pivot.setPosition(.15);
+
                             //move to alliance hub
                             robot.MoveForwardInch(20, 1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -165,7 +184,7 @@ public class autoBlueWH extends LinearOpMode {
                             robot.depositCube(0, 0, 10);
 */
 
-                            // back up from warehouse
+                            // back up from alliance hub
                             robot.MoveForwardInch(-8, 1);
 
                             //turn to warehouse
@@ -204,11 +223,112 @@ public class autoBlueWH extends LinearOpMode {
                         else if (place == "right") {
 
                             //move away from wall
-                            robot.MoveForwardInch(8, 1);
+                            robot.MoveForwardInch(14, 1);
                             sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(10,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.225);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
 
                             //turn to alliance hub
                             robot.turn(22, 1);
+
+                            //set pivot to correct level
+                            robot.pivot.setPosition(0);
+
+                            //move slide to above top level
+                            robot.slide.setPower(.05);
+                            sleep(500);
+                            robot.slide.setPower(0);
+
+                            //move to alliance hub
+                            robot.MoveForwardInch(20, 1);
+/*
+                            //deposit the cube in tower
+                            robot.depositCube(0, 0);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(8,-1);
+
+                            // turn to pickup duck
+                            robot.turn(70, 1);
+
+                            //pickup duck
+                            robot.pickupCube(0, 12, .5);
+
+                            // turn to alliance hub
+                            robot.turn(-70, 1);
+
+                            //deposit duck
+                            robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-8, 1);
+
+                            //turn to warehouse
+                            robot.turn(70, -1);
+
+                            //drive to warehouse
+                            robot.MoveForwardInch(48, 1);
+/*
+                            //pickup cube
+                            robot.pickupCube(0, 8, .5);
+
+                            //drive back to alliance hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 10);
+
+                            //move to warehouse
+                            robot.MoveForwardInch(48, 1);
+
+                            //Pickup cube
+                            robot.pickupCube(0, 10, .5);
+
+                            //move to allaince hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 5);
+
+                            //move to warehouse
+                            robot.MoveForwardInch(48, 1);
+*/
+                            sleep(30000);
+                        }
+                        //when duck is in middle config
+                        else if (place == "mid") {
+                            //move away from wall
+                            robot.MoveForwardInch(14, 1);
+                            sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(10,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.225);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
+                            //turn to alliance hub
+                            robot.turn(22, 1);
+
+                            //set pivot to correct level
+                            robot.pivot.setPosition(.05);
 
                             //move to alliance hub
                             robot.MoveForwardInch(20, 1);
@@ -265,82 +385,14 @@ public class autoBlueWH extends LinearOpMode {
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
 */
-                            sleep(30000);
-                        }
-                        //when duck is in middle config
-                        else if (place == "mid") {
-                            {
-
-                                //move away from wall
-                                robot.MoveForwardInch(8, 1);
-                                sleep(100);
-
-                                //turn to alliance hub
-                                robot.turn(22, 1);
-
-                                //move to alliance hub
-                                robot.MoveForwardInch(20, 1);
-/*
-                            //deposit the cube in tower
-                            robot.depositCube(0, 0);
-
-                            //move away from alliance hub
-                            robot.MoveForwardInch(8,-1);
-
-                            // turn to pickup duck
-                            robot.turn(70, 1);
-
-                            //pickup duck
-                            robot.pickupCube(0, 12, .5);
-
-                            // turn to alliance hub
-                            robot.turn(-70, 1);
-
-                            //deposit duck
-                            robot.depositCube(0, 0, 10);
-*/
-
-                                // back up from warehouse
-                                robot.MoveForwardInch(-8, 1);
-
-                                //turn to warehouse
-                                robot.turn(70, -1);
-
-                                //drive to warehouse
-                                robot.MoveForwardInch(48, 1);
-/*
-                            //pickup cube
-                            robot.pickupCube(0, 8, .5);
-
-                            //drive back to alliance hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 10);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-
-                            //Pickup cube
-                            robot.pickupCube(0, 10, .5);
-
-                            //move to allaince hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 5);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-*/
                                 sleep(30000);
-                            }
                         }
                     }
                 }
             }
         }
     }
+
 
     /**
      * Initialize the Vuforia localizat  ion engine.

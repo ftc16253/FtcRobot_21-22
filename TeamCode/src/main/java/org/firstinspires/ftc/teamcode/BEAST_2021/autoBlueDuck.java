@@ -85,8 +85,6 @@ public class autoBlueDuck extends LinearOpMode {
             tfod.setZoom(1, 16.0/9.0);
         }
 
-        //pick up starting cube
-        robot.grabber.setPosition(1);
 
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -132,6 +130,7 @@ public class autoBlueDuck extends LinearOpMode {
                             place = "right";
                         }
 
+                        tfod.shutdown();
                         telemetry.addData("Place = ", place);
                         telemetry.update();
 
@@ -142,115 +141,126 @@ public class autoBlueDuck extends LinearOpMode {
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.275);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //move pivot to place cube on correct level
+                            robot.pivot.setPosition(.125);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(22,1);
-/*
-                        //deposit the cube in tower
-                        robot.depositCube(0, 0, 5);
+                            robot.MoveForwardInch(26,1);
 
-                        //pickup duck
-                        robot.pickupCube(135, 3, .5);
+                            //deposit the cube in tower
+                            robot.grabber.setPosition(0);
 
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-*/
+                            //move linkage in
+                            robot.linkage.setPosition(.4);
 
                             //turn to duck spinner
-                            robot.turn(17, -1);
+                            robot.turn(16, -1);
 
                             //move to duck spinner
-                            robot.MoveForwardInch(49, -1);
+                            robot.MoveForwardInch(41, -1);
 
-                            robot.duckSpinner.setPower(.7);
-                            sleep(1750);
+                            //turn to put duckspinner on carousel
+                            robot.turn(35,1);
 
+                            //Move back to hit carousel
+                            robot.MoveForwardInch(2, -1);
+
+                            //turn carousel
+                            robot.duckSpinner.setPower(-.7);
+                            sleep(2500);
+
+                            //stop carousel
                             robot.duckSpinner.setPower(0);
                             sleep(250);
 
-                            robot.MoveForwardInch(12, 1);
+                            //turn to storage unit
+                            robot.turn(4,1);
 
-                            robot.turn(45, 1);
-/*
-                        //pickup duck
-                        robot.pickupCube(45, 5, .5);
+                            //move away from carousel
+                            robot.MoveForwardInch(20, 1);
 
-                        //turn to alliance hub
-                        robot.turn(120, 1);
-
-                        //move to alliance hub
-                        robot.MoveForwardInch(43, 1);
-
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-
-                        //turn to storage unit
-                        robot.turn(135, 1);
-
-                        //move into storage unit
-                        robot.MoveForwardInch(30, 1);
-*/
                             sleep(30000);
                         }
                         //when duck is in right config
                         else if (place == "right"){
-
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.275);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //movelinear slide to hold cube above top level
+                            robot.slide.setPower(-.1);
+                            sleep(1000);
+                            robot.slide.setPower(0);
+
+                            //move pivot to clear top level
+                            robot.pivot.setPosition(0);
+                            sleep(5000);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(22,1);
-/*
-                        //deposit the cube in tower
-                        robot.depositCube(0, 0, 5);
+                            robot.MoveForwardInch(26,1);
 
-                        //pickup duck
-                        robot.pickupCube(135, 3, .5);
+                            //deposit the cube in tower
+                            robot.grabber.setPosition(0);
 
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-*/
+                            //move linkage in
+                            robot.linkage.setPosition(.4);
 
                             //turn to duck spinner
-                            robot.turn(17, -1);
+                            robot.turn(16, -1);
 
                             //move to duck spinner
-                            robot.MoveForwardInch(49, -1);
+                            robot.MoveForwardInch(41, -1);
 
-                            robot.duckSpinner.setPower(.7);
-                            sleep(1750);
+                            //turn to put duckspinner on carousel
+                            robot.turn(35,1);
 
+                            //Move back to hit carousel
+                            robot.MoveForwardInch(2, -1);
+
+                            //turn carousel
+                            robot.duckSpinner.setPower(-.7);
+                            sleep(2500);
+
+                            //stop carousel
                             robot.duckSpinner.setPower(0);
                             sleep(250);
 
-                            robot.MoveForwardInch(12, 1);
+                            //turn to storage unit
+                            robot.turn(4,1);
 
-                            robot.turn(45, 1);
-/*
-                        //pickup duck
-                        robot.pickupCube(45, 5, .5);
+                            //move away from carousel
+                            robot.MoveForwardInch(20, 1);
 
-                        //turn to alliance hub
-                        robot.turn(120, 1);
-
-                        //move to alliance hub
-                        robot.MoveForwardInch(43, 1);
-
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-
-                        //turn to storage unit
-                        robot.turn(135, 1);
-
-                        //move into storage unit
-                        robot.MoveForwardInch(30, 1);
-*/
                             sleep(30000);
                         }
                         //when duck is in middle config
@@ -260,56 +270,59 @@ public class autoBlueDuck extends LinearOpMode {
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.275);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
                             //turn to alliance hub
                             robot.turn(22, -1);
 
+                            //move pivot to correct level
+                            robot.pivot.setPosition(.05);
+
                             //move to alliance hub
-                            robot.MoveForwardInch(22,1);
-/*
-                        //deposit the cube in tower
-                        robot.depositCube(0, 0, 5);
+                            robot.MoveForwardInch(26,1);
 
-                        //pickup duck
-                        robot.pickupCube(135, 3, .5);
+                            //deposit the cube in tower
+                            robot.grabber.setPosition(0);
 
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-*/
+                            //move linkage in
+                            robot.linkage.setPosition(.4);
 
                             //turn to duck spinner
-                            robot.turn(17, -1);
+                            robot.turn(16, -1);
 
                             //move to duck spinner
-                            robot.MoveForwardInch(49, -1);
+                            robot.MoveForwardInch(41, -1);
 
-                            robot.duckSpinner.setPower(.7);
-                            sleep(1750);
+                            //turn to put duckspinner on carousel
+                            robot.turn(35,1);
 
+                            //Move back to hit carousel
+                            robot.MoveForwardInch(2, -1);
+
+                            //turn carousel
+                            robot.duckSpinner.setPower(-.7);
+                            sleep(2500);
+
+                            //stop carousel
                             robot.duckSpinner.setPower(0);
                             sleep(250);
 
-                            robot.MoveForwardInch(12, 1);
+                            //turn to storage unit
+                            robot.turn(4,1);
 
-                            robot.turn(45, 1);
-/*
-                        //pickup duck
-                        robot.pickupCube(45, 5, .5);
+                            //move away from carousel
+                            robot.MoveForwardInch(20, 1);
 
-                        //turn to alliance hub
-                        robot.turn(120, 1);
-
-                        //move to alliance hub
-                        robot.MoveForwardInch(43, 1);
-
-                        //deposit duck
-                        robot.depositCube(0, 0, 10);
-
-                        //turn to storage unit
-                        robot.turn(135, 1);
-
-                        //move into storage unit
-                        robot.MoveForwardInch(30, 1);
-*/
                             sleep(30000);
                         }
                     }

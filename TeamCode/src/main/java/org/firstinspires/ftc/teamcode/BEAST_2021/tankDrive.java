@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.BEAST_2021.Pushbot2021;
 
 @TeleOp
 
-public class testTankDrive extends LinearOpMode {
+public class tankDrive extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
@@ -16,13 +16,16 @@ public class testTankDrive extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            robot.frontRight.setPower(gamepad1.right_stick_y);
+            robot.frontRight.setPower(-gamepad1.right_stick_y);
             robot.backRight.setPower(gamepad1.right_stick_y);
-            robot.frontLeft.setPower(gamepad1.left_stick_y);
+            robot.frontLeft.setPower(-gamepad1.left_stick_y);
             robot.backLeft.setPower(gamepad1.left_stick_y);
 
 
-            robot.slide.setPower(-gamepad2.right_stick_y / 4);
+            robot.slide.setPower(-gamepad2.right_stick_y / 8);
+            telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
+            telemetry.update();
+            robot.turret.setPower(-gamepad2.left_stick_x / 20);
 
             if (gamepad1.a) {
                 robot.duckSpinner.setPower(.7);
@@ -32,19 +35,7 @@ public class testTankDrive extends LinearOpMode {
                 robot.duckSpinner.setPower(0);
             }
 
-            if (gamepad2.dpad_right){
-                //turn turret to right
-                robot.turret.setPower(-.2);
-            }
 
-            if (gamepad2.dpad_left){
-                //turn turret to left
-                robot.turret.setPower(.2);
-            }
-
-            if (gamepad2.dpad_up){
-                robot.turret.setPower(0);
-            }
 /*            if (gamepad2.left_trigger != 0){
                     //close grabber
                     robot.grabber.setPosition(.8);
@@ -73,32 +64,32 @@ public class testTankDrive extends LinearOpMode {
 
             if (gamepad2.y){
                 //linkage out
-                robot.linkage.setPosition(1);
+                robot.linkage.setPosition(0);
             }
 
             if (gamepad2.x){
                 //linkage in
-                robot.linkage.setPosition(.7);
+                robot.linkage.setPosition(.3);
             }
 
             if (gamepad2.a){
                 telemetry.addData("Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
                 if (robot.pivot.getPosition() > 0){
-                    robot.pivot.setPosition(robot.pivot.getPosition() - .1);
+                    robot.pivot.setPosition(robot.pivot.getPosition() - .05);
                 }
-                sleep(500);
+                sleep(100);
             }
 
             if (gamepad2.b) {
                 telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
                 if (robot.pivot.getPosition() < 0.3) {
-                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.1);
+                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.05);
 
                 }
                 telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
-                sleep (500);
+                sleep (100);
             }
 
 

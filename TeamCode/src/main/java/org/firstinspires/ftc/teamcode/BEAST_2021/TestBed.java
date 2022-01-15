@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.BEAST_2021.Pushbot2021;
 
 @TeleOp
+@Disabled
 public class TestBed extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
@@ -70,13 +72,13 @@ public class TestBed extends LinearOpMode {
 
             if (gamepad1.a == true){  
                 //turn turret to right
-                robot.turretMove = true;
-                robot.targetDeg = 10.0;
+                robot.slideMove = true;
+                robot.targetHeight = 10.0;
             }
             if (gamepad1.b == true){
                 //turn turret to left
-                robot.turretMove = true;
-                robot.targetDeg = 270.0;
+                robot.slideMove = true;
+                robot.targetHeight = 15.0;
             }
             if(gamepad2.dpad_up){
                 robot.slideMove = true;

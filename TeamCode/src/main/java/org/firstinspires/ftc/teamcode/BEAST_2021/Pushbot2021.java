@@ -25,7 +25,7 @@ public class Pushbot2021
     double circumference = diameter * 3.14;
     int tetrixEncoderTics = 1440;
     //int andyMark40Tics = 515;
-    int andyMark40Tics = 1120;
+    double andyMark40Tics = 1120;
     double andyMark20Tics = 537.6;
     public static final String VUFORIA_KEY =
             "Afctxlz/////AAABmSWf4jOsTUHcsOYa/JfaZlRo+3yiPN8cCUH4BDLpIZ8FAt0tEVLJ/mxWUyd7f0gqd+a7JRTMYP9+A9s1nojOs9B1ZGOFsvr84RZnbVN8cGP7RFKNP4Mg0Pr/6vIUmHGFx/jrOrXz/YJXwVXvPpqr1uDm8xpBZOE4j+CtQcKW2Y2zjVWHWRTkmb6ve/R91k3jfjaH4PErbZMcvD7Xy5IesqSet3/pjeUXWSnlHmPwH7fgUcHSkAf0Fj2nLvZ7zmpT8vh9rSKri9XD3A64WBNRO+6+SGH/C/eS3mWLmdi5ZMbSK66WuvNhAPT0SHCzzqAlAf2P6asrrrAuw+aQ0B2HV0mPtGdNPe62djhu5Afa/rL+";
@@ -90,14 +90,16 @@ public class Pushbot2021
 
         //set servo positions starting positions
         if (isAuto){
-            linkage.setPosition(.7);
-            grabber.setPosition(.4);
-            pivot.setPosition(.2);
+            linkage.setPosition(.4);
+            grabber.setPosition(0);
+            pivot.setPosition(0);
+            moveTurret(0,1);
 
         } else {
-            linkage.setPosition(.7);
-            grabber.setPosition(.4);
+            linkage.setPosition(0.4);
+            grabber.setPosition(0);
             pivot.setPosition(0);
+            moveTurret(0,1);
         }
 
         //set sensors
@@ -155,7 +157,7 @@ public class Pushbot2021
     public void MoveForwardInch(double Distance, double power) {
 
         double totalRotations = Distance / circumference;
-        int rotationDistanceofWheel = (int) (andyMark40Tics * totalRotations);
+        double rotationDistanceofWheel = (andyMark40Tics * totalRotations);
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -199,7 +201,7 @@ public class Pushbot2021
         double linkageMove = hypotenuse * ((1 / 180) * 9 );
 
         //move linear slide to correct level
-        moveSlide(height, .25);
+        moveSlide(height, .125);
 
         //turn turret to deposit
         moveTurret(degrees, .25);
@@ -213,6 +215,8 @@ public class Pushbot2021
         //move linkage into robot
         linkage.setPosition(0);
 
+        moveTurret(0,.25);
+
         moveSlide(0, .7);
     }
     public void pickupCube(double degrees, double distance, double power){
@@ -225,17 +229,17 @@ public class Pushbot2021
 
         moveTurret(degrees, power);
 
-        grabber.setPosition(.5);
+        grabber.setPosition(0);
 
-        linkage.setPosition(.7+linkageMove);
+        linkage.setPosition(.3-linkageMove);
 
         pivot.setPosition(angle);
 
-        grabber.setPosition(1);
+        grabber.setPosition(.5);
 
         pivot.setPosition(0);
 
-        linkage.setPosition(0);
+        linkage.setPosition(.3);
 
         moveTurret(0, power);
     }
@@ -244,7 +248,7 @@ public class Pushbot2021
         while (currentAngle < -270) {
             currentAngle += 360;
         }
-        while (currentAngle > 360) {
+        while (currentAngle > 270) {
             currentAngle -= 360;
         }
 
@@ -260,7 +264,7 @@ public class Pushbot2021
         if (Math.abs(degrees - currentDegree) < 30.0) {
             outputPower = 0.05;
         } else {
-            outputPower = power;
+            outputPower = power / 4;
         }
 
         if (Math.abs(degrees - currentDegree) < 2.0){
@@ -281,7 +285,7 @@ public class Pushbot2021
         if (Math.abs(height - currentHeight) < 60.0) {
             outputPower = 0.05;
         } else {
-            outputPower = power;
+            outputPower = power / 8;
         }
         if (Math.abs(height - currentHeight) < 2.0){
             slide.setPower(0);
