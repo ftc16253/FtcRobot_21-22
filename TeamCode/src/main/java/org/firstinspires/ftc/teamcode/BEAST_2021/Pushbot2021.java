@@ -90,13 +90,13 @@ public class Pushbot2021
 
         //set servo positions starting positions
         if (isAuto){
-            linkage.setPosition(.4);
+            linkage.setPosition(.3);
             grabber.setPosition(0);
             pivot.setPosition(0);
             moveTurret(0,1);
 
         } else {
-            linkage.setPosition(0.4);
+            linkage.setPosition(0.3);
             grabber.setPosition(0);
             pivot.setPosition(0);
             moveTurret(0,1);

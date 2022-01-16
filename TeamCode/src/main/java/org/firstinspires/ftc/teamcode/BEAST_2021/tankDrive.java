@@ -25,12 +25,18 @@ public class tankDrive extends LinearOpMode {
             robot.slide.setPower(-gamepad2.right_stick_y / 8);
             telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
             telemetry.update();
-            robot.turret.setPower(-gamepad2.left_stick_x / 20);
+            robot.turret.setPower(-gamepad2.left_stick_x / 8);
 
             if (gamepad1.a) {
-                robot.duckSpinner.setPower(.7);
+                robot.duckSpinner.setPower(.2);
+                robot.duckSpinner.setPower(.4);
+                robot.duckSpinner.setPower(.6);
+                robot.duckSpinner.setPower(.8);
             } else if (gamepad1.b){
-                robot.duckSpinner.setPower(-.7);
+                robot.duckSpinner.setPower(-.2);
+                robot.duckSpinner.setPower(-.4);
+                robot.duckSpinner.setPower(-.6);
+                robot.duckSpinner.setPower(-.8);
             } else{
                 robot.duckSpinner.setPower(0);
             }
@@ -76,15 +82,15 @@ public class tankDrive extends LinearOpMode {
                 telemetry.addData("Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
                 if (robot.pivot.getPosition() > 0){
-                    robot.pivot.setPosition(robot.pivot.getPosition() - .05);
+                    robot.pivot.setPosition(robot.pivot.getPosition() - .025);
                 }
                 sleep(100);
             }
 
             if (gamepad2.b) {
                 telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
-                if (robot.pivot.getPosition() < 0.3) {
-                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.05);
+                if (robot.pivot.getPosition() < 0.275) {
+                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.025);
 
                 }
                 telemetry.addData("New Pivot position: ", robot.pivot.getPosition());

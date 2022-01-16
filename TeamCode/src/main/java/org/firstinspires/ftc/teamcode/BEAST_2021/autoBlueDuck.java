@@ -82,7 +82,7 @@ public class autoBlueDuck extends LinearOpMode {
          **/
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(1.2, 17.0/10.0);
         }
 
 
@@ -131,6 +131,7 @@ public class autoBlueDuck extends LinearOpMode {
                         }
 
                         tfod.shutdown();
+                        place="left";
                         telemetry.addData("Place = ", place);
                         telemetry.update();
 
@@ -142,11 +143,11 @@ public class autoBlueDuck extends LinearOpMode {
                             sleep(100);
 
                             //backup to pickup cube
-                            robot.MoveForwardInch(8,-1);
+                            robot.MoveForwardInch(10,-1);
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.275);
+                            robot.pivot.setPosition(.24);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -160,7 +161,10 @@ public class autoBlueDuck extends LinearOpMode {
                             robot.pivot.setPosition(.125);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(26,1);
+                            robot.MoveForwardInch(30,1);
+
+                            //move turret straight
+                            robot.moveTurret(-10,1);
 
                             //deposit the cube in tower
                             robot.grabber.setPosition(0);
@@ -169,19 +173,22 @@ public class autoBlueDuck extends LinearOpMode {
                             robot.linkage.setPosition(.4);
 
                             //turn to duck spinner
-                            robot.turn(16, -1);
+                            robot.turn(18, -1);
 
                             //move to duck spinner
-                            robot.MoveForwardInch(41, -1);
+                            robot.MoveForwardInch(50, -1);
 
                             //turn to put duckspinner on carousel
                             robot.turn(35,1);
 
-                            //Move back to hit carousel
-                            robot.MoveForwardInch(2, -1);
-
                             //turn carousel
-                            robot.duckSpinner.setPower(-.7);
+                            robot.duckSpinner.setPower(-.2);
+                            sleep(200);
+                            robot.duckSpinner.setPower(-.4);
+                            sleep(200);
+                            robot.duckSpinner.setPower(-.6);
+                            sleep(200);
+                            robot.duckSpinner.setPower(-.8);
                             sleep(2500);
 
                             //stop carousel
@@ -189,10 +196,10 @@ public class autoBlueDuck extends LinearOpMode {
                             sleep(250);
 
                             //turn to storage unit
-                            robot.turn(4,1);
+                            robot.turn(20,1);
 
                             //move away from carousel
-                            robot.MoveForwardInch(20, 1);
+                            robot.MoveForwardInch(30, 1);
 
                             sleep(30000);
                         }
@@ -207,7 +214,7 @@ public class autoBlueDuck extends LinearOpMode {
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.275);
+                            robot.pivot.setPosition(.235);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -275,7 +282,7 @@ public class autoBlueDuck extends LinearOpMode {
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.275);
+                            robot.pivot.setPosition(.235);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -290,6 +297,9 @@ public class autoBlueDuck extends LinearOpMode {
 
                             //move to alliance hub
                             robot.MoveForwardInch(26,1);
+
+                            //make turret staright
+                            robot.moveTurret(0,1);
 
                             //deposit the cube in tower
                             robot.grabber.setPosition(0);

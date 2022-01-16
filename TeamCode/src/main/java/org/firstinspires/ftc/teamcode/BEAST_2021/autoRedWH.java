@@ -134,8 +134,8 @@ public class autoRedWH extends LinearOpMode {
                         telemetry.update();
 
 
-                        if (place == "left"){
-
+                        if (place == "left") {
+                            sleep(5000);
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
@@ -153,194 +153,13 @@ public class autoRedWH extends LinearOpMode {
                             // }
 
                             //turn to alliance hub
-                            robot.turn(22, -1);
+                            robot.turn(20, -1);
 
                             //move pivot to correct level
                             robot.pivot.setPosition(.15);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(24,1);
-
-                            //deposit cube
-                            robot.grabber.setPosition(0);
-
-                            //move linkage in
-                            robot.linkage.setPosition(.4);
-/*
-                            //deposit the cube in tower
-                            robot.depositCube(0, 0);
-
-                            //move away from alliance hub
-                            robot.MoveForwardInch(8,-1);
-
-                            // turn to pickup duck
-                            robot.turn(70, 1);
-
-                            //pickup duck
-                            robot.pickupCube(0, 12, .5);
-
-                            // turn to alliance hub
-                            robot.turn(-70, 1);
-
-                            //deposit duck
-                            robot.depositCube(0, 0, 10);
-*/
-
-                            // back up from alliance hub
-                            robot.MoveForwardInch(-6, 1);
-
-                            //turn to warehouse
-                            robot.turn(65, 1);
-
-                            //drive to warehouse
-                            robot.MoveForwardInch(48, 1);
-/*
-                            //pickup cube
-                            robot.pickupCube(0, 8, .5);
-
-                            //drive back to alliance hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 10);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-
-                            //Pickup cube
-                            robot.pickupCube(0, 10, .5);
-
-                            //move to allaince hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 5);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-*/
-                            sleep(30000);
-                        }
-                        //when duck is in right config
-                        else if (place == "right"){
-
-                            //move away from wall
-                            robot.MoveForwardInch(14, 1);
-                            sleep(100);
-
-                            //backup to pickup cube
-                            robot.MoveForwardInch(8,-1);
-
-                            //pickup cube {
-                            robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.25);
-                            sleep(200);
-                            robot.grabber.setPosition(1);
-                            sleep(1000);
-                            robot.pivot.setPosition(.1);
-                            // }
-
-                            //turn to alliance hub
-                            robot.turn(22, -1);
-
-                            //set pivot to correct position
-                            robot.pivot.setPosition(0);
-
-                            //move slide above top level
-                            robot.slide.setPower(.05);
-                            sleep(500);
-                            robot.slide.setPower(0);
-
-                            //move to alliance hub
-                            robot.MoveForwardInch(24,1);
-
-                            //deposit cube
-                            robot.grabber.setPosition(0);
-
-                            //Move linkagee in
-                            robot.linkage.setPosition(.4);
-/*
-                            //deposit the cube in tower
-                            robot.depositCube(0, 0);
-
-                            //move away from alliance hub
-                            robot.MoveForwardInch(8,-1);
-
-                            // turn to pickup duck
-                            robot.turn(70, 1);
-
-                            //pickup duck
-                            robot.pickupCube(0, 12, .5);
-
-                            // turn to alliance hub
-                            robot.turn(-70, 1);
-
-                            //deposit duck
-                            robot.depositCube(0, 0, 10);
-*/
-
-                            // back up from alliance hub
-                            robot.MoveForwardInch(-6, 1);
-
-                            //turn to warehouse
-                            robot.turn(65, 1);
-
-                            //drive to warehouse
-                            robot.MoveForwardInch(48, 1);
-/*
-                            //pickup cube
-                            robot.pickupCube(0, 8, .5);
-
-                            //drive back to alliance hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 10);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-
-                            //Pickup cube
-                            robot.pickupCube(0, 10, .5);
-
-                            //move to allaince hub
-                            robot.MoveForwardInch(48, -1);
-
-                            //deposit cube
-                            robot.depositCube(0, 135, 5);
-
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-*/
-                            sleep(30000);
-                        }
-                        //when duck is in middle config
-                        else if (place == "mid"){
-
-                            //move away from wall
-                            robot.MoveForwardInch(14, 1);
-                            sleep(100);
-
-                            //backup to pickup cube
-                            robot.MoveForwardInch(8,-1);
-
-                            //pickup cube {
-                            robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.25);
-                            sleep(200);
-                            robot.grabber.setPosition(1);
-                            sleep(1000);
-                            robot.pivot.setPosition(.1);
-                            // }
-
-                            //turn to alliance hub
-                            robot.turn(22, -1);
-
-                            //move pivot to correct level
-                            robot.pivot.setPosition(.05);
-
-                            //move to alliance hub
-                            robot.MoveForwardInch(24,1);
+                            robot.MoveForwardInch(26,1);
 
                             //deposit cube
                             robot.grabber.setPosition(0);
@@ -371,10 +190,191 @@ public class autoRedWH extends LinearOpMode {
                             robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(65, 1);
+                            robot.turn(35, -1);
 
                             //drive to warehouse
+                            robot.MoveForwardInch(40, -1);
+/*
+                            //pickup cube
+                            robot.pickupCube(0, 8, .5);
+
+                            //drive back to alliance hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 10);
+
+                            //move to warehouse
                             robot.MoveForwardInch(48, 1);
+
+                            //Pickup cube
+                            robot.pickupCube(0, 10, .5);
+
+                            //move to allaince hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 5);
+
+                            //move to warehouse
+                            robot.MoveForwardInch(48, 1);
+*/
+                            sleep(30000);
+                        }
+                        //when duck is in right config
+                        else if (place == "right") {
+                            sleep(5000);
+                            //move away from wall
+                            robot.MoveForwardInch(14, 1);
+                            sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.25);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
+                            //turn to alliance hub
+                            robot.turn(20, -1);
+
+                            //set pivot to correct position
+                            robot.pivot.setPosition(0);
+/*
+                            //move slide above top level
+                            robot.slide.setPower(.05);
+                            sleep(500);
+                            robot.slide.setPower(0);
+*/
+                            //move to alliance hub
+                            robot.MoveForwardInch(26,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkage in
+                            robot.linkage.setPosition(.4);
+/*
+                            //deposit the cube in tower
+                            robot.depositCube(0, 0);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(8,-1);
+
+                            // turn to pickup duck
+                            robot.turn(70, 1);
+
+                            //pickup duck
+                            robot.pickupCube(0, 12, .5);
+
+                            // turn to alliance hub
+                            robot.turn(-70, 1);
+
+                            //deposit duck
+                            robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
+
+                            //turn to warehouse
+                            robot.turn(35, -1);
+
+                            //drive to warehouse
+                            robot.MoveForwardInch(40, -1);
+/*
+                            //pickup cube
+                            robot.pickupCube(0, 8, .5);
+
+                            //drive back to alliance hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 10);
+
+                            //move to warehouse
+                            robot.MoveForwardInch(48, 1);
+
+                            //Pickup cube
+                            robot.pickupCube(0, 10, .5);
+
+                            //move to allaince hub
+                            robot.MoveForwardInch(48, -1);
+
+                            //deposit cube
+                            robot.depositCube(0, 135, 5);
+
+                            //move to warehouse
+                            robot.MoveForwardInch(48, 1);
+*/
+                            sleep(30000);
+                        }
+                        //when duck is in middle config
+                        else if (place == "mid") {
+                            sleep(5000);
+                            //move away from wall
+                            robot.MoveForwardInch(14, 1);
+                            sleep(100);
+
+                            //backup to pickup cube
+                            robot.MoveForwardInch(8,-1);
+
+                            //pickup cube {
+                            robot.linkage.setPosition(.2);
+                            robot.pivot.setPosition(.25);
+                            sleep(200);
+                            robot.grabber.setPosition(1);
+                            sleep(1000);
+                            robot.pivot.setPosition(.1);
+                            // }
+
+                            //turn to alliance hub
+                            robot.turn(20, -1);
+
+                            //move pivot to correct level
+                            robot.pivot.setPosition(.05);
+
+                            //move to alliance hub
+                            robot.MoveForwardInch(26,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkage in
+                            robot.linkage.setPosition(.4);
+/*
+                            //deposit the cube in tower
+                            robot.depositCube(0, 0);
+
+                            //move away from alliance hub
+                            robot.MoveForwardInch(8,-1);
+
+                            // turn to pickup duck
+                            robot.turn(70, 1);
+
+                            //pickup duck
+                            robot.pickupCube(0, 12, .5);
+
+                            // turn to alliance hub
+                            robot.turn(-70, 1);
+
+                            //deposit duck
+                            robot.depositCube(0, 0, 10);
+*/
+
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
+
+                            //turn to warehouse
+                            robot.turn(35, -1);
+
+                            //drive to warehouse
+                            robot.MoveForwardInch(40, -1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
@@ -407,6 +407,7 @@ public class autoRedWH extends LinearOpMode {
             }
         }
     }
+
 
     /**
      * Initialize the Vuforia localizat  ion engine.

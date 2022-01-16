@@ -101,7 +101,7 @@ public class autoRedDuck extends LinearOpMode {
 
 
             while (opModeIsActive()) {
-                sleep(1000);
+                sleep(500);
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -140,7 +140,7 @@ public class autoRedDuck extends LinearOpMode {
 
                       //when duck is in left config
                     if (place == "left"){
-
+                        sleep(5000);
                         //move away from wall
                         robot.MoveForwardInch(14, 1);
                         sleep(100);
@@ -150,7 +150,7 @@ public class autoRedDuck extends LinearOpMode {
 
                         //pickup cube {
                         robot.linkage.setPosition(.2);
-                        robot.pivot.setPosition(.275);
+                        robot.pivot.setPosition(.235);
                         sleep(200);
                         robot.grabber.setPosition(1);
                         sleep(1000);
@@ -158,13 +158,13 @@ public class autoRedDuck extends LinearOpMode {
                         // }
 
                         //turn to alliance hub
-                        robot.turn(18, 1);
+                        robot.turn(13, 1);
 
                         //move pivot to correct level
                         robot.pivot.setPosition(.125);
 
                         //move to alliance hub
-                        robot.MoveForwardInch(23,1);
+                        robot.MoveForwardInch(24,1);
 
                         //deposit cube in tower
                         robot.grabber.setPosition(0);
@@ -173,13 +173,13 @@ public class autoRedDuck extends LinearOpMode {
                         robot.linkage.setPosition(.4);
 
                         //turn to duck spinner
-                        robot.turn(21, 1);
+                        robot.turn(22, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(65, -1);
 
                         //turn carousel
-                        robot.duckSpinner.setPower(.7);
+                        robot.duckSpinner.setPower(.5);
                         sleep(2500);
 
                         //stop carousel
@@ -190,12 +190,13 @@ public class autoRedDuck extends LinearOpMode {
                         robot.turn(50,-1);
 
                         //move away from carousel
-                        robot.MoveForwardInch(20, 1);
+                        robot.MoveForwardInch(30, 1);
 
                         sleep(30000);
                     }
                     //when duck is in right config
                     else if (place == "right"){
+                        sleep(5000);
                         //move away from wall
                         robot.MoveForwardInch(14, 1);
                         sleep(100);
@@ -205,7 +206,7 @@ public class autoRedDuck extends LinearOpMode {
 
                         //pickup cube {
                         robot.linkage.setPosition(.2);
-                        robot.pivot.setPosition(.275);
+                        robot.pivot.setPosition(.235);
                         sleep(200);
                         robot.grabber.setPosition(1);
                         sleep(1000);
@@ -213,7 +214,7 @@ public class autoRedDuck extends LinearOpMode {
                         // }
 
                         //turn to alliance hub
-                        robot.turn(18, 1);
+                        robot.turn(13, 1);
 
                         //move pivot to correct level
                         robot.pivot.setPosition(0);
@@ -224,7 +225,7 @@ public class autoRedDuck extends LinearOpMode {
                         robot.slide.setPower(0);*/
 
                         //move to alliance hub
-                        robot.MoveForwardInch(23,1);
+                        robot.MoveForwardInch(24,1);
 
                         //deposit cube in tower
                         robot.grabber.setPosition(0);
@@ -233,13 +234,13 @@ public class autoRedDuck extends LinearOpMode {
                         robot.linkage.setPosition(.4);
 
                         //turn to duck spinner
-                        robot.turn(21, 1);
+                        robot.turn(22, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(65, -1);
 
                         //turn carousel
-                        robot.duckSpinner.setPower(.7);
+                        robot.duckSpinner.setPower(.5);
                         sleep(2500);
 
                         //stop carousel
@@ -250,12 +251,13 @@ public class autoRedDuck extends LinearOpMode {
                         robot.turn(50,-1);
 
                         //move away from carousel
-                        robot.MoveForwardInch(20, 1);
+                        robot.MoveForwardInch(30, 1);
 
                         sleep(30000);
                     }
                     //when duck is in middle config
                     else if (place == "mid"){
+                        sleep(5000);
                         //move away from wall
                         robot.MoveForwardInch(14, 1);
                         sleep(100);
@@ -265,7 +267,7 @@ public class autoRedDuck extends LinearOpMode {
 
                         //pickup cube {
                         robot.linkage.setPosition(.2);
-                        robot.pivot.setPosition(.275);
+                        robot.pivot.setPosition(.235);
                         sleep(200);
                         robot.grabber.setPosition(1);
                         sleep(1000);
@@ -273,12 +275,12 @@ public class autoRedDuck extends LinearOpMode {
                         // }
 
                         //turn to alliance hub
-                        robot.turn(18, 1);
+                        robot.turn(14, 1);
 
                         //move pivot to correct level
                         robot.pivot.setPosition(.05);
                         //move to alliance hub
-                        robot.MoveForwardInch(23,1);
+                        robot.MoveForwardInch(24,1);
 
                         //deposit cube in tower
                         robot.grabber.setPosition(0);
@@ -287,13 +289,13 @@ public class autoRedDuck extends LinearOpMode {
                         robot.linkage.setPosition(.4);
 
                         //turn to duck spinner
-                        robot.turn(21, 1);
+                        robot.turn(22, 1);
 
                         //move to duck spinner
-                        robot.MoveForwardInch(43, -1);
+                        robot.MoveForwardInch(65, -1);
 
                         //turn carousel
-                        robot.duckSpinner.setPower(.7);
+                        robot.duckSpinner.setPower(.5);
                         sleep(2500);
 
                         //stop carousel
@@ -304,7 +306,7 @@ public class autoRedDuck extends LinearOpMode {
                         robot.turn(50,-1);
 
                         //move away from carousel
-                        robot.MoveForwardInch(20, 1);
+                        robot.MoveForwardInch(30, 1);
 
                         sleep(30000);
                     }

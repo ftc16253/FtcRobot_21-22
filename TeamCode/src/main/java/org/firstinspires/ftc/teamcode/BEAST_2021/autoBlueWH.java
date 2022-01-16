@@ -85,9 +85,6 @@ public class autoBlueWH extends LinearOpMode {
             tfod.setZoom(1, 16.0/9.0);
         }
 
-        //pick up starting cube
-        robot.grabber.setPosition(1);
-
         robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -137,16 +134,17 @@ public class autoBlueWH extends LinearOpMode {
 
 
                         if (place == "left") {
+                            sleep(5000);
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
                             //backup to pickup cube
-                            robot.MoveForwardInch(10,-1);
+                            robot.MoveForwardInch(6,-1);
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.225);
+                            robot.pivot.setPosition(.25);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -154,16 +152,19 @@ public class autoBlueWH extends LinearOpMode {
                             // }
 
                             //turn to alliance hub
-                            robot.turn(22, 1);
+                            robot.turn(18, 1);
 
                             //move pivot to correct level
                             robot.pivot.setPosition(.15);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(20, 1);
+                            robot.MoveForwardInch(25,1);
 
                             //deposit cube
                             robot.grabber.setPosition(0);
+
+                            //move linkage in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -185,13 +186,13 @@ public class autoBlueWH extends LinearOpMode {
 */
 
                             // back up from alliance hub
-                            robot.MoveForwardInch(-8, 1);
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, -1);
+                            robot.turn(35, 1);
 
                             //drive to warehouse
-                            robot.MoveForwardInch(48, 1);
+                            robot.MoveForwardInch(48, -1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
@@ -221,17 +222,17 @@ public class autoBlueWH extends LinearOpMode {
                         }
                         //when duck is in right config
                         else if (place == "right") {
-
+                            sleep(5000);
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
                             //backup to pickup cube
-                            robot.MoveForwardInch(10,-1);
+                            robot.MoveForwardInch(8,-1);
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.225);
+                            robot.pivot.setPosition(.25);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -241,16 +242,22 @@ public class autoBlueWH extends LinearOpMode {
                             //turn to alliance hub
                             robot.turn(22, 1);
 
-                            //set pivot to correct level
+                            //set pivot to correct position
                             robot.pivot.setPosition(0);
-
-                            //move slide to above top level
+/*
+                            //move slide above top level
                             robot.slide.setPower(.05);
                             sleep(500);
                             robot.slide.setPower(0);
-
+*/
                             //move to alliance hub
-                            robot.MoveForwardInch(20, 1);
+                            robot.MoveForwardInch(28,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkagee in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -272,13 +279,13 @@ public class autoBlueWH extends LinearOpMode {
 */
 
                             // back up from alliance hub
-                            robot.MoveForwardInch(-8, 1);
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, -1);
+                            robot.turn(65, 1);
 
                             //drive to warehouse
-                            robot.MoveForwardInch(48, 1);
+                            robot.MoveForwardInch(48, -1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
@@ -308,16 +315,17 @@ public class autoBlueWH extends LinearOpMode {
                         }
                         //when duck is in middle config
                         else if (place == "mid") {
+                            sleep(5000);
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
                             sleep(100);
 
                             //backup to pickup cube
-                            robot.MoveForwardInch(10,-1);
+                            robot.MoveForwardInch(8,-1);
 
                             //pickup cube {
                             robot.linkage.setPosition(.2);
-                            robot.pivot.setPosition(.225);
+                            robot.pivot.setPosition(.25);
                             sleep(200);
                             robot.grabber.setPosition(1);
                             sleep(1000);
@@ -325,13 +333,19 @@ public class autoBlueWH extends LinearOpMode {
                             // }
 
                             //turn to alliance hub
-                            robot.turn(22, 1);
+                            robot.turn(20, 1);
 
-                            //set pivot to correct level
+                            //move pivot to correct level
                             robot.pivot.setPosition(.05);
 
                             //move to alliance hub
-                            robot.MoveForwardInch(20, 1);
+                            robot.MoveForwardInch(28,1);
+
+                            //deposit cube
+                            robot.grabber.setPosition(0);
+
+                            //Move linkage in
+                            robot.linkage.setPosition(.4);
 /*
                             //deposit the cube in tower
                             robot.depositCube(0, 0);
@@ -352,14 +366,14 @@ public class autoBlueWH extends LinearOpMode {
                             robot.depositCube(0, 0, 10);
 */
 
-                            // back up from warehouse
-                            robot.MoveForwardInch(-8, 1);
+                            // back up from alliance hub
+                            robot.MoveForwardInch(-6, 1);
 
                             //turn to warehouse
-                            robot.turn(70, -1);
+                            robot.turn(40, 1);
 
                             //drive to warehouse
-                            robot.MoveForwardInch(48, 1);
+                            robot.MoveForwardInch(48, -1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
