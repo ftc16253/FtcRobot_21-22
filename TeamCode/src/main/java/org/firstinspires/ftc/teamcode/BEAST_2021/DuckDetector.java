@@ -11,7 +11,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 @Disabled
 public class DuckDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
-    public String position = "LEFT";
+    public String position = "";
+    public double leftTotal, centerTotal, rightTotal;
     public DuckDetector(){
 
     }
@@ -23,28 +24,26 @@ public class DuckDetector extends OpenCvPipeline {
         }
         Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_RGB2YCrCb);
 
-        Mat matLeft = workingMatrix.submat(120,150,10, 50);
-        Mat matCenter = workingMatrix.submat(120, 150, 80, 120);
-        Mat matRight = workingMatrix.submat(120, 150, 150, 190);
+        //Mat matLeft = workingMatrix.submat(120,150,10, 50);
+        //Mat matCenter = workingMatrix.submat(120, 150, 80, 120);
+        //Mat matRight = workingMatrix.submat(120, 150, 150, 190);
+        Mat matLeft = workingMatrix.submat(100,150,10, 60);
+        Mat matCenter = workingMatrix.submat(100, 150, 205, 255);
+        //Mat matRight = workingMatrix.submat(120, 150, 150, 190);
 
-        Imgproc.rectangle(workingMatrix, new Rect(10,120, 40, 30), new Scalar(0,255,0));
-        Imgproc.rectangle(workingMatrix, new Rect(80,120, 40, 30), new Scalar(0,255,0));
-        Imgproc.rectangle(workingMatrix, new Rect(150,120, 40, 30), new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix, new Rect(10,100, 50, 50), new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix, new Rect(205,100, 50, 50), new Scalar(0,255,0));
+        //Imgproc.rectangle(workingMatrix, new Rect(150,120, 40, 30), new Scalar(0,255,0));
 
-        double leftTotal = Core.sumElems(matLeft).val[2];
-        double centerTotal = Core.sumElems(matCenter).val[2];
-        double rightTotal = Core.sumElems(matRight).val[2];
+        leftTotal = Core.sumElems(matLeft).val[2];
+        centerTotal = Core.sumElems(matCenter).val[2];
+        //rightTotal = Core.sumElems(matRight).val[2];
 
-        if (leftTotal > centerTotal){
-            if (leftTotal > rightTotal){
+        if (leftTotal < centerTotal){
                 //left is Duck
                 position = "LEFT";
-            } else {
-                //right is Duck
-                position = "RIGHT";
-            }
         } else {
-            if (centerTotal > rightTotal){
+            if (leftTotal - centerTotal > 10000.0){
                 //center is Duck
                 position = "CENTER";
             } else {
