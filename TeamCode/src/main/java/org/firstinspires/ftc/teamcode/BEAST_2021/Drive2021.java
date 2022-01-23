@@ -98,7 +98,6 @@ public class Drive2021 extends LinearOpMode {
                 sleep(100);
             }
 
-
             if (gamepad2.b) {
                 //pivot down
                 telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
@@ -109,13 +108,6 @@ public class Drive2021 extends LinearOpMode {
                 telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
                 sleep (100);
-            }
-
-
-            while(robot.slideSensor.isPressed()){
-                robot.slide.setPower(0);
-                sleep(500);
-                robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
             }
         }
     }

@@ -22,7 +22,7 @@ public class Pushbot2021
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
     public DcMotor slide, turret, duckSpinner;
-    public Servo grabber, linkage, pivot;
+    public Servo grabber, linkage, pivot, bucket;
     public TouchSensor slideSensor;
     double spinDiameter = 1;
     double diameter = 3.6;
@@ -101,6 +101,7 @@ public class Pushbot2021
         //Define Servos
         grabber = hwMap.get(Servo.class, "grabber");
         linkage = hwMap.get(Servo.class, "linkage");
+        bucket =hwMap.get(Servo.class, "bucket");
         pivot = hwMap.get(Servo.class, "pivot");
 
 
@@ -108,6 +109,7 @@ public class Pushbot2021
         //set servo positions starting positions
 
             linkage.setPosition(0.3);
+            bucket.setPosition(0);
             grabber.setPosition(0);
             pivot.setPosition(0);
             moveTurret(0,1);
@@ -256,10 +258,10 @@ public class Pushbot2021
     }
 
     public double angleWrap(double currentAngle) {
-        while (currentAngle < -270) {
+        while (currentAngle < 0) {
             currentAngle += 360;
         }
-        while (currentAngle > 270) {
+        while (currentAngle > 360) {
             currentAngle -= 360;
         }
 

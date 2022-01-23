@@ -38,7 +38,7 @@ public class autoRedDuck2 extends LinearOpMode {
             robot.MoveForwardInch(10,-1);
             //pickup cube {
             robot.linkage.setPosition(.15);
-            robot.pivot.setPosition(.225);
+            robot.pivot.setPosition(.215);
             sleep(200);
             robot.grabber.setPosition(1);
             sleep(1000);
@@ -75,15 +75,15 @@ public class autoRedDuck2 extends LinearOpMode {
             //robot.moveTurret(5,.75);
 
             robot.linkage.setPosition(0);
-            sleep(100);
+            sleep(500);
 
-            robot.pivot.setPosition(.4);
+            robot.pivot.setPosition(1);
             sleep(10000);
             //turn to duck spinner
             robot.turn(22, 1);
 
             //move to duck spinner
-            robot.MoveForwardInch(41.5, -1);
+            robot.MoveForwardInch(41, -1);
 
             //turn carousel
             robot.duckSpinner.setPower(.5);
