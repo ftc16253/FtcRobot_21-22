@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Hardware;
 
-import kotlin.coroutines.jvm.internal.DebugMetadata;
-
 @TeleOp
 @Disabled
 public class LearnProgram extends LinearOpMode {
@@ -19,7 +17,7 @@ public class LearnProgram extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
 
         waitForStart();
 

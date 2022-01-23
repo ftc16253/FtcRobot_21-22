@@ -70,7 +70,7 @@ public class autoRedDuck extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap);
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();

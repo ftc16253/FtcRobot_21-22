@@ -11,6 +11,10 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.checkerframework.checker.units.qual.degrees;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class Pushbot2021
 {
@@ -36,13 +40,19 @@ public class Pushbot2021
     boolean turretMove = false, slideMove = false;
     double targetDeg = 0, targetHeight = 0;
 
+    public OpenCvCamera webcam;
+    public DuckDetector detector = new DuckDetector();
+    public double leftTotal, centerTotal;
+    public String place;
+
+
     /* local OpMode members. */
 
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap, boolean isAuto) {
+    public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
@@ -54,6 +64,13 @@ public class Pushbot2021
         slide = hwMap.get(DcMotor.class, "slide");
         turret = hwMap.get(DcMotor.class, "turret");
         duckSpinner = hwMap.get(DcMotor.class, "duckSpinner");
+
+        int cameraMonitorViewId = ahwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", ahwMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(ahwMap.get(WebcamName.class, "Webcam 2021"), cameraMonitorViewId);
+        webcam.openCameraDevice();
+        webcam.setPipeline(detector);
+        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -89,18 +106,12 @@ public class Pushbot2021
 
 
         //set servo positions starting positions
-        if (isAuto){
-            linkage.setPosition(.3);
-            grabber.setPosition(0);
-            pivot.setPosition(0);
-            moveTurret(0,1);
 
-        } else {
             linkage.setPosition(0.3);
             grabber.setPosition(0);
             pivot.setPosition(0);
             moveTurret(0,1);
-        }
+
 
         //set sensors
         slideSensor = hwMap.get(TouchSensor.class, "slideSensor");

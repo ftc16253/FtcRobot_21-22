@@ -9,7 +9,7 @@ public class Drive2021 extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
 
         waitForStart();
 

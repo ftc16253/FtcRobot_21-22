@@ -12,7 +12,7 @@ public class TestBed extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
 
 /*        robot.frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         robot.backRight = hardwareMap.get(DcMotor.class, "backRight");
