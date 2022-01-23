@@ -32,12 +32,12 @@ public class tankDrive extends LinearOpMode {
                 robot.duckSpinner.setPower(.4);
                 robot.duckSpinner.setPower(.6);
                 robot.duckSpinner.setPower(.8);
-            } else if (gamepad1.b){
+            } else if (gamepad1.b) {
                 robot.duckSpinner.setPower(-.2);
                 robot.duckSpinner.setPower(-.4);
                 robot.duckSpinner.setPower(-.6);
                 robot.duckSpinner.setPower(-.8);
-            } else{
+            } else {
                 robot.duckSpinner.setPower(0);
             }
 
@@ -52,58 +52,56 @@ public class tankDrive extends LinearOpMode {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
             }*/
-            if (gamepad2.left_bumper == true){
-                //close grabber
-                robot.grabber.setPosition(1);
-            }
-            else if (gamepad2.right_bumper == true)
-            {
-                //Open grabber
-                robot.grabber.setPosition(0);
-            }
-            else
-            {
-                //Stop grabber
-                robot.grabber.setPosition(.5);
-            }
-
-
-            if (gamepad2.y){
-                //linkage out
-                robot.linkage.setPosition(0);
-            }
-
-            if (gamepad2.x){
-                //linkage in
-                robot.linkage.setPosition(.3);
-            }
-
-            if (gamepad2.a){
-                telemetry.addData("Pivot position: ", robot.pivot.getPosition());
-                telemetry.update();
-                if (robot.pivot.getPosition() > 0){
-                    robot.pivot.setPosition(robot.pivot.getPosition() - .025);
+                if (gamepad2.left_bumper == true){
+                    //close grabber
+                    robot.grabber.setPosition(1);
+                } else if (gamepad2.right_bumper == true) {
+                    //Open grabber
+                    robot.grabber.setPosition(0);
+                } else {
+                    //Stop grabber
+                    robot.grabber.setPosition(.5);
                 }
-                sleep(100);
-            }
 
-            if (gamepad2.b) {
-                telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
-                if (robot.pivot.getPosition() < 0.275) {
-                    robot.pivot.setPosition(robot.pivot.getPosition() + 0.025);
 
+                if (gamepad2.y) {
+                    //linkage out
+                    robot.linkage.setPosition(0);
                 }
-                telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
-                telemetry.update();
-                sleep (100);
-            }
+
+                if (gamepad2.x) {
+                    //linkage in
+                    robot.linkage.setPosition(.3);
+                }
+
+                if (gamepad2.a) {
+                    telemetry.addData("Pivot position: ", robot.pivot.getPosition());
+                    telemetry.update();
+                    if (robot.pivot.getPosition() > 0) {
+                        robot.pivot.setPosition(robot.pivot.getPosition() - .025);
+                    }
+                    sleep(100);
+                }
+
+                if (gamepad2.b) {
+                    telemetry.addData("Old Pivot position: ", robot.pivot.getPosition());
+                    if (robot.pivot.getPosition() < 0.275) {
+                        robot.pivot.setPosition(robot.pivot.getPosition() + 0.025);
+
+                    }
+                    telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
+                    telemetry.update();
+                    sleep(100);
+                }
 
 
-            while(robot.slideSensor.isPressed()){
-                robot.slide.setPower(0);
-                sleep(500);
-                robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
+                while (robot.slideSensor.isPressed()) {
+                    robot.slide.setPower(0);
+                    sleep(500);
+                    robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
+                }
+
             }
         }
     }
-}
+
