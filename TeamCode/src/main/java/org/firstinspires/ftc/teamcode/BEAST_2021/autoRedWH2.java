@@ -41,7 +41,7 @@ public class autoRedWH2 extends LinearOpMode {
             //pickup cube {
             robot.linkage.setPosition(.2);
             robot.pivot.setPosition(.215);
-            sleep(200);
+            sleep(300);
             robot.grabber.setPosition(1);
             sleep(1000);
             robot.pivot.setPosition(.1);
@@ -64,30 +64,40 @@ public class autoRedWH2 extends LinearOpMode {
             }
 
             //move to alliance hub
-            robot.MoveForwardInch(26,1);
+            robot.MoveForwardInch(27,1);
 
             //deposit cube
             robot.grabber.setPosition(0);
 
             //move away from alliance hub
-            robot.MoveForwardInch(6,-1);
+           // robot.MoveForwardInch(6,-1);
 
 
             //turn to pickup duck
             if (robot.place == "CENTER") {
-                robot.turn(35, 1);
-                robot.linkage.setPosition(0);
+                robot.turn(21, 1);
+                robot.MoveForwardInch(4,-1);
+                robot.turn(28,1);
+                robot.linkage.setPosition(0.25);
                 sleep(200);
+                robot.MoveForwardInch(2,-1);
                 robot.pivot.setPosition(.2);
-                sleep(100);
-                robot.grabber.setPosition(1);
                 sleep(500);
-                robot.linkage.setPosition(.3);
-                robot.pivot.setPosition(.225);
+                robot.grabber.setPosition(1);
+                sleep(700);
+                robot.pivot.setPosition(0.15);
+                sleep(200);
+                robot.turret.setPower(0.2);
+                sleep(600);
+                robot.turret.setPower(0);
                 sleep(100);
                 robot.grabber.setPosition(0);
-                sleep(200);
-                robot.grabber.setPosition(1);
+                sleep(100);
+                robot.turret.setPower(-0.2);
+                sleep(600);
+                robot.turret.setPower(0);
+                robot.turn(15,1);
+
             } else if (robot.place == "LEFT"){
                 robot.turn(40, 1);
                 robot.linkage.setPosition(0.25);
@@ -103,13 +113,9 @@ public class autoRedWH2 extends LinearOpMode {
                 sleep(500);
                 robot.grabber.setPosition(1);
             }
-            sleep(10000);
-            // back up from alliance hub
-            robot.MoveForwardInch(-6, 1);
-            //turn to warehouse
-            robot.turn(35, -1);
+            //sleep(10000);
             //drive to warehouse
-            robot.MoveForwardInch(40, -1);
+            robot.MoveForwardInch(60, 1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
