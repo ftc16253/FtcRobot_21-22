@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
-
+/*
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -31,15 +31,15 @@ public class TestDuck extends LinearOpMode {
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
-     */
+     *
     private VuforiaLocalizer vuforia;
     Pushbot2021 robot = new Pushbot2021();
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
      * Detection engine.
-     */
-    private TFObjectDetector tfod;
+     *
+      private TFObjectDetector tfod;
 
 
     public void runOpMode() {
@@ -53,7 +53,7 @@ public class TestDuck extends LinearOpMode {
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
-         **/
+         **
         if (tfod != null) {
             tfod.activate();
             //tfod.setZoom(1, 16.0/9.0);
@@ -70,7 +70,7 @@ public class TestDuck extends LinearOpMode {
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        /** Wait for the game to begin */
+        /** Wait for the game to begin *
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
@@ -94,7 +94,7 @@ public class TestDuck extends LinearOpMode {
                         /*telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                 recognition.getLeft(), recognition.getTop());
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());*/
+                                recognition.getRight(), recognition.getBottom());*
 
                         i++;
                     }
@@ -108,7 +108,7 @@ public class TestDuck extends LinearOpMode {
                         updatedRecognitions = tfod.getUpdatedRecognitions();
                         if (updatedRecognitions == null) {
                             updatedRecognitions = tfod.getRecognitions();
-                        }*/
+                        }*
                         if (updatedRecognitions.size() > 1 && (updatedRecognitions.get(1).getLabel() == "Duck"
                                 || updatedRecognitions.get(1).getLabel() == "Cube")) {
                             place = "mid";
@@ -128,7 +128,7 @@ public class TestDuck extends LinearOpMode {
 
     /**
      * Initialize the Vuforia localizat  ion engine.
-     */
+     *
     private void initVuforia() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
@@ -143,7 +143,7 @@ public class TestDuck extends LinearOpMode {
 
     /**
      * Initialize the TensorFlow Object Detection engine.
-     */
+     *
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -155,4 +155,4 @@ public class TestDuck extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
 
-}
+}*/

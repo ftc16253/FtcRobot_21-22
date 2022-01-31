@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous
-public class autoRedWH2 extends LinearOpMode {
+public class autoBlueWH2 extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
     int t=0;
 
@@ -45,40 +45,15 @@ public class autoRedWH2 extends LinearOpMode {
             // }
 
             */
-            robot.turn(23,-1);
+            robot.turn(33,-1);
             robot.MoveForwardInch(17,1);
 
             //robot.place = "RIGHT";
             //move pivot to correct level
-            /*if (robot.place == "LEFT") {
-                robot.turn(10, -1);
-                sleep(1000);
-                robot.MoveForwardInch(20, 1);
-                sleep(1000);
-                robot.turn(15,1);
-                sleep(1000);
-                robot.MoveForwardInch(10,1);
-                robot.pivot.setPosition(.125);
-            } else if (robot.place == "RIGHT"){
-                robot.turn(5, -1);
-                sleep(1000);
-                robot.MoveForwardInch(30,1);
-                sleep(1000);
-                robot.pivot.setPosition(0);
-                /* //move slide to above top level
-                robot.slide.setPower(.05);
-                sleep(500);
-                robot.slide.setPower(0);
-            } else if (robot.place == "CENTER"){
-                robot.MoveForwardInch(30,1);
-                sleep(1000);
-                robot.pivot.setPosition(0.02);
-            }
 
-             */
 
             //turn turret to alliance hub
-            robot.turret.setPower(.22);
+            robot.turret.setPower(-.22);
             sleep(400);
             robot.turret.setPower(0);
 
@@ -87,7 +62,7 @@ public class autoRedWH2 extends LinearOpMode {
             //robot.grabber.setPosition(0);
 
             //move away from alliance hub
-           // robot.MoveForwardInch(6,-1);
+            // robot.MoveForwardInch(6,-1);
 
            /* if (robot.place == "RIGHT"){
                 robot.MoveForwardInch(20, -1);
@@ -100,10 +75,10 @@ public class autoRedWH2 extends LinearOpMode {
             */
 
             //turn to warehouse
-            robot.turn(30,- 1);
+            robot.turn(55,-1);
 
             //drive to warehouse
-            robot.MoveForwardInch(50, -1);
+            robot.MoveForwardInch(50, 1);
 /*
                             //pickup cube
                             robot.pickupCube(0, 8, .5);
@@ -122,10 +97,18 @@ public class autoRedWH2 extends LinearOpMode {
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
                          */
-            robot.turret.setPower(.22);
+            robot.turret.setPower(-.22);
             sleep(500);
-            robot.turret.setPower(.05);
+            robot.turret.setPower(0);
+            robot.pivotMove = true;
+            robot.movePivot(0);
+            robot.intake.setPower(1);
+            robot.turret.setPower(-.05);
             sleep(300);
+            robot.turret.setPower(0);
+            robot.intake.setPower(0);
+            robot.turret.setPower(-.22);
+            sleep(550);
             robot.turret.setPower(0);
 
             sleep(30000);

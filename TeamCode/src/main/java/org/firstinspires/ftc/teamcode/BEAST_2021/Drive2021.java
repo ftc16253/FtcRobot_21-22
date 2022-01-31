@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
-
+/*
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -61,7 +61,7 @@ public class Drive2021 extends LinearOpMode {
             } else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
-            }*/
+            }*
             if (gamepad2.left_bumper == true){
                 //close grabber
                 robot.grabber.setPosition(1);
@@ -112,3 +112,4 @@ public class Drive2021 extends LinearOpMode {
         }
     }
 }
+*/

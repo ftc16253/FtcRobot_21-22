@@ -86,7 +86,7 @@ public class autoBlueDuck extends LinearOpMode {
         }
 
 
-        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -136,7 +136,7 @@ public class autoBlueDuck extends LinearOpMode {
                         telemetry.update();
 
                         //when duck is in left config
-                        if (place == "left"){
+                        /*if (place == "left"){
 
                             //move away from wall
                             robot.MoveForwardInch(14, 1);
@@ -334,7 +334,7 @@ public class autoBlueDuck extends LinearOpMode {
                             robot.MoveForwardInch(20, 1);
 
                             sleep(30000);
-                        }
+                        }*/
                     }
                 }
             }

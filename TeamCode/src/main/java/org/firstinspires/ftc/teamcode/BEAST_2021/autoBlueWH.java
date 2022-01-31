@@ -73,8 +73,8 @@ public class autoBlueWH extends LinearOpMode {
         robot.init(hardwareMap);
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
-        initTfod();
+        //initVuforia();
+        //initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -82,17 +82,17 @@ public class autoBlueWH extends LinearOpMode {
          **/
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(1, 16.0 / 9.0);
         }
 
-        robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*robot.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        /** Wait for the game to begin */
+        // Wait for the game to begin
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
@@ -105,7 +105,7 @@ public class autoBlueWH extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                    /* if (updatedRecognitions == null){
                         place = "right";
-                    }*/
+                    }
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
@@ -183,7 +183,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -217,7 +217,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+
                             sleep(30000);
                         }
                         //when duck is in right config
@@ -249,7 +249,7 @@ public class autoBlueWH extends LinearOpMode {
                             robot.slide.setPower(.05);
                             sleep(500);
                             robot.slide.setPower(0);
-*/
+
                             //move to alliance hub
                             robot.MoveForwardInch(28,1);
 
@@ -276,7 +276,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -310,7 +310,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+
                             sleep(30000);
                         }
                         //when duck is in middle config
@@ -364,7 +364,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -398,7 +398,7 @@ public class autoBlueWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+
                                 sleep(30000);
                         }
                     }
@@ -410,7 +410,7 @@ public class autoBlueWH extends LinearOpMode {
 
     /**
      * Initialize the Vuforia localizat  ion engine.
-     */
+
     private void initVuforia() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
@@ -425,7 +425,7 @@ public class autoBlueWH extends LinearOpMode {
 
     /**
      * Initialize the TensorFlow Object Detection engine.
-     */
+
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -435,5 +435,8 @@ public class autoBlueWH extends LinearOpMode {
         tfodParameters.inputSize = 350;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+    }
+}
+*/
     }
 }

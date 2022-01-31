@@ -22,10 +22,10 @@ public class tankDrive extends LinearOpMode {
             robot.backLeft.setPower(gamepad1.left_stick_y);
 
 
-            robot.slide.setPower(-gamepad2.right_stick_y / 8);
-            telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
+            //robot.slide.setPower(-gamepad2.right_stick_y / 8);
+            //telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
             telemetry.update();
-            robot.turret.setPower(-gamepad2.left_stick_x / 8);
+            robot.turret.setPower(-gamepad2.left_stick_x / 4);
 
             if (gamepad1.a) {
                 robot.duckSpinner.setPower(.2);
@@ -52,7 +52,7 @@ public class tankDrive extends LinearOpMode {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
             }*/
-                if (gamepad2.left_bumper == true){
+                /*if (gamepad2.left_bumper == true){
                     //close grabber
                     robot.grabber.setPosition(1);
                 } else if (gamepad2.right_bumper == true) {
@@ -62,6 +62,8 @@ public class tankDrive extends LinearOpMode {
                     //Stop grabber
                     robot.grabber.setPosition(.5);
                 }
+
+                 */
 
 
                 if (gamepad2.y) {
@@ -74,7 +76,7 @@ public class tankDrive extends LinearOpMode {
                     robot.linkage.setPosition(.3);
                 }
 
-                if (gamepad2.a) {
+               /* if (gamepad2.a) {
                     telemetry.addData("Pivot position: ", robot.pivot.getPosition());
                     telemetry.update();
                     if (robot.pivot.getPosition() > 0) {
@@ -92,7 +94,7 @@ public class tankDrive extends LinearOpMode {
                     telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
                     telemetry.update();
                     sleep(100);
-                }
+               }
 
 
                 while (robot.slideSensor.isPressed()) {
@@ -100,6 +102,8 @@ public class tankDrive extends LinearOpMode {
                     sleep(500);
                     robot.slide.setPower(Math.abs(gamepad2.left_stick_y));
                 }
+
+                */
 
             }
         }

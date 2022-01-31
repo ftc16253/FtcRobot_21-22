@@ -26,10 +26,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+/*
 package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -38,10 +39,12 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.BEAST_2021.Pushbot2021;
 
 import java.util.List;
 
 @Autonomous(name = "autoRedWH")
+@Disabled
 public class autoRedWH extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
@@ -58,14 +61,14 @@ public class autoRedWH extends LinearOpMode {
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
-     */
+     *
     private VuforiaLocalizer vuforia;
     Pushbot2021 robot = new Pushbot2021();
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
      * Detection engine.
-     */
+     *
     private TFObjectDetector tfod;
 
     @Override
@@ -79,7 +82,7 @@ public class autoRedWH extends LinearOpMode {
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
-         **/
+         **
         if (tfod != null) {
             tfod.activate();
             tfod.setZoom(1.2, 17.0/10.0);
@@ -92,7 +95,7 @@ public class autoRedWH extends LinearOpMode {
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        /** Wait for the game to begin */
+        /** Wait for the game to begin *
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
@@ -105,7 +108,7 @@ public class autoRedWH extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                    /* if (updatedRecognitions == null){
                         place = "right";
-                    }*/
+                    }*
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
@@ -184,7 +187,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+*
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -218,7 +221,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+*
                             sleep(30000);
                         }
                         //when duck is in right config
@@ -250,7 +253,7 @@ public class autoRedWH extends LinearOpMode {
                             robot.slide.setPower(.05);
                             sleep(500);
                             robot.slide.setPower(0);
-*/
+*
                             //move to alliance hub
                             robot.MoveForwardInch(26,1);
 
@@ -277,7 +280,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+*
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -311,7 +314,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+*
                             sleep(30000);
                         }
                         //when duck is in middle config
@@ -365,7 +368,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //deposit duck
                             robot.depositCube(0, 0, 10);
-*/
+*
 
                             // back up from alliance hub
                             robot.MoveForwardInch(-6, 1);
@@ -399,7 +402,7 @@ public class autoRedWH extends LinearOpMode {
 
                             //move to warehouse
                             robot.MoveForwardInch(48, 1);
-*/
+*
                             sleep(30000);
                         }
                     }
@@ -411,7 +414,7 @@ public class autoRedWH extends LinearOpMode {
 
     /**
      * Initialize the Vuforia localizat  ion engine.
-     */
+     *
     private void initVuforia() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
@@ -426,7 +429,7 @@ public class autoRedWH extends LinearOpMode {
 
     /**
      * Initialize the TensorFlow Object Detection engine.
-     */
+     *
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -437,4 +440,4 @@ public class autoRedWH extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
-}
+}*/

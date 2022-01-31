@@ -21,9 +21,8 @@ public class Pushbot2021
 
     /* Public OpMode members. */
     public DcMotor frontLeft, frontRight, backRight, backLeft;
-    public DcMotor slide, turret, duckSpinner;
-    public Servo grabber, linkage, pivot, bucket;
-    public TouchSensor slideSensor;
+    public DcMotor pivot, turret, duckSpinner, intake;
+    public Servo linkage, bucket;
     double spinDiameter = 1;
     double diameter = 3.6;
     double circumference = diameter * 3.14;
@@ -37,7 +36,7 @@ public class Pushbot2021
     double ticToDegree = (andyMark20Tics*(20.0/7.0))/360;
     double ticToInch = (andyMark20Tics/(spinDiameter*3.14));
 
-    boolean turretMove = false, slideMove = false;
+    boolean turretMove = false, pivotMove = false;
     double targetDeg = 0, targetHeight = 0;
 
     public OpenCvCamera webcam;
@@ -61,9 +60,10 @@ public class Pushbot2021
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backLeft  = hwMap.get(DcMotor.class, "backLeft");
         backRight = hwMap.get(DcMotor.class, "backRight");
-        slide = hwMap.get(DcMotor.class, "slide");
+        intake = hwMap.get(DcMotor.class, "intake");
         turret = hwMap.get(DcMotor.class, "turret");
         duckSpinner = hwMap.get(DcMotor.class, "duckSpinner");
+        pivot = hwMap.get(DcMotor.class, "pivot");
 
         int cameraMonitorViewId = ahwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", ahwMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(ahwMap.get(WebcamName.class, "Webcam 2021"), cameraMonitorViewId);
@@ -77,14 +77,14 @@ public class Pushbot2021
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         turret.setDirection(DcMotorSimple.Direction.FORWARD);
-        slide.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         duckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
+        pivot.setDirection(DcMotorSimple.Direction.REVERSE);
 
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         // Set all motors to zero power
@@ -92,17 +92,14 @@ public class Pushbot2021
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        slide.setPower(0);
+        intake.setPower(0);
         turret.setPower(0);
         duckSpinner.setPower(0);
-
-
+        pivot.setPower(0);
 
         //Define Servos
-        grabber = hwMap.get(Servo.class, "grabber");
         linkage = hwMap.get(Servo.class, "linkage");
         bucket =hwMap.get(Servo.class, "bucket");
-        pivot = hwMap.get(Servo.class, "pivot");
 
 
 
@@ -110,13 +107,8 @@ public class Pushbot2021
 
             linkage.setPosition(0.3);
             bucket.setPosition(0);
-            grabber.setPosition(0);
-            pivot.setPosition(0);
+            pivot.setPower(0);
             moveTurret(0,1);
-
-
-        //set sensors
-        slideSensor = hwMap.get(TouchSensor.class, "slideSensor");
 
 /*
         //This section makes the motors drive slowly - Don't use BRAKE
@@ -208,13 +200,13 @@ public class Pushbot2021
             }
         }
     }
-    public void depositCube(double height, double degrees, double distance){
+    /*public void depositCube(double height, double degrees, double distance){
         double length = distance;
         double hypotenuse = Math.sqrt((height*height)+(length*length));
         double linkageMove = hypotenuse * ((1 / 180) * 9 );
 
-        //move linear slide to correct level
-        moveSlide(height, .125);
+        //move linear intake to correct level
+        moveintake(height, .125);
 
         //turn turret to deposit
         moveTurret(degrees, .25);
@@ -230,7 +222,7 @@ public class Pushbot2021
 
         moveTurret(0,.25);
 
-        moveSlide(0, .7);
+        moveintake(0, .7);
     }
     public void pickupCube(double degrees, double distance, double power){
         double height = 8;
@@ -255,7 +247,7 @@ public class Pushbot2021
         linkage.setPosition(.3);
 
         moveTurret(0, power);
-    }
+    }*/
 
     public double angleWrap(double currentAngle) {
         while (currentAngle < 0) {
@@ -289,24 +281,24 @@ public class Pushbot2021
             turret.setPower(-outputPower);
         }
     }
-    public void moveSlide (double height, double power){
+    public void movePivot (double height){
 
-        double currentHeight = (slide.getCurrentPosition() / ticToInch);
+        double currentHeight = angleWrap(pivot.getCurrentPosition() / ticToInch);
 
         double outputPower;
 
-        if (Math.abs(height - currentHeight) < 60.0) {
+        if (Math.abs(height - currentHeight) < 20.0) {
             outputPower = 0.05;
         } else {
-            outputPower = power / 8;
+            outputPower = .25;
         }
         if (Math.abs(height - currentHeight) < 2.0){
-            slide.setPower(0);
-            slideMove = false;
+            pivot.setPower(0);
+            pivotMove = false;
         } else if (height > currentHeight){
-            slide.setPower(outputPower);
+            pivot.setPower(outputPower);
         } else if (height < currentHeight){
-            slide.setPower(-outputPower);
+            pivot.setPower(-outputPower);
         }
     }
 }

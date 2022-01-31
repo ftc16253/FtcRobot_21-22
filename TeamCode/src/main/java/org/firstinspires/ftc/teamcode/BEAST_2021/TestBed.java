@@ -43,13 +43,20 @@ public class TestBed extends LinearOpMode {
             robot.backRight.setPower(-gamepad1.right_stick_y);
             robot.frontLeft.setPower(-gamepad1.left_stick_y);
             robot.backLeft.setPower(-gamepad1.left_stick_y);
-            robot.slide.setPower(gamepad2.right_stick_y / 2 );
+            robot.intake.setPower(gamepad2.right_stick_y / 2 );
+
+            //New Pivot
+            double drive = gamepad1.left_stick_y;
+            if (drive != 0){
+                robot.pivot.setPower(drive/4);
+            }
+
 
             if (gamepad1.left_trigger != 0) {
                 robot.bucket.setPosition(0);
             }
             if (gamepad1.right_trigger != 0) {
-                robot.bucket.setPosition(.25);
+                robot.bucket.setPosition(1);
             }
 
             if (gamepad1.a == true) {
@@ -73,7 +80,7 @@ public class TestBed extends LinearOpMode {
                 robot.duckSpinner.setPower(0);
             }
 
-            if (gamepad1.right_bumper == true){
+            /*if (gamepad1.right_bumper == true){
                 //test drive encoders
                 robot.frontLeft.setPower(1);
                 robot.frontRight.setPower(1);
@@ -87,25 +94,7 @@ public class TestBed extends LinearOpMode {
                 telemetry.update();
             }
 
-            if(gamepad2.dpad_up){
-                robot.slideMove = true;
-                robot.targetHeight = 5.0;
-            }
-
-            if (gamepad2.left_bumper == true){
-                //close grabber
-                robot.grabber.setPosition(1);
-            }
-            else if (gamepad2.right_bumper == true)
-            {
-                //Open grabber
-                robot.grabber.setPosition(0);
-            }
-            else
-            {
-                //Stop grabber
-                robot.grabber.setPosition(.5);
-            }
+             */
 
             if (gamepad2.y == true){
                 //linkage open
@@ -113,10 +102,12 @@ public class TestBed extends LinearOpMode {
 
             }
             if (gamepad2.a == true){
-                robot.pivot.setPosition(0);
+                robot.pivotMove = true;
+                robot.movePivot(0);
             }
             if (gamepad2.b == true){
-                robot.pivot.setPosition(.35);
+                robot.pivotMove = true;
+                robot.movePivot(7);
             }
 
             if (gamepad2.x == true){
@@ -126,10 +117,6 @@ public class TestBed extends LinearOpMode {
 
             if (robot.turretMove) {
                 robot.moveTurret(robot.targetDeg, 0.25);
-            }
-
-            if (robot.slideMove){
-                robot.moveSlide(robot.targetHeight, .25);
             }
 
             double currentDegree = robot.turret.getCurrentPosition() / robot.ticToDegree;
