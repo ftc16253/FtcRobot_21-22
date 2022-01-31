@@ -86,7 +86,7 @@ public class autoRedWH2 extends LinearOpMode {
             //deposit cube
             //robot.grabber.setPosition(0);
 
-            //move away from alliance hub
+            //move away from alliance hu
            // robot.MoveForwardInch(6,-1);
 
            /* if (robot.place == "RIGHT"){
