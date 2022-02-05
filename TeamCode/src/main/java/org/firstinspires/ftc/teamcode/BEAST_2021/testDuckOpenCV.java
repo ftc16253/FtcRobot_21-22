@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -10,6 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Autonomous(name = "testDuckOpenCV")
+@Disabled
 public class testDuckOpenCV extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
     //String place;

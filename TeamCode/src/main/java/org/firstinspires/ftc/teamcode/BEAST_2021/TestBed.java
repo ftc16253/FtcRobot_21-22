@@ -14,26 +14,6 @@ public class TestBed extends LinearOpMode {
     public void runOpMode() {
         robot.init(hardwareMap);
 
-/*        robot.frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        robot.backRight = hardwareMap.get(DcMotor.class, "backRight");
-        robot.frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        robot.backLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        robot.intake = hardwareMap.get(DcMotor.class, "intake");
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.frontLeft.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.intake.setPower(0);
-        robot.slide.setPower(0);
-        robot.duckSpinner.setPower(0);
-        robot.turret.setPower(0);
- 
-
-        robot.grabber = hardwareMap.get(Servo.class, "grabber");
-        robot.linkage = hardwareMap.get(Servo.class, "linkage");
-*/
-
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
@@ -43,13 +23,9 @@ public class TestBed extends LinearOpMode {
             robot.backRight.setPower(-gamepad1.right_stick_y);
             robot.frontLeft.setPower(-gamepad1.left_stick_y);
             robot.backLeft.setPower(-gamepad1.left_stick_y);
-            robot.intake.setPower(gamepad2.right_stick_y / 2 );
+            robot.pivot.setPower(gamepad2.right_stick_y);
+            robot.turret.setPower(gamepad2.left_stick_x / 8);
 
-            //New Pivot
-            double drive = gamepad1.left_stick_y;
-            if (drive != 0){
-                robot.pivot.setPower(drive/4);
-            }
 
 
             if (gamepad1.left_trigger != 0) {
@@ -60,12 +36,7 @@ public class TestBed extends LinearOpMode {
             }
 
             if (gamepad1.a == true) {
-                //ramp up duck spinner
-                //robot.duckSpinner.setPower(.2);
-                //robot.duckSpinner.setPower(.4);
-                //robot.duckSpinner.setPower(.6);
                 robot.duckSpinner.setPower(.5);
-                //robot.duckSpinner.setPower(1);
             } else if (gamepad1.b == true){
                 robot.duckSpinner.setPower(.75);
             } else if (gamepad1.x){
@@ -79,23 +50,12 @@ public class TestBed extends LinearOpMode {
             } else{
                 robot.duckSpinner.setPower(0);
             }
-
-            /*if (gamepad1.right_bumper == true){
-                //test drive encoders
-                robot.frontLeft.setPower(1);
-                robot.frontRight.setPower(1);
-                robot.backLeft.setPower(-1);
-                robot.backRight.setPower(-1);
-
-                telemetry.addData("left front: ", robot.frontLeft.getCurrentPosition());
-                telemetry.addData("right front: ", robot.frontRight.getCurrentPosition());
-                telemetry.addData("left back: ", robot.backLeft.getCurrentPosition());
-                telemetry.addData("right back: ", robot.backRight.getCurrentPosition());
-                telemetry.update();
+            if (gamepad2.right_trigger != 0){
+                robot.intake.setPower(gamepad2.right_trigger);
             }
-
-             */
-
+            if (gamepad2.left_trigger != 0){
+                robot.intake.setPower(gamepad2.left_trigger / 2);
+            }
             if (gamepad2.y == true){
                 //linkage open
                 robot.linkage.setPosition(0);
@@ -112,7 +72,7 @@ public class TestBed extends LinearOpMode {
 
             if (gamepad2.x == true){
                 //linkage closed - counter clockwise to 1
-                robot.linkage.setPosition(.6);
+                robot.linkage.setPosition(1);
             }
 
             if (robot.turretMove) {

@@ -30,103 +30,58 @@ public class autoRedWH2 extends LinearOpMode {
             }
             robot.webcam.stopStreaming();
 
-            sleep(5000);
+            //sleep(5000);
+            //robot.pivot.setPower(.5);
+            //sleep(500);
+            //robot.pivot.setPower(0);
             //move away from wall
             robot.MoveForwardInch(6, 1);
             sleep(100);
 
-            //pickup cube {
-           /* robot.linkage.setPosition(.1);
-            robot.pivot.setPosition(.2);
-            sleep(300);
-            robot.grabber.setPosition(1);
-            sleep(2000);
-            robot.pivot.setPosition(0.1);
-            // }
+            //turn to alliance hub
+            robot.turn(7,-1);
+            //move to alliance hub
+            robot.MoveForwardInch(14,1);
+            robot.turn(10, 1);
+            robot.MoveForwardInch(18,1);
 
-            */
-            robot.turn(23,-1);
-            robot.MoveForwardInch(17,1);
-
-            //robot.place = "RIGHT";
-            //move pivot to correct level
-            /*if (robot.place == "LEFT") {
-                robot.turn(10, -1);
-                sleep(1000);
-                robot.MoveForwardInch(20, 1);
-                sleep(1000);
-                robot.turn(15,1);
-                sleep(1000);
-                robot.MoveForwardInch(10,1);
-                robot.pivot.setPosition(.125);
-            } else if (robot.place == "RIGHT"){
-                robot.turn(5, -1);
-                sleep(1000);
-                robot.MoveForwardInch(30,1);
-                sleep(1000);
-                robot.pivot.setPosition(0);
-                /* //move slide to above top level
-                robot.slide.setPower(.05);
-                sleep(500);
-                robot.slide.setPower(0);
-            } else if (robot.place == "CENTER"){
-                robot.MoveForwardInch(30,1);
-                sleep(1000);
-                robot.pivot.setPosition(0.02);
-            }
-
-             */
 
             //turn turret to alliance hub
             robot.turret.setPower(.22);
-            sleep(400);
+            sleep(220);
             robot.turret.setPower(0);
+            robot.bucket.setPosition(0);
 
-            sleep(200);
-            //deposit cube
-            //robot.grabber.setPosition(0);
+            sleep(2000);
 
-            //move away from alliance hu
-           // robot.MoveForwardInch(6,-1);
-
-           /* if (robot.place == "RIGHT"){
-                robot.MoveForwardInch(20, -1);
-
-
-            } else {
-                robot.MoveForwardInch(10, -1);
+            if (robot.place == "RIGHT"){
+                robot.pivot.setPower(.5);
+                sleep(400);
+                robot.intake.setPower(-.5);
+                sleep(1000);
+                robot.intake.setPower(0);
+                robot.pivot.setPower(0);
+            }else if (robot.place == "CENTER"){
+                robot.pivot.setPower(.5);
+                sleep(200);
+                robot.intake.setPower(-.37);
+                sleep(1000);
+                robot.intake.setPower(0);
+                robot.pivot.setPower(0);
+            }else if (robot.place == "LEFT"){
+                robot.linkage.setPosition(.8);
+                robot.intake.setPower(-.35);
+                sleep(1000);
+                robot.intake.setPower(0);
             }
+            sleep(3000);
 
-            */
-
+            robot.MoveForwardInch(8, -1);
             //turn to warehouse
-            robot.turn(30,- 1);
+            robot.turn(35,- 1);
 
             //drive to warehouse
-            robot.MoveForwardInch(50, -1);
-/*
-                            //pickup cube
-                            robot.pickupCube(0, 8, .5);
-                            //drive back to alliance hub
-                            robot.MoveForwardInch(48, -1);
-                            //deposit cube
-                            robot.depositCube(0, 135, 10);
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-                            //Pickup cube
-                            robot.pickupCube(0, 10, .5);
-                            //move to allaince hub
-                            robot.MoveForwardInch(48, -1);
-                            //deposit cube
-                            robot.depositCube(0, 135, 5);
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-                         */
-            robot.turret.setPower(.22);
-            sleep(500);
-            robot.turret.setPower(.05);
-            sleep(300);
-            robot.turret.setPower(0);
+            robot.MoveForwardInch(55, -1);
 
             sleep(30000);
         }

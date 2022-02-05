@@ -31,84 +31,46 @@ public class autoBlueWH2 extends LinearOpMode {
             robot.webcam.stopStreaming();
 
             sleep(5000);
+            robot.pivot.setPower(.5);
+            sleep(500);
+            robot.pivot.setPower(0);
             //move away from wall
             robot.MoveForwardInch(6, 1);
             sleep(100);
 
-            //pickup cube {
-           /* robot.linkage.setPosition(.1);
-            robot.pivot.setPosition(.2);
-            sleep(300);
-            robot.grabber.setPosition(1);
-            sleep(2000);
-            robot.pivot.setPosition(0.1);
-            // }
-
-            */
-            robot.turn(33,-1);
+            //turn to alliance hub
+            robot.turn(23,-1);
+            //move to alliance hub
             robot.MoveForwardInch(17,1);
-
-            //robot.place = "RIGHT";
-            //move pivot to correct level
-
 
             //turn turret to alliance hub
             robot.turret.setPower(-.22);
-            sleep(400);
+            sleep(83);
             robot.turret.setPower(0);
 
-            sleep(200);
-            //deposit cube
-            //robot.grabber.setPosition(0);
+            if (robot.place == "RIGHT"){
 
-            //move away from alliance hub
-            // robot.MoveForwardInch(6,-1);
+            }else if (robot.place == "CENTER"){
 
-           /* if (robot.place == "RIGHT"){
-                robot.MoveForwardInch(20, -1);
+            }else if (robot.place == "LEFT"){
 
-
-            } else {
-                robot.MoveForwardInch(10, -1);
             }
 
-            */
+            robot.turret.setPower(.22);
+            sleep(83);
+            robot.turret.setPower(0);
+            sleep(20000);
 
             //turn to warehouse
-            robot.turn(55,-1);
+            robot.turn(28,- 1);
 
             //drive to warehouse
-            robot.MoveForwardInch(50, 1);
-/*
-                            //pickup cube
-                            robot.pickupCube(0, 8, .5);
-                            //drive back to alliance hub
-                            robot.MoveForwardInch(48, -1);
-                            //deposit cube
-                            robot.depositCube(0, 135, 10);
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-                            //Pickup cube
-                            robot.pickupCube(0, 10, .5);
-                            //move to allaince hub
-                            robot.MoveForwardInch(48, -1);
-                            //deposit cube
-                            robot.depositCube(0, 135, 5);
-                            //move to warehouse
-                            robot.MoveForwardInch(48, 1);
-                         */
-            robot.turret.setPower(-.22);
+            robot.MoveForwardInch(70, -1);
+
+            robot.turret.setPower(.22);
             sleep(500);
-            robot.turret.setPower(0);
-            robot.pivotMove = true;
-            robot.movePivot(0);
-            robot.intake.setPower(1);
-            robot.turret.setPower(-.05);
+            robot.turret.setPower(.05);
             sleep(300);
-            robot.turret.setPower(0);
-            robot.intake.setPower(0);
-            robot.turret.setPower(-.22);
-            sleep(550);
             robot.turret.setPower(0);
 
             sleep(30000);

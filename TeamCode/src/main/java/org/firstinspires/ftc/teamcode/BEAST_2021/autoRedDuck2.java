@@ -30,58 +30,79 @@ public class autoRedDuck2 extends LinearOpMode {
             }
             robot.webcam.stopStreaming();
 
-            sleep(5000);
-            // }
+            robot.bucket.setPosition(0);
+           // sleep(5000);
+            //move to away from wall
+            if (robot.place == "RIGHT"){
+                robot.MoveForwardInch(6,1);
+            } else {
+                robot.MoveForwardInch(7, 1);
+            }
             //turn to alliance hub
-            //robot.turn(13, 1);
+            robot.turn(31, 1);
+            //move to alliance hub
+            robot.MoveForwardInch(24, 1);
 
+            if (robot.place == "RIGHT"){
+                robot.turn(22, 1);
+                robot.turret.setPower(.22);
+                sleep(280);
+                robot.turret.setPower(0);
+            }else {
+                //turn to duck spinner
+                robot.turn(15, 1);
+                robot.turret.setPower(.22);
+                sleep(250);
+                robot.turret.setPower(0);
+            }
+
+            sleep(2000);
             //move pivot to correct level
-            /*if (robot.place == "LEFT") {
-                robot.pivot.setPosition(.125);
+            if (robot.place == "LEFT") {
+               robot.intake.setPower(-.35);
+               sleep(1000);
+               robot.intake.setPower(0);
             } else if (robot.place == "RIGHT"){
-                robot.pivot.setPosition(0);
-                /* //move slide to above top level
-                robot.slide.setPower(.05);
+                robot.pivot.setPower(0.5);
                 sleep(500);
-                robot.slide.setPower(0);
+                robot.intake.setPower(-1);
+                sleep(1000);
+                robot.intake.setPower(0);
+                robot.pivot.setPower(0);
+            } else if (robot.place == "CENTER") {
+                robot.pivot.setPower(.5);
+                sleep(400);
+                robot.intake.setPower(-.35);
+                sleep(1000);
+                robot.intake.setPower(0);
+                robot.pivot.setPower(0);
+            }
+            robot.turret.setPower(-.22);
+            sleep(250);
+            robot.turret.setPower(0);
+
+            if (robot.place == "RIGHT"){
+                robot.turn(12, -1);
+            }else {
+                robot.turn(8, -1);
+            }
+           /* //move pivot to correct level
+            if (robot.place == "LEFT") {
+                robot.pivot.setPower(-0.5);
+                sleep(200);
+                robot.pivot.setPower(0);
+            } else if (robot.place == "RIGHT"){
+                robot.pivot.setPower(-0.5);
+                sleep(1000);
+                robot.pivot.setPower(0);
             } else if (robot.place == "CENTER"){
-                robot.pivot.setPosition(0.02);
+                robot.pivot.setPower(-0.5);
+                sleep(500);
+                robot.pivot.setPower(0);
             } */
 
-            //move to alliance hub
-            robot.MoveForwardInch(6,1);
-
-            //turn to alliance hub
-            robot.turn(30, 1);
-
-            //move to alliance hub
-            robot.MoveForwardInch(19, 1);
-
-            //back up
-            //robot.MoveForwardInch(10, -1);
-
-            //deposit cube in tower
-            //robot.grabber.setPosition(0);
-
-            //move linkage in
-            robot.linkage.setPosition(.4);
-
-            /*robot.turret.setPower(.2);
-            sleep(600);
-            robot.turret.setPower(0);
-            //robot.moveTurret(5,.75);
-
-            robot.linkage.setPosition(0);
-            sleep(500);
-
-            robot.pivot.setPosition(1);
-            sleep(10000);*/
-
-            //turn to duck spinner
-            robot.turn(14, 1);
-
             //move to duck spinner
-            robot.MoveForwardInch(45, -1);
+            robot.MoveForwardInch(51, -1);
 
             //turn carousel
             robot.duckSpinner.setPower(.5);

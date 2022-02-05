@@ -79,7 +79,7 @@ public class Pushbot2021
         turret.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         duckSpinner.setDirection(DcMotorSimple.Direction.FORWARD);
-        pivot.setDirection(DcMotorSimple.Direction.REVERSE);
+        pivot.setDirection(DcMotorSimple.Direction.FORWARD);
 
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,8 +105,8 @@ public class Pushbot2021
 
         //set servo positions starting positions
 
-            linkage.setPosition(0.3);
-            bucket.setPosition(0);
+            linkage.setPosition(1);
+            bucket.setPosition(1);
             pivot.setPower(0);
             moveTurret(0,1);
 

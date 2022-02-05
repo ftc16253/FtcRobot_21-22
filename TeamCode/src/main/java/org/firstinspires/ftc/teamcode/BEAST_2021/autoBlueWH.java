@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -42,6 +43,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 @Autonomous(name = "autoBlueWH")
+@Disabled
 public class autoBlueWH extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
     private static final String[] LABELS = {
