@@ -15,6 +15,21 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import android.hardware.Sensor;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.checkerframework.checker.units.qual.degrees;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class Pushbot2021
 {
@@ -34,7 +49,7 @@ public class Pushbot2021
             "Afctxlz/////AAABmSWf4jOsTUHcsOYa/JfaZlRo+3yiPN8cCUH4BDLpIZ8FAt0tEVLJ/mxWUyd7f0gqd+a7JRTMYP9+A9s1nojOs9B1ZGOFsvr84RZnbVN8cGP7RFKNP4Mg0Pr/6vIUmHGFx/jrOrXz/YJXwVXvPpqr1uDm8xpBZOE4j+CtQcKW2Y2zjVWHWRTkmb6ve/R91k3jfjaH4PErbZMcvD7Xy5IesqSet3/pjeUXWSnlHmPwH7fgUcHSkAf0Fj2nLvZ7zmpT8vh9rSKri9XD3A64WBNRO+6+SGH/C/eS3mWLmdi5ZMbSK66WuvNhAPT0SHCzzqAlAf2P6asrrrAuw+aQ0B2HV0mPtGdNPe62djhu5Afa/rL+";
 
     double ticToDegree = (andyMark20Tics*(20.0/7.0))/360;
-    double ticToInch = (andyMark20Tics/(spinDiameter*3.14));
+    double tictoheight = ((andyMark20Tics*4)/360);
 
     boolean turretMove = false, pivotMove = false;
     double targetDeg = 0, targetHeight = 0;
@@ -51,7 +66,7 @@ public class Pushbot2021
     private ElapsedTime period  = new ElapsedTime();
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, boolean isAuto) {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
@@ -68,8 +83,10 @@ public class Pushbot2021
         int cameraMonitorViewId = ahwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", ahwMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(ahwMap.get(WebcamName.class, "Webcam 2021"), cameraMonitorViewId);
         webcam.openCameraDevice();
-        webcam.setPipeline(detector);
-        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        if (isAuto) {
+            webcam.setPipeline(detector);
+            webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        }
 
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -106,9 +123,9 @@ public class Pushbot2021
         //set servo positions starting positions
 
             linkage.setPosition(1);
-            bucket.setPosition(1);
+            bucket.setPosition(0);
             pivot.setPower(0);
-            moveTurret(0,1);
+            //moveTurret(0,1);
 
 /*
         //This section makes the motors drive slowly - Don't use BRAKE
@@ -281,23 +298,23 @@ public class Pushbot2021
             turret.setPower(-outputPower);
         }
     }
-    public void movePivot (double height){
+    public void movePivot (double degree){
 
-        double currentHeight = angleWrap(pivot.getCurrentPosition() / ticToInch);
+        double currentHeight = angleWrap(pivot.getCurrentPosition() / tictoheight);
 
         double outputPower;
 
-        if (Math.abs(height - currentHeight) < 20.0) {
+        if (Math.abs(degree - currentHeight) < 20.0) {
             outputPower = 0.05;
         } else {
-            outputPower = .25;
+            outputPower = 1;
         }
-        if (Math.abs(height - currentHeight) < 2.0){
+        if (Math.abs(degree - currentHeight) < 2.0){
             pivot.setPower(0);
             pivotMove = false;
-        } else if (height > currentHeight){
+        } else if (degree > currentHeight){
             pivot.setPower(outputPower);
-        } else if (height < currentHeight){
+        } else if (degree < currentHeight){
             pivot.setPower(-outputPower);
         }
     }

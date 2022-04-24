@@ -10,7 +10,7 @@ public class autoBlueDuck2 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, true);
 
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
@@ -26,71 +26,58 @@ public class autoBlueDuck2 extends LinearOpMode {
                 telemetry.addData("leftTotal = ", robot.leftTotal);
                 telemetry.addData("centerTotal = ", robot.centerTotal);
                 telemetry.update();
-                t = t + 1;
+                t = t + 1; 
             }
             robot.webcam.stopStreaming();
 
-            sleep(5000);
-            //move pivot to correct level
-            /*if (robot.place == "LEFT") {
-                robot.pivot.setPosition(.125);
-            } else if (robot.place == "RIGHT"){
-                robot.pivot.setPosition(0);
-                /* //move slide to above top level
-                robot.slide.setPower(.05);
-                sleep(500);
-                robot.slide.setPower(0);
-            } else if (robot.place == "CENTER"){
-                robot.pivot.setPosition(0.02);
-            } */
-
+            //sleep(6000);
             //move to alliance hub
-            robot.MoveForwardInch(6,1);
+            robot.MoveForwardInch(8,1);
 
             //turn to alliance hub
-            robot.turn(35, -1);
+            robot.turn(36, -1);
 
             //move to alliance hub
-            robot.MoveForwardInch(19, 1);
+            robot.MoveForwardInch(18, 1);
             //turn to deposit cube
-            robot.turn(23,1);
+            robot.turn(21,1);
 
             //deposit cube
-            robot.intake.setPower(-.25);
-            sleep(500);
-            robot.intake.setPower(0);
-            sleep(20000);
+            if (robot.place == "RIGHT"){
+                robot.pivot.setPower(.5);
+                robot.linkage.setPosition(.2);
+                sleep(500);
+                robot.intake.setPower(-.35);
+                sleep(1500);
+                robot.intake.setPower(0);
+                robot.pivot.setPower(0);
+                sleep(100);
+                robot.linkage.setPosition(1);
+            }else if (robot.place == "CENTER"){
+                robot.linkage.setPosition(.8);
+                sleep(100);
+                robot.intake.setPower(-.25);
+                sleep(1500);
+                robot.intake.setPower(0);
+            }else if (robot.place == "LEFT"){
+                robot.bucket.setPosition(1);
+                sleep(100);
+                robot.intake.setPower(-.35);
+                sleep(2000);
+                robot.intake.setPower(0);
+            }
             //turn to carousel
-            robot.turn(25,-1);
-            //back up
-            //robot.MoveForwardInch(10, -1);
-
-            //deposit cube in tower
-            //robot.grabber.setPosition(0);
-
-            //move linkage in
-            robot.linkage.setPosition(.4);
-
-            /*robot.turret.setPower(.2);
-            sleep(600);
-            robot.turret.setPower(0);
-            //robot.moveTurret(5,.75);
-
-            robot.linkage.setPosition(0);
-            sleep(500);
-
-            robot.pivot.setPosition(1);
-            sleep(10000);*/
+            robot.turn(20,-1);
 
             //move to duck spinner
-            robot.MoveForwardInch(40, -1);
+            robot.MoveForwardInch(42, -1);
 
             //turn to place duckspinner on carousel
-            robot.turn(27,1);
+            robot.turn(25,1);
 
             //turn carousel
-            robot.duckSpinner.setPower(.5);
-            sleep(2500);
+            robot.duckSpinner.setPower(-.5);
+            sleep(3000);
 
             //stop carousel
             robot.duckSpinner.setPower(0);
@@ -99,9 +86,9 @@ public class autoBlueDuck2 extends LinearOpMode {
             //move away from carousel
             robot.MoveForwardInch(4 , 1);
 
-            robot.turn(25 , 1);
+            robot.turn(24, 1);
 
-            robot.MoveForwardInch(23, 1);
+            robot.MoveForwardInch(20, 1);
 
             sleep(30000);
         }

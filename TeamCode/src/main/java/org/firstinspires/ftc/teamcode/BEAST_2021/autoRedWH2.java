@@ -10,7 +10,7 @@ public class autoRedWH2 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, true);
 
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
@@ -30,58 +30,54 @@ public class autoRedWH2 extends LinearOpMode {
             }
             robot.webcam.stopStreaming();
 
-            //sleep(5000);
-            //robot.pivot.setPower(.5);
-            //sleep(500);
-            //robot.pivot.setPower(0);
-            //move away from wall
-            robot.MoveForwardInch(6, 1);
-            sleep(100);
+            //sleep(6000);
+            //move to alliance hub
+            robot.MoveForwardInch(8,1);
 
             //turn to alliance hub
-            robot.turn(7,-1);
+            robot.turn(33, -1);
+
             //move to alliance hub
-            robot.MoveForwardInch(14,1);
-            robot.turn(10, 1);
-            robot.MoveForwardInch(18,1);
-
-
-            //turn turret to alliance hub
-            robot.turret.setPower(.22);
-            sleep(220);
-            robot.turret.setPower(0);
-            robot.bucket.setPosition(0);
-
-            sleep(2000);
+            robot.MoveForwardInch(17, 1);
+            //turn to deposit cube
+            robot.turn(27,1);
+            robot.MoveForwardInch(3,1);
 
             if (robot.place == "RIGHT"){
                 robot.pivot.setPower(.5);
-                sleep(400);
-                robot.intake.setPower(-.5);
-                sleep(1000);
-                robot.intake.setPower(0);
-                robot.pivot.setPower(0);
-            }else if (robot.place == "CENTER"){
-                robot.pivot.setPower(.5);
                 sleep(200);
-                robot.intake.setPower(-.37);
-                sleep(1000);
+                robot.linkage.setPosition(.2);
+                robot.bucket.setPosition(.6);
+                sleep(500);
+                robot.intake.setPower(-.35);
+                sleep(1500);
                 robot.intake.setPower(0);
                 robot.pivot.setPower(0);
-            }else if (robot.place == "LEFT"){
-                robot.linkage.setPosition(.8);
-                robot.intake.setPower(-.35);
-                sleep(1000);
+                sleep(100);
+                robot.linkage.setPosition(1);
+            }else if (robot.place == "CENTER"){
+                robot.intake.setPower(-.25);
+                sleep(1500);
                 robot.intake.setPower(0);
+            }else if (robot.place == "LEFT"){
+                robot.linkage.setPosition(.5);
+                robot.bucket.setPosition(.5);
+                sleep(100);
+                robot.intake.setPower(-.25);
+                sleep(2000);
+                robot.intake.setPower(0);
+                robot.linkage.setPosition(1);
             }
-            sleep(3000);
 
-            robot.MoveForwardInch(8, -1);
+            robot.MoveForwardInch(4,-1);
+            robot.turn(24,-1);
+            robot.MoveForwardInch(9,-1);
             //turn to warehouse
-            robot.turn(35,- 1);
-
-            //drive to warehouse
-            robot.MoveForwardInch(55, -1);
+            robot.turn(30,-1);
+            robot.MoveForwardInch(30,-1);
+            robot.turn(18,1);
+            //drive to warehousewe
+            robot.MoveForwardInch(30, -1);
 
             sleep(30000);
         }

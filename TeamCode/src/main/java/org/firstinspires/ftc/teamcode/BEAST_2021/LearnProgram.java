@@ -17,7 +17,7 @@ public class LearnProgram extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
 
         waitForStart();
 
