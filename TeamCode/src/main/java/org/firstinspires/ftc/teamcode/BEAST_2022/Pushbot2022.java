@@ -17,9 +17,9 @@ class Pushbot2022 extends LinearOpMode {
         backLeftMec.setDirection(DcMotor.Direction.FORWARD);
         backRightMec.setDirection(DcMotor.Direction.REVERSE);
 
-        public void moveFowardInch {
+    }
+    public void moveFowardInch(double distance){
 
-        }
     }
 }
 
