@@ -22,18 +22,18 @@ public class Drive2022 extends LinearOpMode {
                 //move forward diagonally to the right
                 bot.frontRightMec.setPower(1);
                 bot.backLeftMec.setPower(1);
-            }else if (gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0) {
-                //move backward diagonally to the left
-                bot.frontRightMec.setPower(-1);
-                bot.backLeftMec.setPower(-1);
-            }else if (gamepad1.left_stick_x > 0 && gamepad1.left_stick_y < 0) {
-                //move backward diagonally to the right
-                bot.frontLeftMec.setPower(-1);
-                bot.backRightMec.setPower(-1);
             }else if (gamepad1.left_stick_x < 0 && gamepad1.left_stick_y > 0) {
                 //move forward diagonally to the left
                 bot.frontLeftMec.setPower(1);
                 bot.backRightMec.setPower(1);
+            }else if (gamepad1.left_stick_x > 0 && gamepad1.left_stick_y < 0) {
+                //move backward diagonally to the right
+                bot.frontLeftMec.setPower(-1);
+                bot.backRightMec.setPower(-1);
+            }else if (gamepad1.left_stick_x < 0 && gamepad1.left_stick_y < 0) {
+                //move backward diagonally to the left
+                bot.frontRightMec.setPower(-1);
+                bot.backLeftMec.setPower(-1);
             }else if (gamepad1.left_stick_x != 0){
                 bot.moveSide(gamepad1.left_stick_x);
             }
