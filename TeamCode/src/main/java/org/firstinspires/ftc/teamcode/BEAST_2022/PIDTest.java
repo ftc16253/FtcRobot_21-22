@@ -22,24 +22,30 @@ public class PIDTest extends LinearOpMode {
         if (opModeIsActive()){
 
             if (gamepad1.a){
-                PIDT(.9);
+                PIDTot(.9);
             } else if (gamepad1.b){
-                PIDT(.5);
+                PIDTot(.5);
             }else if (gamepad1.x){
-                PIDT(-.5);
+                PIDTot(-.5);
             }else {
-                PIDT(0);
+                PIDTot(0);
             }
             telemetry.update();
         }
     }
     double integral = 0;
     double lastError = 0;
-    public void PIDT (double targetV){
+    public void PIDTot (double targetV){
         PIDfl(targetV);
         PIDfr(targetV);
         PIDbl(targetV);
         PIDbr(targetV);
+    }
+    public void PIDTurn (double targetV){
+        PIDfl(targetV);
+        PIDfr(-targetV);
+        PIDbl(targetV);
+        PIDbr(-targetV);
     }
     public void PIDfl(double targetV){
         PIDtimer.reset();
