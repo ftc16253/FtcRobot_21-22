@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.BEAST_2022;
+ package org.firstinspires.ftc.teamcode.BEAST_2022;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,7 +16,7 @@ class Pushbot2022 {
     /* Public OpMode members. */
     public DcMotor frontLeftMec, frontRightMec, backRightMec, backLeftMec;
     double spinDiameter = 1;
-    double diameter = 3.6;
+    double diameter = 3.77953;
     double circumference = diameter * 3.14;
     double andyMark40Tics = 1120;
     double andyMark20Tics = 537.6;
@@ -90,6 +90,67 @@ class Pushbot2022 {
         backRightMec.setPower(power);
         backLeftMec.setPower(-power);
     }
+    public void flank(double degrees, double power) {
+        frontRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double ticsToDegrees = ((7*3.14)/360)*(yellowJacketTics*(diameter*3.14));
+        double ticMove = degrees/ticsToDegrees;
+        while (ticMove>frontRightMec.getCurrentPosition()||ticMove>backRightMec.getCurrentPosition()
+                ||ticMove>Math.abs(backLeftMec.getCurrentPosition())||ticMove>Math.abs(frontLeftMec.getCurrentPosition())) {
+            frontRightMec.setPower(power);
+            frontLeftMec.setPower(-power);
+            backRightMec.setPower(power);
+            backLeftMec.setPower(-power);
+        }
+        frontLeftMec.setPower(0);
+        frontRightMec.setPower(0);
+        backLeftMec.setPower(0);
+        backRightMec.setPower(0);
+    }
+    public void columnRight(double degrees, double power) {
+        frontRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double ticsToDegrees = ((14*3.14)/360)*(yellowJacketTics/(diameter*3.14));
+        double ticMove = degrees/ticsToDegrees;
+        while (ticMove>frontRightMec.getCurrentPosition()||ticMove>backRightMec.getCurrentPosition()
+                ||ticMove>Math.abs(backLeftMec.getCurrentPosition())||ticMove>Math.abs(frontLeftMec.getCurrentPosition())) {
+            frontLeftMec.setPower(-power);
+            backLeftMec.setPower(-power);
+        }
+        frontLeftMec.setPower(0);
+        backLeftMec.setPower(0);
+    }
+    public void columnLeft(double degrees, double power) {
+        frontRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMec.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double ticsToDegrees = ((14*3.14)/360)*(yellowJacketTics/(diameter*3.14));
+        double ticMove = degrees/ticsToDegrees;
+        while (ticMove>frontRightMec.getCurrentPosition()||ticMove>backRightMec.getCurrentPosition()
+                ||ticMove>Math.abs(backLeftMec.getCurrentPosition())||ticMove>Math.abs(frontLeftMec.getCurrentPosition())) {
+            frontRightMec.setPower(power);
+            backRightMec.setPower(power);
+        }
+        frontRightMec.setPower(0);
+        backRightMec.setPower(0);
+    }
 
     public void moveSide(double power) {
         frontLeftMec.setPower(-power);
@@ -110,36 +171,50 @@ class Pushbot2022 {
         PIDbl(targetV);
         PIDbr(-targetV);
     }
-    public void PIDX(double targetX, double power) {
+    public void PIDX(double targetX) {
         PIDtimer.reset();
 
+
         //substitute camera value for getPower
-        double currentX = ((frontLeftMec.getCurrentPosition() / yellowJacketTics) * circumference);
+        double currentX = Math.abs((frontLeftMec.getCurrentPosition() / yellowJacketTics) * circumference);
         double error = targetX - currentX;
+/*
+        bot.integral = error / bot.PIDtimer.time();
+        double deltaError = error - bot.lastError;
+        double derivative = deltaError * bot.PIDtimer.time();
 
-        integral += error * PIDtimer.time();
-        double deltaError = error - lastError;
-        double derivative = deltaError / PIDtimer.time();
+        bot.pidGain.p = bot.pidC.p * error;
 
-        pidGain.p = pidC.p * error;
-        pidGain.i = pidC.i * integral;
-        pidGain.d = pidC.d * derivative;
+        double rcw = bot.pidGain.p + derivative + bot.integral;
+*/
+        while (Math.abs(error) > 2) {
+            /*bot.frontLeftMec.setPower(rcw);
+            bot.frontRightMec.setPower(rcw);
+            bot.backLeftMec.setPower(rcw);
+            bot.backRightMec.setPower(rcw);*/
 
-        double rcw = pidGain.p + pidGain.d + pidGain.i;
+            frontLeftMec.setPower(.03*error);
+            frontRightMec.setPower(.03*error);
+            backLeftMec.setPower(.03*error);
+            backRightMec.setPower(.03*error);
+            /*bot.integral = error / bot.PIDtimer.time();
+            deltaError = error - bot.lastError;
+            derivative = deltaError * bot.PIDtimer.time();
 
-        if (Math.abs(error) > 2) {
-            frontLeftMec.setPower(-rcw);
-            frontRightMec.setPower(-rcw);
-            backLeftMec.setPower(-rcw);
-            backRightMec.setPower(-rcw);
+            bot.pidGain.p = bot.pidC.p * error;
+
+            rcw = bot.pidGain.p + derivative + bot.integral;*/
+            currentX = ((frontLeftMec.getCurrentPosition() / yellowJacketTics) * circumference);
+            error = targetX - currentX;
         }
-        else {
-            frontRightMec.setPower(0);
-            frontLeftMec.setPower(0);
-            backRightMec.setPower(0);
-            backLeftMec.setPower(0);
-        }
-        lastError = error;
+        frontLeftMec.setPower(0);
+        frontRightMec.setPower(0);
+        backLeftMec.setPower(0);
+        backRightMec.setPower(0);
+
+        //bot.lastError = error;
+        currentX = ((frontLeftMec.getCurrentPosition() / yellowJacketTics) * circumference);
+        error = targetX - currentX;
 
     }
 
