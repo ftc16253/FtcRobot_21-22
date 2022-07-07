@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.BEAST_2021;
-/*
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
 
@@ -9,7 +10,7 @@ public class Drive2021 extends LinearOpMode {
     Pushbot2021 robot = new Pushbot2021();
 
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
 
         waitForStart();
 
@@ -39,9 +40,9 @@ public class Drive2021 extends LinearOpMode {
             }
 
 
-            robot.slide.setPower(-gamepad2.right_stick_y / 8);
+            /*robot.slide.setPower(-gamepad2.right_stick_y / 8);
             telemetry.addData("Slide Encoder: ", robot.slide.getCurrentPosition());
-            telemetry.update();
+            telemetry.update();*/
             robot.turret.setPower(-gamepad2.left_stick_x / 20);
 
             if (gamepad1.a) {
@@ -61,7 +62,7 @@ public class Drive2021 extends LinearOpMode {
             } else {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
-            }*
+            }
             if (gamepad2.left_bumper == true){
                 //close grabber
                 robot.grabber.setPosition(1);
@@ -76,7 +77,7 @@ public class Drive2021 extends LinearOpMode {
                 //Stop grabber
                 robot.grabber.setPosition(.5);
             }
-
+*/
 
             if (gamepad2.y){
                 //linkage out
@@ -88,7 +89,7 @@ public class Drive2021 extends LinearOpMode {
                 robot.linkage.setPosition(.3);
             }
 
-            if (gamepad2.a){
+/*            if (gamepad2.a){
                 //pivot up
                 telemetry.addData("Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
@@ -108,8 +109,7 @@ public class Drive2021 extends LinearOpMode {
                 telemetry.addData("New Pivot position: ", robot.pivot.getPosition());
                 telemetry.update();
                 sleep (100);
-            }
+            }*/
         }
     }
 }
-*/
