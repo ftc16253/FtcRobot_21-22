@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.BEAST_2021.DuckDetector;
 import org.openftc.easyopencv.OpenCvCamera;
 
+
 class Pushbot2022 {
     /* Public OpMode members. */
     public DcMotor frontLeftMec, frontRightMec, backRightMec, backLeftMec;

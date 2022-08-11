@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous
 public class Auto2022 extends LinearOpMode {
     Pushbot2022 bot = new Pushbot2022();
+    realSense cam = new realSense();
 
     @Override
     public void runOpMode(){
@@ -16,6 +17,7 @@ public class Auto2022 extends LinearOpMode {
         while (opModeIsActive()){
             bot.PIDX(48);
             break;
+        }
         }
     }
 }
