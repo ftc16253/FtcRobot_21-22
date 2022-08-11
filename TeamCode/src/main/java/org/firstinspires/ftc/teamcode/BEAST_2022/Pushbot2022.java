@@ -31,7 +31,6 @@ class Pushbot2022 {
     double totalRotations = Distance / circumference;
     double rotationDistanceofWheel = (andyMark40Tics * totalRotations);
 
-
     public static PIDCoefficients pidC = new PIDCoefficients(5, 1, 0);
     public PIDCoefficients pidGain = new PIDCoefficients(0, 0, 0);
 
@@ -76,6 +75,7 @@ class Pushbot2022 {
         frontRightMec.setPower(0);
         backLeftMec.setPower(0);
         backRightMec.setPower(0);
+
     }
 
     public void moveForward(double power) {
@@ -286,7 +286,19 @@ class Pushbot2022 {
 
         backRightMec.setPower(pidGain.p + pidGain.i + pidGain.d + targetV);
         lastError = error;
-    }
+    }/*
+    mRsContext = new RsContext();
+    mRsContext.setDevicesChangedCallback(new DeviceListener() {
+        @Override
+        public void onDeviceAttach() {
+            printMessage();
+        }
+
+        @Override
+        public void onDeviceDetach() {
+            printMessage();
+        }
+    }*/
 }
 
 

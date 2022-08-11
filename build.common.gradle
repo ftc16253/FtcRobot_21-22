@@ -58,7 +58,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
 
-        /**
+        /*
          * We keep the versionCode and versionName of robot controller applications in sync with
          * the master information published in the AndroidManifest.xml file of the FtcRobotController
          * module. This helps avoid confusion that might arise from having multiple versions of
@@ -128,5 +128,28 @@ repositories {
     }
     jcenter()
     mavenCentral()
+}
+repositories {
+    maven{
+        url "https://egiintel.jfrog.io/artifactory/librealsense"
+    }
+}
+
+configurations {
+    downloadHeader
+    downloadSo
+}
+
+dependencies {
+    def version = '2.+'
+    downloadSo 'com.intel.realsense:librealsense:' + version + '@aar'
+    implementation 'com.intel.realsense:librealsense:' + version + '@aar'
+    downloadHeader 'com.intel.realsense:librealsense:' + version + '@zip'
+}
+
+task extractHeaders(type: Sync) {
+    dependsOn configurations.downloadHeader
+    from { configurations.downloadHeader.collect { zipTree(it) } }
+    into "$projectDir/src/main/cpp/include"
 }
 

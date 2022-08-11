@@ -2,6 +2,8 @@
 #define FTCROBOT_21_22_REALSENSE_H
 
 #include <librealsense2/rs.hpp> // Include Intel RealSense Cross Platform API
+#include <JDK-DIR>
+#include <jni.h>
 
 class realSense {
 
@@ -25,7 +27,7 @@ float height = depth.get_height();
 float dist_to_center = depth.get_distance(width / 2, height / 2);
 
 // Print the distance
-std::cout << "The camera is facing an object " << dist_to_center << " meters away \r";
+//std::cout << "The camera is facing an object " << dist_to_center << " meters away \r";
 
 };
 
